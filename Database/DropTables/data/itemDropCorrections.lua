@@ -85,7 +85,6 @@ QuestieItemDropCorrections.Era = {
     },
     [3297] = { -- Fel Moss
         [1988] = DropKeys.WOWHEAD,
-        [1989] = 100,
     },
     [3348] = { -- Giant Crocolisk Skin
         [2089] = 100,
@@ -148,6 +147,11 @@ QuestieItemDropCorrections.Era = {
         [3260] = 100,
         [3261] = 100,
         [3263] = 100,
+    },
+    [5170] = { -- Mossy Tumor
+        [2027] = DropKeys.WOWHEAD,
+        [2029] = DropKeys.WOWHEAD,
+        [2030] = DropKeys.WOWHEAD,
     },
     [5233] = { -- Stone of Relu
         [1020] = 1.5,

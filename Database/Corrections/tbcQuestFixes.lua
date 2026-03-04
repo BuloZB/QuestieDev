@@ -634,6 +634,37 @@ function QuestieTBCQuestFixes:Load()
         [5503] = {
             [questKeys.exclusiveTo] = {5401,5405},
         },
+        [5621] = { -- Garments of the Moon
+            [questKeys.requiredLevel] = 5,
+        },
+        [5622] = { -- In Favor of Elune
+            [questKeys.requiredLevel] = 5,
+        },
+        [5627] = { -- Stars of Elune (Darnassus)
+            [questKeys.name] = "Stars of Elune",
+            [questKeys.startedBy] = {{11401}},
+            [questKeys.finishedBy] = {{11401}},
+        },
+        [5628] = { -- Returning Home (Elwynn Forest)
+            [questKeys.questLevel] = -1,
+        },
+        [5629] = { -- Returning Home (Teldrassil)
+            [questKeys.questLevel] = -1,
+        },
+        [5630] = { -- Returning Home (Dun Morogh)
+            [questKeys.questLevel] = -1,
+        },
+        [5631] = { -- Returning Home (Stormwind City)
+            [questKeys.questLevel] = -1,
+        },
+        [5632] = { -- Returning Home (Stormwind City)
+            [questKeys.questLevel] = -1,
+            [questKeys.finishedBy] = {{11401}},
+        },
+        [5633] = { -- Returning Home (Ironforge)
+            [questKeys.questLevel] = -1,
+            [questKeys.finishedBy] = {{11401}},
+        },
         [5634] = { -- Desperate Prayer (Stormwind City)
             [questKeys.questLevel] = -1,
         },
@@ -655,8 +686,43 @@ function QuestieTBCQuestFixes:Load()
         [5640] = { -- Desperate Prayer (Darnassus)
             [questKeys.questLevel] = -1,
         },
+        [5641] = { -- A Lack of Fear (Ironforge)
+            [questKeys.name] = "A Lack of Fear",
+            [questKeys.finishedBy] = {{11406}},
+            [questKeys.requiredRaces] = raceIDs.DWARF,
+            [questKeys.exclusiveTo] = {5645,5647},
+        },
+        [5645] = { -- A Lack of Fear (Stormwind City)
+            [questKeys.name] = "A Lack of Fear",
+            [questKeys.finishedBy] = {{11406}},
+            [questKeys.requiredRaces] = raceIDs.DWARF,
+            [questKeys.exclusiveTo] = {5641,5647},
+        },
+        [5647] = { -- A Lack of Fear (Darnassus)
+            [questKeys.name] = "A Lack of Fear",
+            [questKeys.finishedBy] = {{11406}},
+            [questKeys.requiredRaces] = raceIDs.DWARF,
+            [questKeys.exclusiveTo] = {5641,5645},
+        },
         [5649] = {
             [questKeys.requiredLevel] = 5,
+        },
+        [5672] = { -- Elune's Grace (Darnassus)
+            [questKeys.questLevel] = -1,
+            [questKeys.exclusiveTo] = {5673,5674,5675},
+        },
+        [5673] = { -- Elune's Grace (Stormwind City)
+            [questKeys.questLevel] = -1,
+            [questKeys.exclusiveTo] = {5672,5674,5675},
+        },
+        [5674] = { -- Elune's Grace (Stormwind City)
+            [questKeys.finishedBy] = {{11401}},
+            [questKeys.questLevel] = -1,
+            [questKeys.exclusiveTo] = {5672,5673,5675},
+        },
+        [5675] = { -- Elune's Grace (Ironforge)
+            [questKeys.questLevel] = -1,
+            [questKeys.exclusiveTo] = {5672,5673,5674},
         },
         [5726] = { -- Hidden Enemies
             [questKeys.nextQuestInChain] = 5727,
@@ -1463,6 +1529,11 @@ function QuestieTBCQuestFixes:Load()
         [9258] = { -- The Scorched Grove
             [questKeys.breadcrumbForQuestId] = 8473,
         },
+        [9267] = { -- Mending Old Wounds
+            [questKeys.requiredLevel] = 15,
+            [questKeys.requiredRaces] = raceIDs.NONE,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+        },
         [9279] = { -- You Survived!
             [questKeys.breadcrumbForQuestId] = 9280,
         },
@@ -1769,12 +1840,11 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.preQuestSingle] = {9544},
         },
         [9564] = {
-            [questKeys.startedBy] = {nil,nil,{23850}},
             [questKeys.preQuestSingle] = {9559},
         },
         [9565] = {
             [questKeys.preQuestGroup] = {},
-            [questKeys.preQuestSingle] = {9560,9562}, -- check if also 9564
+            [questKeys.preQuestSingle] = {9560,9562}, -- without 9564
         },
         [9570] = { -- The Kurken is Lurkin'
             [questKeys.preQuestSingle] = {9565,9573},
@@ -1783,7 +1853,7 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.zoneOrSort] = zoneIDs.HELLFIRE_CITADEL,
         },
         [9573] = {
-            [questKeys.preQuestSingle] = {9560,9562}, -- check if also 9564
+            [questKeys.preQuestSingle] = {9560,9562}, -- without 9564
         },
         [9575] = { -- Weaken the Ramparts
             [questKeys.zoneOrSort] = zoneIDs.HELLFIRE_CITADEL,
@@ -1859,6 +1929,10 @@ function QuestieTBCQuestFixes:Load()
         [9619] = {
             [questKeys.requiredSourceItems] = {},
         },
+        [9622] = { -- Warn Your People
+            [questKeys.preQuestSingle] = {},
+            [questKeys.preQuestGroup] = {9566,9570},
+        },
         [9625] = { -- Elekks Are Serious Business
             [questKeys.nextQuestInChain] = 0,
         },
@@ -1895,6 +1969,9 @@ function QuestieTBCQuestFixes:Load()
         [9645] = {
             [questKeys.triggerEnd] = {"Journal Entry Read", {[3457]={{-1,-1}}}},
             [questKeys.zoneOrSort] = zoneIDs.KARAZHAN,
+        },
+        [9647] = { -- Culling the Flutterers
+            [questKeys.preQuestSingle] = {9580,9643}, -- check if 9643 is correct
         },
         [9648] = { -- Mac'Aree Mushroom Menagerie
             [questKeys.name] = "Maatparm Mushroom Menagerie",
@@ -3129,7 +3206,8 @@ function QuestieTBCQuestFixes:Load()
         [10687] = {
             [questKeys.preQuestSingle] = {10552},
         },
-        [10707] = {
+        [10707] = { -- The Ata'mal Terrace
+            [questKeys.objectivesText] = {"Go to the top of the Ata'mal Terrace in Shadowmoon Valley and obtain the Heart of Fury. Return to Akama at the Warden's Cage in Shadowmoon Valley when you've completed this task."},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Kill the 3 Shadowmoon Soulstealers to force Shadowlord Deathwail to land"), 0, {{"object", 185125}}}},
         },
         [10708] = {
@@ -3654,6 +3732,9 @@ function QuestieTBCQuestFixes:Load()
         [11007] = {
             [questKeys.startedBy] = {nil,nil,{32405}},
         },
+        [11009] = { -- Ogre Heaven
+            [questKeys.breadcrumbs] = {11022},
+        },
         [11010] = {
             [questKeys.requiredLevel] = 70,
             [questKeys.requiredClasses] = classIDs.WARLOCK + classIDs.ROGUE + classIDs.MAGE + classIDs.PRIEST + classIDs.WARRIOR + classIDs.PALADIN + classIDs.HUNTER + classIDs.SHAMAN,
@@ -3692,6 +3773,9 @@ function QuestieTBCQuestFixes:Load()
         [11021] = {
             [questKeys.preQuestSingle] = {11004},
             [questKeys.startedBy] = {nil,nil,{32523}},
+        },
+        [11022] = { -- Speak with Mog'dorg
+            [questKeys.breadcrumbForQuestId] = 11009,
         },
         [11023] = {
             [questKeys.requiredLevel] = 70,
@@ -4008,9 +4092,12 @@ function QuestieTBCQuestFixes:Load()
         [11152] = {
             [questKeys.objectives] = {nil,{{186322,nil,Questie.ICON_TYPE_EVENT}}},
         },
-        [11159] = {
+        [11159] = { -- Spirits of Stonemaul Hold
             [questKeys.preQuestSingle] = {11161},
-            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Redeem Remains"), 0, {{"object", 186332}}}},
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Redeem Remains"), 0, {{"object", 186332}}}},
+        },
+        [11161] = { -- The Essence of Enmity
+            [questKeys.nextQuestInChain] = 11159,
         },
         [11162] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Plant the Stonemaul Banner"), 0, {{"object", 186336}}}},

@@ -26,7 +26,7 @@ function QuestieTBCNpcFixes:Load()
             [npcKeys.questStarts] = {141,350,395,2206,2360,2607,6183,6184,6681},
         },
         [376] = { -- High Priestess Laurena
-            [npcKeys.questStarts] = {5634,5645,5673,5676,64031,64034,64035,64037,64038},
+            [npcKeys.questStarts] = {5631,5634,5645,5673,5676,64031,64034,64035,64037,64038},
             [npcKeys.questEnds] = {5634,5635,5636,5637,5638,5639,5640,5676,5677,5678,64028,64031,64034,64035},
         },
         [461] = { -- Demisette Cloyce
@@ -327,11 +327,12 @@ function QuestieTBCNpcFixes:Load()
         [11036] = { -- Leonid Barthalomew the Revered
             [npcKeys.questEnds] = {5243,5462,5464,5522,64037,64064,64128},
         },
-        [11397] = { -- Nara Meideros
-            [npcKeys.questStarts] = {5632,5638},
-        },
         [11401] = { -- Priestess Alathea
-            [npcKeys.questEnds] = {5630,5631,5672,5673,5628,5629,5675},
+            [npcKeys.questStarts] = {5627,5640,5647,5672,5678},
+            [npcKeys.questEnds] = {5627,5628,5629,5630,5631,5632,5633,5672,5673,5674,5675},
+        },
+        [11406] = { -- High Priest Rohan
+            [npcKeys.questEnds] = {5641,5645,5647,7637},
         },
         [11943] = {
             [npcKeys.spawns] = {[zoneIDs.DUROTAR] = {{51,41}}},
@@ -427,7 +428,7 @@ function QuestieTBCNpcFixes:Load()
             [npcKeys.questEnds] = {8846,8847,8848,8849,8850,10501},
         },
         [15895] = { -- Lunar Festival Harbinger
-            [npcKeys.spawns] = {[zoneIDs.DARNASSUS]={{33.89,13.87}}, -- original data
+            [npcKeys.spawns] = {[zoneIDs.DARNASSUS]={{32.59,12.01}},
                                [zoneIDs.UNDERCITY]={{65.62,36.0}},
                                [zoneIDs.ORGRIMMAR]={{41.66,31.98}},
                                [zoneIDs.THUNDER_BLUFF]={{71.12,28.2}},
