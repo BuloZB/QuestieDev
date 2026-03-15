@@ -33,6 +33,9 @@ function QuestieItemFixes:Load()
         [1013] = { -- Iron Rivet
             [itemKeys.npcDrops] = {426, 430, 446, 580}, -- Remove rare mob #903
         },
+        [1081] = { -- Crisp Spider Meat
+            [itemKeys.npcDrops] = {217,442,505,539,569,574,616,930,949,1111,1112,1184,1185,1195,2348,2349,2350,2563,2565,3819,3820,3821,4005,4006,4007,4040,4263,4264,11921,14266,14279},
+        },
         [1206] = { -- Moss Agate
             [itemKeys.npcDrops] = {},
         },
@@ -500,6 +503,18 @@ function QuestieItemFixes:Load()
         },
         [6522] = { -- Deviate Fish
             [itemKeys.objectDrops] = {},
+        },
+        [6635] = { -- Earth Sapta
+            [itemKeys.class] = itemClasses.QUEST,
+            [itemKeys.vendors] = {5887,5888},
+        },
+        [6636] = { -- Fire Sapta
+            [itemKeys.class] = itemClasses.QUEST,
+            [itemKeys.vendors] = {5900},
+        },
+        [6637] = { -- Water Sapta
+            [itemKeys.class] = itemClasses.QUEST,
+            [itemKeys.vendors] = {5901},
         },
         [6912] = { -- Heartswood
             [itemKeys.npcDrops] = {},
@@ -1105,18 +1120,15 @@ function QuestieItemFixes:Load()
         },
         [16763] = { -- Warsong Runner Update
             [itemKeys.relatedQuests] = {6543, 6545},
-            [itemKeys.npcDrops] = {},
-            [itemKeys.objectDrops] = {},
+            [itemKeys.vendors] = {12863},
         },
         [16764] = { -- Warsong Scout Update
             [itemKeys.relatedQuests] = {6543, 6547},
-            [itemKeys.npcDrops] = {},
-            [itemKeys.objectDrops] = {},
+            [itemKeys.vendors] = {12862},
         },
         [16765] = { -- Warsong Outrider Update
             [itemKeys.relatedQuests] = {6543, 6546},
-            [itemKeys.npcDrops] = {},
-            [itemKeys.objectDrops] = {},
+            [itemKeys.vendors] = {12864},
         },
         [16882] = { -- Battered Junkbox
             [itemKeys.itemDrops] = {},
