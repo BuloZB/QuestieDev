@@ -171,6 +171,12 @@ QuestieItemDropCorrections.Era = {
         [1550] = DropKeys.WOWHEAD,
         [1551] = DropKeys.WOWHEAD,
     },
+    [5026] = { -- Fire Tar
+        [3267] = 75,
+        [3268] = 75,
+        [3269] = 75,
+        [3271] = 75,
+    },
     [5085] = { -- Bristleback Quilboar Tusk
         [3258] = 100,
         [3260] = 100,
@@ -187,6 +193,32 @@ QuestieItemDropCorrections.Era = {
         [1021] = 1.5,
         [1022] = 1.5,
         [1023] = 1.5,
+    },
+    [6443] = { -- Deviate Hide
+        [3630] = DropKeys.WOWHEAD,
+        [3631] = DropKeys.WOWHEAD,
+        [3632] = DropKeys.WOWHEAD,
+        [3633] = DropKeys.WOWHEAD,
+        [3634] = DropKeys.WOWHEAD,
+        [3636] = DropKeys.WOWHEAD,
+        [3637] = DropKeys.WOWHEAD,
+        [3641] = DropKeys.WOWHEAD,
+        [3653] = DropKeys.WOWHEAD,
+        [3654] = DropKeys.WOWHEAD,
+        [3674] = DropKeys.WOWHEAD,
+        [5048] = DropKeys.WOWHEAD,
+        [5053] = DropKeys.WOWHEAD,
+        [5056] = DropKeys.WOWHEAD,
+        [5755] = DropKeys.WOWHEAD,
+        [5756] = DropKeys.WOWHEAD,
+        [5761] = DropKeys.WOWHEAD,
+        [5762] = DropKeys.WOWHEAD,
+        [5775] = DropKeys.WOWHEAD,
+        [5912] = DropKeys.WOWHEAD,
+        [8886] = DropKeys.WOWHEAD,
+    },
+    [6652] = { -- Reagent Pouch
+        [3199] = 75,
     },
     [7267] = { -- Pristine Spider Silk
         [930] = 18,
@@ -205,6 +237,12 @@ QuestieItemDropCorrections.Era = {
 }
 
 QuestieItemDropCorrections.Tbc = {
+    [6487] = { -- Vile Familiar Head
+        [3101] = 100,
+    },
+    [20934] = { -- Wraith Essence
+        [15273] = 100,
+    },
     [22934] = { -- Lasher Sample
         [16517] = 76,
     },
@@ -230,12 +268,18 @@ QuestieItemDropCorrections.Tbc = {
         [17192] = DropKeys.WOWHEAD,
         [17475] = DropKeys.WOWHEAD,
     },
+    [24279] = { -- Vicious Teromoth Sample
+        [18437] = DropKeys.WOWHEAD,
+    },
     [24372] = { -- Diaphanous Wing
         [18132] = DropKeys.WOWHEAD,
         [18133] = DropKeys.WOWHEAD,
         [18283] = DropKeys.WOWHEAD,
         [20197] = DropKeys.WOWHEAD,
         [20198] = DropKeys.WOWHEAD,
+    },
+    [24374] = { -- Eel Filet
+        [18138] = DropKeys.WOWHEAD,
     },
     [24426] = { -- Sporebat Eye
         [18128] = DropKeys.WOWHEAD,
@@ -246,6 +290,9 @@ QuestieItemDropCorrections.Tbc = {
     [24427] = { -- Fen Strider Tentacle
         [18134] = DropKeys.WOWHEAD,
         [18281] = DropKeys.WOWHEAD,
+    },
+    [24473] = { -- Enraged Crusher Core
+        [18062] = 100,
     },
     [24485] = { -- Marshlight Bleeder Venom
         [18133] = DropKeys.WOWHEAD,
@@ -272,6 +319,18 @@ QuestieItemDropCorrections.Tbc = {
         [16925] = DropKeys.WOWHEAD,
         [18952] = DropKeys.WOWHEAD,
         [19701] = DropKeys.WOWHEAD,
+    },
+    [30798] = { -- Extra Sharp Daggermaw Tooth
+        [20751] = DropKeys.WOWHEAD,
+    },
+    [31119] = { -- Wyrmcult Net
+        [21809] = DropKeys.WOWHEAD,
+    },
+    [31132] = { -- Crust Burster Venom Gland
+        [21380] = DropKeys.WOWHEAD,
+        [21381] = DropKeys.WOWHEAD,
+        [21849] = DropKeys.WOWHEAD,
+        [22466] = DropKeys.WOWHEAD,
     },
     [31812] = { -- Doom Skull
         [21242] = DropKeys.WOWHEAD,
