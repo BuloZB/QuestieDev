@@ -1287,6 +1287,7 @@ function QuestieQuestBlacklist:Load()
         [78225] = true, -- Boosted character quest
         [93823] = true, -- Boosted character quest
         [93824] = true, -- Boosted character quest
+        [96253] = true, -- Boosted character quest
         [96254] = true, -- Boosted character quest
 
         -- TBC Anniversary BG quests
@@ -1325,6 +1326,7 @@ function QuestieQuestBlacklist:Load()
         [7425] = true,
         [7426] = true,
         [7521] = true,
+        [7522] = true,
         [8411] = Expansions.Current >= Expansions.Cata, -- not sure when this quest was removed, Wowhead says Cata, it is present in Classic SoD
         [9712] = true,
         [10377] = true,
