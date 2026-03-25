@@ -3097,9 +3097,7 @@ function QuestieNPCFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.STRATHOLME] = {{-1,-1}}},
         },
         [16033] = { -- Bodley
-            [npcKeys.spawns] = {
-                [zoneIDs.EASTERN_KINGDOMS] = {{48.896,63.93},},
-            },
+            [npcKeys.spawns] = {[zoneIDs.EASTERN_KINGDOMS] = {{48.896,63.93}}},
             [npcKeys.zoneID] = zoneIDs.EASTERN_KINGDOMS,
         },
         [16042] = { -- Lord Valthalak
@@ -3319,15 +3317,15 @@ function QuestieNPCFixes:Load()
             [npcKeys.name] = "Avelina Lilly",
             [npcKeys.minLevel] = 22,
             [npcKeys.maxLevel] = 22,
+            [npcKeys.spawns] = {[zoneIDs.SILVERPINE_FOREST] = {{63.48,65.27}}},
             [npcKeys.zoneID] = zoneIDs.SILVERPINE_FOREST,
-            [npcKeys.spawns] = {[zoneIDs.SILVERPINE_FOREST] = {{63.5,65.3}}},
         },
         [185334] = { -- Isaac Pearson
             [npcKeys.name] = "Isaac Pearson",
             [npcKeys.minLevel] = 22,
             [npcKeys.maxLevel] = 22,
+            [npcKeys.spawns] = {[zoneIDs.THE_BARRENS] = {{61.8,38.53}}},
             [npcKeys.zoneID] = zoneIDs.THE_BARRENS,
-            [npcKeys.spawns] = {[zoneIDs.THE_BARRENS] = {{61.8,38.5}}},
         },
         [185335] = { -- Summoned Incubus
             [npcKeys.name] = "Summoned Incubus",
