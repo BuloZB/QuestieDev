@@ -487,6 +487,9 @@ function QuestieTBCQuestFixes:Load()
         [2280] = {
             [questKeys.requiredLevel] = 40,
         },
+        [2284] = { -- Necklace Recovery, Take 2
+            [questKeys.requiredLevel] = 37,
+        },
         [2298] = { -- Kingly Shakedown
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
         },
@@ -652,6 +655,10 @@ function QuestieTBCQuestFixes:Load()
         },
         [4842] = {
             [questKeys.triggerEnd] = {"Discover Darkwhisper Gorge", {[zoneIDs.WINTERSPRING]={{60.1,73.44}}}},
+        },
+        [4968] = { -- Knowledge of the Orb of Orahil
+            [questKeys.startedBy] = {{461,16646}},
+            [questKeys.requiredRaces] = raceIDs.HUMAN + raceIDs.GNOME + raceIDs.BLOOD_ELF,
         },
         [4983] = {
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,

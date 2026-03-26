@@ -75,7 +75,7 @@ QuestieDB.DoableStates = {
     COMPLETED = 1,
     QUEST_LOG = 2,
     BLACKLISTED = 3,
-    HIDDEN = 4, -- no longer used, but left here for info
+    EXCEED_REPUTATION = 4,
     PARENT_ACTIVE = 5,
     WRONG_RACE = 6,
     NO_PREQUESTSINGLE = 7,
@@ -1000,6 +1000,33 @@ function QuestieDB.IsDoableVerbose(questId, debugPrint, returnText, returnBrief)
         end
     end
 
+    -- Check reputation requirements
+    local requiredMinRep = QuestieDB.QueryQuestSingle(questId, "requiredMinRep")
+    local requiredMaxRep = QuestieDB.QueryQuestSingle(questId, "requiredMaxRep")
+    if (requiredMinRep or requiredMaxRep) then
+        local aboveMinRep, hasMinFaction, belowMaxRep, hasMaxFaction = QuestieReputation:HasFactionAndReputationLevel(requiredMinRep, requiredMaxRep)
+        -- Below reputation requirement
+        if not (aboveMinRep and hasMinFaction) then
+
+            local msg = "Reputation too low for quest " .. questId
+            if returnText and returnBrief then
+                return l10n("Unavailable")..l10n(": ")..l10n("Reputation too low"), true, DoableStates.MISSING_REPUTATION
+            elseif returnText and not returnBrief then
+                return msg, true, DoableStates.MISSING_REPUTATION
+            end
+        end
+        -- Above reputation requirement
+        if not (belowMaxRep and hasMaxFaction) then
+
+            local msg = "Reputation too high for quest " .. questId
+            if returnText and returnBrief then
+                return l10n("Unavailable")..l10n(": ")..l10n("Reputation too high"), true, DoableStates.EXCEED_REPUTATION
+            elseif returnText and not returnBrief then
+                return msg, true, DoableStates.EXCEED_REPUTATION
+            end
+        end
+    end
+
     -- Check the preQuestSingle field where just one of the required quests has to be complete for a quest to show up
     local preQuestSingle = QuestieDB.QueryQuestSingle(questId, "preQuestSingle")
     if preQuestSingle then
@@ -1010,26 +1037,6 @@ function QuestieDB.IsDoableVerbose(questId, debugPrint, returnText, returnBrief)
                 return l10n("Unavailable")..l10n(": ")..l10n("Incomplete pre-quest"), true, DoableStates.NO_PREQUESTSINGLE
             elseif returnText and not returnBrief then
                 return msg, true, DoableStates.NO_PREQUESTSINGLE
-            end
-        end
-    end
-
-    -- Check reputation requirements
-    local requiredMinRep = QuestieDB.QueryQuestSingle(questId, "requiredMinRep")
-    local requiredMaxRep = QuestieDB.QueryQuestSingle(questId, "requiredMaxRep")
-    if (requiredMinRep or requiredMaxRep) then
-        local aboveMinRep, hasMinFaction, belowMaxRep, hasMaxFaction = QuestieReputation:HasFactionAndReputationLevel(requiredMinRep, requiredMaxRep)
-        if (not ((aboveMinRep and hasMinFaction) and (belowMaxRep and hasMaxFaction))) then
-            --- If we haven't got the faction for min or max we blacklist it
-            if not hasMinFaction or not hasMaxFaction then -- or not belowMaxRep -- This is something we could have done, but would break if you rep downwards
-                QuestieDB.autoBlacklist[questId] = "rep"
-            end
-
-            local msg = "Player does not meet reputation requirements for quest " .. questId
-            if returnText and returnBrief then
-                return l10n("Unavailable")..l10n(": ")..l10n("Reputation requirement"), true, DoableStates.MISSING_REPUTATION
-            elseif returnText and not returnBrief then
-                return msg, true, DoableStates.MISSING_REPUTATION
             end
         end
     end
@@ -1788,6 +1795,57 @@ local questsRequiringFriendsOnTheFarmAchievement = {
 
 local questsRequiringAllGrownsUpAchievement = {
     [32863] = true, -- What We've Been Training For
+}
+
+-- Quests where the reputation only goes in one direction (ex. Thorium Brotherhood)
+QuestieDB.questsOnlyAvailableUntilReputationValue = {
+    -- Thorium Brotherhood
+    [7736] = true, -- Restoring Fiery Flux Supplies via Kingsblood
+    [7737] = true, -- Gaining Acceptance
+    [8241] = true, -- Restoring Fiery Flux Supplies via Iron
+    [8242] = true, -- Restoring Fiery Flux Supplies via Heavy Leather
+
+    -- Brood of Nozdormu
+    [8302] = true, -- The Hand of the Righteous
+
+    -- Argent Dawn
+    [9221] = true, -- Superior Armaments of Battle - Friend of the Dawn
+    [9222] = true, -- Epic Armaments of Battle - Friend of the Dawn
+    [9223] = true, -- Superior Armaments of Battle - Honored Amongst the Dawn
+    [9224] = true, -- Epic Armaments of Battle - Honored Amongst the Dawn
+    [9225] = true, -- Epic Armaments of Battle - Revered Amongst the Dawn
+    [9226] = true, -- Superior Armaments of Battle - Revered Amongst the Dawn
+    [28755] = true, -- Annals of the Silver Hand
+    [28756] = true, -- Aberrations of Bone
+
+    -- Consortium
+    [9882] = true, -- Stealing from Thieves
+    [9883] = true, -- More Crystal Fragments
+    [9884] = true, -- Membership Benefits
+    [9885] = true, -- Membership Benefits
+    [9886] = true, -- Membership Benefits
+    [9914] = true, -- A Head Full of Ivory
+    [9915] = true, -- More Heads Full of Ivory
+
+    -- Cenarion Expedition
+    [9784] = true, -- Identify Plant Parts
+    --[9802] = true, -- Plants of Zangarmarsh -- TO DO CHECK THIS
+    [9875] = true, -- Uncatalogued Species
+
+    -- Sporregar
+    --[9739] = true, -- The Sporelings' Plight -- TO DO CHECK THIS
+    [9742] = true, -- More Spore Sacs
+    --[9743] = true, -- Natural Enemies -- TO DO CHECK THIS
+    [9744] = true, -- More Tendrils!
+    --[9808] = true, -- Glowcap Mushrooms -- TO DO CHECK THIS
+    [9809] = true, -- More Glowcaps
+
+    -- Lower City
+    --[10917] = true, -- The Outcast's Plight -- TO DO CHECK THIS
+    [10918] = true, -- More Feathers
+
+    -- Order of the Cloud Serpent
+    [31784] = true, -- Onyx To Goodness
 }
 
 function _QuestieDB:CheckAchievementRequirements(questId)
