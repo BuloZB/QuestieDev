@@ -150,6 +150,9 @@ function QuestieNPCFixes:Load()
         [928] = { -- Lord Grayson Shadowbreaker
             [npcKeys.questEnds] = {7638,7639,7640,7644,7646,7648,7666,7670},
         },
+        [946] = { -- Frostmane Novice
+            [npcKeys.spawns] = {[zoneIDs.DUN_MOROGH]={{28.99,82.57},{28.69,83.14},{29.05,81.17},{29.38,81.06},{30.1,82.38},{30.41,80.87},{30.23,80.27},{30.48,79.54}}},
+        },
         [950] = { -- Swamp Talker
             [npcKeys.spawns] = {[zoneIDs.SWAMP_OF_SORROWS]={{60.4,84.4},{61.8,80.2},{61.8,84.2},{62.2,87.8},{62.4,81},{62.4,84.6},{62.8,80.8},{62.8,86.2},{62.8,90.6},{63,89.8},{63,91.6},{63.2,87.4},{63.6,86.4},{63.6,91.6},{64,91.2},{64.2,79.4},{64.4,82.4},{64.4,87.2},{64.4,90.2},{64.6,70.2},{64.8,88.4},{64.8,89.8},{65.2,72},{66,77.4},{66.8,76.4},{67.8,71},{70,76.6}}},
         },
@@ -354,7 +357,7 @@ function QuestieNPCFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.HILLSBRAD_FOOTHILLS] = {{32.66,35.55}}},
         },
         [2306] = { -- Baron Vardus
-            [npcKeys.spawns] = {[zoneIDs.ALTERAC_MOUNTAINS]={{47.83,17.11},{56.28,26.7},{57.8,29.8},{60.33,43.12},{53.67,20.4}}},
+            [npcKeys.spawns] = {[zoneIDs.ALTERAC_MOUNTAINS] = {{47.83,17.11},{56.28,26.7},{57.8,29.8},{60.33,43.12},{53.67,20.4}}},
         },
         [2403] = { -- Farmer Getz
             [npcKeys.spawns] = {[zoneIDs.HILLSBRAD_FOOTHILLS]={{35,38.6},{35.2,38},{35.2,40.4},{36.4,39.4},{36.4,39.6},{36.6,39.4}}},
@@ -861,8 +864,8 @@ function QuestieNPCFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.THOUSAND_NEEDLES]={{17.1,38.1},{10.6,23.1}}},
         },
         [4504] = { -- Frostmaw
-            [npcKeys.zoneID] = zoneIDs.ALTERAC_MOUNTAINS,
             [npcKeys.spawns] = {[zoneIDs.ALTERAC_MOUNTAINS] = {{37.51,67.2}}},
+            [npcKeys.zoneID] = zoneIDs.ALTERAC_MOUNTAINS,
         },
         [4534] = { -- Tamed Hyena
             [npcKeys.spawns] = {[zoneIDs.RAZORFEN_KRAUL] = {{-1,-1}}},
@@ -1191,8 +1194,8 @@ function QuestieNPCFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.THE_BARRENS] = {{68.61,48.72}}},
         },
         [6239] = { -- Cyclonian
-            [npcKeys.zoneID] = zoneIDs.ALTERAC_MOUNTAINS,
             [npcKeys.spawns] = {[zoneIDs.ALTERAC_MOUNTAINS] = {{80.32,62.14}}},
+            [npcKeys.zoneID] = zoneIDs.ALTERAC_MOUNTAINS,
         },
         [6244] = { -- Takar the Seer
             [npcKeys.questStarts] = {1738,65602},

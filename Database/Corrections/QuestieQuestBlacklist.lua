@@ -1663,6 +1663,7 @@ function QuestieQuestBlacklist:Load()
         [87379] = Expansions.Current >= Expansions.Wotlk, -- Proof of Demise: Threats to Azeroth (not available anymore)
         [93975] = not Questie.IsTitanReforged, -- Ragnaros Must Die! -- only present on Titan servers
         [94577] = not Questie.IsTitanReforged, -- Kael'thas Must Die! -- only present on Titan servers
+        [94579] = not Questie.IsTitanReforged, -- Patchwerk Must Die! -- only present on Titan servers
 
         --- Daily quests
         [24788] = true, -- Daily Heroic Random (1st)
@@ -5423,7 +5424,6 @@ function QuestieQuestBlacklist:Load()
         [11588] = true, -- Not in the game
         [11589] = true, -- Not in the game
         [11790] = true, -- Not in the game
-        [11875] = true, -- hiding because we use fake quests to mimic this one
         [11883] = true, -- Not in the game
         [11934] = true, -- Not in the game
         [11974] = true, -- Not in the game
@@ -6226,9 +6226,12 @@ function QuestieQuestBlacklist:Load()
         [30941] = true, -- Not in the game
         [30965] = true, -- Not in the game
         [30974] = true, -- Not in the game
+        [30986] = true, -- Not in the game
+        [30990] = true, -- Not in the game
         [31016] = true, -- Not in the game
         [31017] = true, -- Not in the game
         [31025] = true, -- Not in the game
+        [31027] = true, -- Not in the game
         [31028] = true, -- Not in the game
         [31033] = true, -- Not in the game
         [31035] = true, -- Not in the game
@@ -6316,6 +6319,7 @@ function QuestieQuestBlacklist:Load()
         [31491] = true, -- Not in the game
         [31518] = true, -- Not in the game
         [31530] = true, -- Not in the game
+        [31600] = true, -- Not in the game
         [31604] = true, -- Not in the game
         [31664] = true, -- Not in the game
         [31665] = true, -- Not in the game
@@ -6432,7 +6436,6 @@ function QuestieQuestBlacklist:Load()
         [32827] = true, -- Hidden quest
         [32832] = true, -- Not in the game
         [32860] = true, -- Hidden quest
-        [32872] = true, -- Not in the game
         [32890] = true, -- Not in the game
         [32891] = true, -- Not in the game
         [32895] = true, -- Not in the game

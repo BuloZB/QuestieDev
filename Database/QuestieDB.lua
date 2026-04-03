@@ -39,7 +39,7 @@ local QuestieQuest = QuestieLoader:ImportModule("QuestieQuest")
 local _QuestieQuest = QuestieQuest.private
 
 --- A list of quests that will never be available, used to quickly skip quests.
----@alias AutoBlacklistString "rep"|"skill"|"race"|"class"
+---@alias AutoBlacklistString "rep"|"skill"|"race"|"class"|"rank"
 ---@type table<number, AutoBlacklistString>
 QuestieDB.autoBlacklist = {}
 
@@ -103,6 +103,7 @@ QuestieDB.DoableStates = {
     DISABLING_QUEST_COMPLETED = 27,
     ENABLING_QUEST_MISSING = 28,
     PROFESSION_MISSING = 29,
+    PROFESSION_RANK = 30,
 }
 
 -- * race bitmask data, for easy access
@@ -732,6 +733,20 @@ function QuestieDB.IsDoable(questId, debugPrint)
         end
     end
 
+    local requiredRanks = QuestieDB.QueryQuestSingle(questId, "requiredRanks")
+    if (requiredRanks) then
+        local hasProfession, hasRankLevel = QuestieProfessions:HasProfessionAndRankLevel(requiredRanks)
+        if (not (hasProfession and hasRankLevel)) then
+            --? We haven't got the profession so we blacklist it.
+            if(not hasProfession) then
+                QuestieDB.autoBlacklist[questId] = "rank"
+            end
+
+            if debugPrint then Questie:Debug(Questie.DEBUG_SPAM, "[QuestieDB.IsDoable] Player does not have profession rank for quest " .. questId) end
+            return false
+        end
+    end
+
     --? preQuestGroup and preQuestSingle are mutualy exclusive to eachother and preQuestSingle is more prevalent
     --? Only try group if single does not exist.
     if not preQuestSingle then
@@ -785,12 +800,11 @@ function QuestieDB.IsDoable(questId, debugPrint)
 
     local requiredSpell = QuestieDB.QueryQuestSingle(questId, "requiredSpell")
     if (requiredSpell) and (requiredSpell ~= 0) then
-        local hasSpell = IsSpellKnownOrOverridesKnown(math.abs(requiredSpell))
-        local hasProfSpell = IsPlayerSpell(math.abs(requiredSpell))
-        if (requiredSpell > 0) and (not hasSpell) and (not hasProfSpell) then -- if requiredSpell is positive, we make the quest unavailable if the player does NOT have the spell
+        local hasSpellorProfSpell = QuestieCompat.IsSpellKnown(math.abs(requiredSpell))
+        if (requiredSpell > 0) and (not hasSpellorProfSpell) then -- if requiredSpell is positive, we make the quest unavailable if the player does NOT have the spell
             if debugPrint then Questie:Debug(Questie.DEBUG_SPAM, "[QuestieDB.IsDoable] Player does not meet learned spell requirements for quest " .. questId) end
             return false
-        elseif (requiredSpell < 0) and (hasSpell or hasProfSpell) then -- if requiredSpell is negative, we make the quest unavailable if the player DOES have the spell
+        elseif (requiredSpell < 0) and (hasSpellorProfSpell) then -- if requiredSpell is negative, we make the quest unavailable if the player DOES have the spell
             if debugPrint then Questie:Debug(Questie.DEBUG_SPAM, "[QuestieDB.IsDoable] Player does not meet not learned spell requirements for quest " .. questId) end
             return false
         end
@@ -1041,21 +1055,42 @@ function QuestieDB.IsDoableVerbose(questId, debugPrint, returnText, returnBrief)
 
     -- Check profession requirements
     local requiredSkill = QuestieDB.QueryQuestSingle(questId, "requiredSkill")
+    local requiredRanks = QuestieDB.QueryQuestSingle(questId, "requiredRanks")
+    -- Until then these two should be mutually exclusive
+    -- TODO: if we find a quest that has both requiredSkill and requiredRanks we need to be able to return correct message
     if (requiredSkill) then
         local hasProfession, hasSkillLevel = QuestieProfessions:HasProfessionAndSkillLevel(requiredSkill)
         if not hasProfession then
-            local msg = "Profession not learned for quest " .. questId
+            local msg = "Profession missing for quest " .. questId
             if returnText and returnBrief then
                 return l10n("Unavailable")..l10n(": ")..l10n("Profession missing"), true, DoableStates.PROFESSION_MISSING
             elseif returnText and not returnBrief then
                 return msg, true, DoableStates.PROFESSION_MISSING
             end
         elseif not hasSkillLevel then
-            local msg = "Player does not meet profession requirements for quest " .. questId
+            local msg = "Player does not have required profession skill for quest " .. questId
             if returnText and returnBrief then
                 return l10n("Unavailable")..l10n(": ")..l10n("Profession skill"), true, DoableStates.PROFESSION_SKILL
             elseif returnText and not returnBrief then
                 return msg, true, DoableStates.PROFESSION_SKILL
+            end
+        end
+    end
+    if (requiredRanks) then
+        local hasProfession, hasRankLevel = QuestieProfessions:HasProfessionAndRankLevel(requiredRanks)
+        if not hasProfession then
+            local msg = "Profession missing for quest " .. questId
+            if returnText and returnBrief then
+                return l10n("Unavailable")..l10n(": ")..l10n("Profession missing"), true, DoableStates.PROFESSION_MISSING
+            elseif returnText and not returnBrief then
+                return msg, true, DoableStates.PROFESSION_MISSING
+            end
+        elseif not hasRankLevel then
+            local msg = "Player does not have required profession rank for quest " .. questId
+            if returnText and returnBrief then
+                return l10n("Unavailable")..l10n(": ")..l10n("Profession rank"), true, DoableStates.PROFESSION_RANK
+            elseif returnText and not returnBrief then
+                return msg, true, DoableStates.PROFESSION_RANK
             end
         end
     end
@@ -1131,16 +1166,15 @@ function QuestieDB.IsDoableVerbose(questId, debugPrint, returnText, returnBrief)
     -- Check spell requirements
     local requiredSpell = QuestieDB.QueryQuestSingle(questId, "requiredSpell")
     if (requiredSpell) and (requiredSpell ~= 0) then
-        local hasSpell = IsSpellKnownOrOverridesKnown(math.abs(requiredSpell))
-        local hasProfSpell = IsPlayerSpell(math.abs(requiredSpell))
-        if (requiredSpell > 0) and (not hasSpell) and (not hasProfSpell) then --if requiredSpell is positive, we make the quest unavailable if the player does NOT have the spell
+        local hasSpellorProfSpell = QuestieCompat.IsSpellKnown(math.abs(requiredSpell))
+        if (requiredSpell > 0) and (not hasSpellorProfSpell) then -- if requiredSpell is positive, we make the quest unavailable if the player does NOT have the spell
             local msg = "Player does not know spell ID: " .. math.abs(requiredSpell) .. " for quest " .. questId
             if returnText and returnBrief then
                 return l10n("Unavailable")..l10n(": ")..l10n("Spell not yet learned"), true, DoableStates.SPELL_MISSING
             elseif returnText and not returnBrief then
                 return msg, true, DoableStates.SPELL_MISSING
             end
-        elseif (requiredSpell < 0) and (hasSpell or hasProfSpell) then --if requiredSpell is negative, we make the quest unavailable if the player DOES have the spell
+        elseif (requiredSpell < 0) and (hasSpellorProfSpell) then -- if requiredSpell is negative, we make the quest unavailable if the player DOES have the spell
             local msg = "Player knows spell ID: " .. math.abs(requiredSpell) .. " for quest " .. questId
             if returnText and returnBrief then
                 return l10n("Unavailable")..l10n(": ")..l10n("Already learned spell"), true, DoableStates.SPELL_KNOWN
@@ -1361,6 +1395,8 @@ function QuestieDB.GetQuest(questId) -- /dump QuestieDB.GetQuest(867)
     ---@field public breacrumbForQuestId number
     ---@field public breacrumbs QuestId[]
     ---@field public availableUntilCompleted QuestId
+    ---@field public availableStartingWith QuestId
+    ---@field public requiredRanks SkillPair[]
     local QO = {
         Id = questId
     }

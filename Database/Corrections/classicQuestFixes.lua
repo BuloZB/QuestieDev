@@ -586,8 +586,8 @@ function QuestieQuestFixes:Load()
             [questKeys.nextQuestInChain] = 860,
             [questKeys.exclusiveTo] = {844}, -- #1109
         },
-        [862] = {
-            [questKeys.requiredSkill] = {185,76}, -- You need to be a Journeyman for this quest -- this needs proper fix
+        [862] = { -- Dig Rat Stew
+            [questKeys.requiredSkill] = {profKeys.COOKING,15},
         },
         [863] = {
             [questKeys.triggerEnd] = {"Escort Wizzlecrank out of the Venture Co. drill site", {[zoneIDs.THE_BARRENS]={{55.36,7.68}}}},
@@ -868,7 +868,7 @@ function QuestieQuestFixes:Load()
             [questKeys.extraObjectives] = {{{[zoneIDs.DARKSHORE]={{35.71,44.68}}}, Questie.ICON_TYPE_NODE_FISH, l10n("Fish for Darkshore Groupers"),}},
         },
         [1144] = {
-            [questKeys.triggerEnd] = {"Help Willix the Importer escape from Razorfen Kraul", {[zoneIDs.THE_BARRENS]={{42.27,89.88}}}},
+            [questKeys.triggerEnd] = {"Help Willix the Importer escape from Razorfen Kraul", {[zoneIDs.RAZORFEN_KRAUL]={{-1,-1}}}},
         },
         [1148] = {
             [questKeys.preQuestSingle] = {1146},
@@ -1307,7 +1307,7 @@ function QuestieQuestFixes:Load()
             },
             [questKeys.nextQuestInChain] = 0,
         },
-        [1685] = {
+        [1685] = { -- Gakin's Summons
             [questKeys.breadcrumbForQuestId] = 1688, -- #7095
             [questKeys.exclusiveTo] = {},
         },
@@ -1317,8 +1317,8 @@ function QuestieQuestFixes:Load()
         [1687] = {
             [questKeys.triggerEnd] = {"Go to the Westfall Lighthouse.", {[zoneIDs.WESTFALL]={{30.41,85.61}}}},
         },
-        [1688] = {
-            [questKeys.breadcrumbs] = {1685,1715}, -- #7095
+        [1688] = { -- Surena Caledon
+            [questKeys.breadcrumbs] = {1685}, -- #7095
         },
         [1689] = { -- The Binding
             [questKeys.requiredSourceItems] = {},
@@ -1367,10 +1367,8 @@ function QuestieQuestFixes:Load()
             [questKeys.breadcrumbs] = {1703}, -- #1857
             [questKeys.nextQuestInChain] = 1711,
         },
-        [1715] = {
-            [questKeys.nextQuestInChain] = 1688,
-            [questKeys.breadcrumbForQuestId] = 1688, -- #7095
-            [questKeys.exclusiveTo] = {},
+        [1715] = { -- The Slaughtered Lamb
+            [questKeys.exclusiveTo] = {1688},
         },
         [1716] = {
             [questKeys.questLevel] = -1,
@@ -1947,6 +1945,7 @@ function QuestieQuestFixes:Load()
         [2996] = { -- Seeking Strahad
             [questKeys.nextQuestInChain] = 1801,
             [questKeys.breadcrumbForQuestId] = 1801,
+            [questKeys.exclusiveTo] = {},
         },
         [2997] = { -- Tome of Divinity (Dun Morogh)
             [questKeys.exclusiveTo] = {1646,2999,3000},
@@ -1967,6 +1966,7 @@ function QuestieQuestFixes:Load()
         [3001] = { -- Seeking Strahad
             [questKeys.nextQuestInChain] = 1801,
             [questKeys.breadcrumbForQuestId] = 1801,
+            [questKeys.exclusiveTo] = {},
         },
         [3090] = {
             [questKeys.requiredRaces] = raceIDs.ORC, -- #2399
@@ -2651,6 +2651,9 @@ function QuestieQuestFixes:Load()
         },
         [5149] = {
             [questKeys.preQuestSingle] = {},
+        },
+        [5151] = { -- Hypercapacitor Gizmo
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_INTERACT, l10n("Open the cage"), 0, {{"object", 176195}}}},
         },
         [5156] = {
             [questKeys.triggerEnd] = {"Explore the craters in Shatter Scar Vale", {[zoneIDs.FELWOOD]={{41.03,41.96}}}},
