@@ -41,6 +41,7 @@ function CataQuestFixes.Load()
     local zoneIDs = ZoneDB.zoneIDs
     local sortKeys = QuestieDB.sortKeys
     local specialFlags = QuestieDB.specialFlags
+    local questFlags = QuestieDB.questFlags
 
     return {
         [2] = { -- Sharptalon's Claw
@@ -664,6 +665,7 @@ function CataQuestFixes.Load()
         [6983] = { -- You're a Mean One...
             [questKeys.startedBy] = {{13418,13636}},
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.DAILY,
             [questKeys.preQuestSingle] = {},
             [questKeys.nextQuestInChain] = 0,
             [questKeys.requiredLevel] = 80,
@@ -687,6 +689,7 @@ function CataQuestFixes.Load()
         [7043] = { -- You're a Mean One...
             [questKeys.startedBy] = {{13433,13636}},
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.DAILY,
             [questKeys.preQuestSingle] = {},
             [questKeys.nextQuestInChain] = 0,
             [questKeys.requiredLevel] = 80,

@@ -423,31 +423,31 @@ function QuestieWotlkNpcFixes:Load()
             [npcKeys.questStarts] = {11356,11441,11970,12753,12772,12775,12777,12808,13484,14022},
         },
         [19148] = { -- Dwarf Commoner
-            [npcKeys.questStarts] = {11356,11441,11970,12753,12772,12775,12777,12808},
+            [npcKeys.questStarts] = {11356,11441,11970,12753,12772,12775,12777,12808,13484},
         },
         [19169] = { -- Blood Elf Commoner
             [npcKeys.questStarts] = {11357,11446,11971,12752,12782,12783,12784,12811,13483,14036},
         },
         [19171] = { -- Draenei Commoner
-            [npcKeys.questStarts] = {11356,11441,11970,12753,12772,12775,12777,12808},
+            [npcKeys.questStarts] = {11356,11441,11970,12753,12772,12775,12777,12808,13484},
         },
         [19172] = { -- Gnome Commoner
-            [npcKeys.questStarts] = {11356,11441,11970,12753,12772,12775,12777,12808},
+            [npcKeys.questStarts] = {11356,11441,11970,12753,12772,12775,12777,12808,13484},
         },
         [19173] = { -- Night Elf Commoner
-            [npcKeys.questStarts] = {11356,11441,11970,12753,12772,12775,12777,12808},
+            [npcKeys.questStarts] = {11356,11441,11970,12753,12772,12775,12777,12808,13484},
         },
         [19175] = { -- Orc Commoner
-            [npcKeys.questStarts] = {11357,11446,11971,12752,12782,12783,12784,12811},
+            [npcKeys.questStarts] = {11357,11446,11971,12752,12782,12783,12784,12811,13483},
         },
         [19176] = { -- Tauren Commoner
-            [npcKeys.questStarts] = {11357,11446,11971,12752,12782,12783,12784,12811},
+            [npcKeys.questStarts] = {11357,11446,11971,12752,12782,12783,12784,12811,13483},
         },
         [19177] = { -- Troll Commoner
-            [npcKeys.questStarts] = {11357,11446,11971,12752,12782,12783,12784,12811},
+            [npcKeys.questStarts] = {11357,11446,11971,12752,12782,12783,12784,12811,13483},
         },
         [19178] = { -- Forsaken Commoner
-            [npcKeys.questStarts] = {11357,11446,11971,12752,12782,12783,12784,12811},
+            [npcKeys.questStarts] = {11357,11446,11971,12752,12782,12783,12784,12811,13483},
         },
         [19220] = {
             [npcKeys.spawns] = {[zoneIDs.THE_MECHANAR]={{-1,-1}}},
@@ -459,7 +459,7 @@ function QuestieWotlkNpcFixes:Load()
             [npcKeys.questEnds] = {70865},
         },
         [20102] = { -- Goblin Commoner
-            [npcKeys.questStarts] = {11441,11446,11970,11971,12752,12753,12772,12775,12777,12782,12783,12784,12808,12811},
+            [npcKeys.questStarts] = {11441,11446,11970,11971,12752,12753,12772,12775,12777,12782,12783,12784,12808,12811,13483,13484},
         },
         [20407] = { -- Farseer Umbrua
             [npcKeys.questStarts] = {8410,10490,10491,70397,70398,70401,70411,70865,70870,78140,78157,78164,78166},
@@ -3090,32 +3090,40 @@ function QuestieWotlkNpcFixes:Load()
         [80001] = {
             [npcKeys.name] = "Maintain a Trot for 8 seconds",
             [npcKeys.zoneID] = zoneIDs.DUN_MOROGH,
-            [npcKeys.spawns] = {[zoneIDs.DUN_MOROGH]={{47,43.9}}}
+            [npcKeys.spawns] = {[zoneIDs.DUN_MOROGH]={{47,43.9}}},
         },
         [80002] = {
             [npcKeys.name] = "Maintain a Canter for 8 seconds",
             [npcKeys.zoneID] = zoneIDs.DUN_MOROGH,
-            [npcKeys.spawns] = {[zoneIDs.DUN_MOROGH]={{47,43.9}}}
+            [npcKeys.spawns] = {[zoneIDs.DUN_MOROGH]={{47,43.9}}},
         },
         [80003] = {
             [npcKeys.name] = "Maintain a Gallop for 8 seconds",
             [npcKeys.zoneID] = zoneIDs.DUN_MOROGH,
-            [npcKeys.spawns] = {[zoneIDs.DUN_MOROGH]={{47,43.9}}}
+            [npcKeys.spawns] = {[zoneIDs.DUN_MOROGH]={{47,43.9}}},
         },
         [80004] = {
             [npcKeys.name] = "Maintain a Trot for 8 seconds",
             [npcKeys.zoneID] = zoneIDs.DUROTAR,
-            [npcKeys.spawns] = {[zoneIDs.DUROTAR]={{46.34,17.13}}}
+            [npcKeys.spawns] = {[zoneIDs.DUROTAR]={{46.34,17.13}}},
         },
         [80005] = {
             [npcKeys.name] = "Maintain a Canter for 8 seconds",
             [npcKeys.zoneID] = zoneIDs.DUROTAR,
-            [npcKeys.spawns] = {[zoneIDs.DUROTAR]={{46.34,17.13}}}
+            [npcKeys.spawns] = {[zoneIDs.DUROTAR]={{46.34,17.13}}},
         },
         [80006] = {
             [npcKeys.name] = "Maintain a Gallop for 8 seconds",
             [npcKeys.zoneID] = zoneIDs.DUROTAR,
-            [npcKeys.spawns] = {[zoneIDs.DUROTAR]={{46.34,17.13}}}
+            [npcKeys.spawns] = {[zoneIDs.DUROTAR]={{46.34,17.13}}},
+        },
+        [262258] = { -- Boss Gobb Goldnick
+            [npcKeys.name] = "Boss Gobb Goldnick",
+            [npcKeys.minLevel] = 80,
+            [npcKeys.maxLevel] = 80,
+            [npcKeys.questStarts] = {95706,95844},
+            [npcKeys.questEnds] = {95706,95844},
+            [npcKeys.friendlyToFaction] = "AH",
         },
     }
 end
@@ -3741,6 +3749,10 @@ function QuestieWotlkNpcFixes:LoadFactionFixes()
         [38342] = {
             [npcKeys.spawns] = {[zoneIDs.ORGRIMMAR]={{47.21,54.09}}}
         },
+        [262258] = { -- Boss Gobb Goldnick
+            [npcKeys.spawns] = {[zoneIDs.DUROTAR] = {{45.01,12.61}}},
+            [npcKeys.zoneID] = zoneIDs.DUROTAR,
+        },
     }
 
     local npcFixesAlliance = {
@@ -3860,6 +3872,10 @@ function QuestieWotlkNpcFixes:LoadFactionFixes()
         },
         [185335] = { -- Summoned Incubus
             [npcKeys.spawns] = {[zoneIDs.STORMWIND_CITY] = {{39.09,84.36}}},
+        },
+        [262258] = { -- Boss Gobb Goldnick
+            [npcKeys.spawns] = {[zoneIDs.ELWYNN_FOREST] = {{32.12,50.75}}},
+            [npcKeys.zoneID] = zoneIDs.ELWYNN_FOREST,
         },
     }
 
