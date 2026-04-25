@@ -45,16 +45,17 @@ function QuestieQuestBlacklist:Load()
         [936] = Expansions.Current == Expansions.Era or Expansions.Current >= Expansions.Cata,
         [2000] = true, -- Not in the game - #4487
         -- Welcome! quests (Collectors Edition)
+        [5101] = true,
         [5805] = true,
         [5841] = true,
         [5842] = true,
         [5843] = true,
         [5844] = true,
         [5847] = true,
-        --Stray quests
-        [3861] = true, --CLUCK!
-        --World event quests
-        --Fetched from https://classic.wowhead.com/world-event-quests
+        -- Special quests
+        [3861] = HIDE_ON_MAP, -- CLUCK!
+        -- World event quests
+        -- Fetched from https://classic.wowhead.com/world-event-quests
         [7904] = true,
         [8571] = true,
         [7930] = true,
@@ -495,6 +496,7 @@ function QuestieQuestBlacklist:Load()
         [11926] = true,
         [11933] = true,
         [11935] = true,
+        [11937] = true,
         [11947] = true,
         [11948] = true,
         [11952] = true,
@@ -1158,9 +1160,8 @@ function QuestieQuestBlacklist:Load()
         [10815] = true, -- The Journal of Val'zareq: Portends of War
         [10841] = true, -- The Vengeful Harbringer
         [10844] = true, -- Forge Camp: Anger
-        [10871] = true, -- Ally of the Netherwing
-        [10872] = true, -- Zuluhed the Whacked
         [10925] = true, -- Evil Draws Near
+        [11425] = true, -- Test Quest - Craig
         [11518] = true, -- Sunwell Daily Portal Flag
         [11577] = true, -- WoW Collector's Edition: - DEM - E - FLAG
         [11874] = true, -- Upper Deck Promo - Rocket Mount

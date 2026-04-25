@@ -49,7 +49,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectives] = {{{1200}}},
         },
         [75] = {
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
         },
         [171] = {
             [questKeys.startedBy] = {{14305}},
@@ -227,7 +227,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.startedBy] = {nil,{164909,186419}},
         },
         [4144] = {
-            [questKeys.specialFlags] = nil,
+            [questKeys.specialFlags] = specialFlags.NONE,
         },
         [4362] = {
             [questKeys.preQuestSingle] = {4361},
@@ -417,7 +417,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.requiredRaces] = raceIDs.NONE,
         },
         [8552] = {
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
         },
         [8553] = {
             [questKeys.requiredRaces] = raceIDs.NONE,
@@ -487,34 +487,34 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.requiredRaces] = raceIDs.BLOOD_ELF,
         },
         [9211] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9213] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9221] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9222] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9223] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9224] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9225] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9226] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9227] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9228] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [9247] = {
             [questKeys.finishedBy] = {{16281}},
@@ -2217,49 +2217,49 @@ function QuestieWotlkQuestFixes:Load()
         [12423] = {
             [questKeys.startedBy] = {nil,nil,{37830}},
         },
-        [12427] = {
+        [12427] = { -- The Conquest Pit: Bear Wrestling!
             [questKeys.preQuestSingle] = {12413},
-            [questKeys.triggerEnd] = {"Ironhide defeated",{[zoneIDs.GRIZZLY_HILLS]={{23.2,64.68}}}},
             [questKeys.objectives] = {{{27715}}},
+            [questKeys.nextQuestInChain] = 12428,
         },
-        [12428] = {
-            [questKeys.triggerEnd] = {"Torgg Thundertotem defeated",{[zoneIDs.GRIZZLY_HILLS]={{23.05,64.55}}}},
+        [12428] = { -- The Conquest Pit: Mad Furbolg Fighting
             [questKeys.objectives] = {{{27716}}},
+            [questKeys.nextQuestInChain] = 12429,
         },
-        [12429] = {
-            [questKeys.triggerEnd] = {"Rustblood defeated",{[zoneIDs.GRIZZLY_HILLS]={{23.12,64.62}}}},
+        [12429] = { -- The Conquest Pit: Blood and Metal
             [questKeys.objectives] = {{{27717}}},
+            [questKeys.nextQuestInChain] = 12430,
         },
-        [12430] = {
-            [questKeys.triggerEnd] = {"Horgrenn Hellcleave defeated",{[zoneIDs.GRIZZLY_HILLS]={{23.11,64.6}}}},
+        [12430] = { -- The Conquest Pit: Death Is Likely
             [questKeys.objectives] = {{{27718}}},
+            [questKeys.nextQuestInChain] = 12431,
         },
-        [12431] = {
+        [12431] = { -- The Conquest Pit: Final Showdown
             [questKeys.objectives] = {{{27727}}},
         },
-        [12432] = {
+        [12432] = { -- Riding the Red Rocket
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_TALK, l10n("Ride the rocket!"), 0, {{"monster", 27593}}}},
         },
-        [12434] = {
-            [questKeys.specialFlags] = 1,
+        [12434] = { -- Always Seeking Solvent
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
             [questKeys.preQuestSingle] = {12433},
             [questKeys.startedBy] = {{27565}},
             [questKeys.finishedBy] = {{27565}},
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
         },
-        [12435] = { -- #4675
+        [12435] = { -- Report to Lord Devrestrasz
             [questKeys.name] = "Report to Lord Devrestrasz",
             [questKeys.objectivesText] = {"Speak with Lord Devrestrasz at Wyrmrest Temple."},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_TALK, l10n("Take a drake to the middle of the temple"), 0, {{"monster", 26949}}}},
         },
-        [12437] = {
+        [12437] = { -- Riding the Red Rocket
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_TALK, l10n("Ride the rocket!"), 0, {{"monster", 27593}}}},
         },
         [12439] = {
             [questKeys.exclusiveTo] = {11995,12000},
         },
-        [12446] = {
-            [questKeys.specialFlags] = 1,
+        [12446] = { -- Always Seeking Solvent
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
             [questKeys.preQuestSingle] = {12443},
             [questKeys.startedBy] = {{27495}},
             [questKeys.finishedBy] = {{27495}},
@@ -3327,23 +3327,27 @@ function QuestieWotlkQuestFixes:Load()
         [12930] = {
             [questKeys.requiredSourceItems] = {},
         },
-        [12932] = { -- This is the version of the quest you get if you have NOT completed 9977
+        [12932] = { -- The Amphitheater of Anguish: Yggdras!
             [questKeys.objectives] = {{{30014}}},
-            [questKeys.exclusiveTo] = {12954,9977},
+            [questKeys.exclusiveTo] = {12954,9977}, -- This is the version of the quest you get if you have NOT completed 9977
             [questKeys.nextQuestInChain] = 12933,
         },
-        [12933] = {
+        [12933] = { -- The Amphitheater of Anguish: Magnataur!
             [questKeys.objectives] = {{{30017}}},
             [questKeys.preQuestSingle] = {12932,12954},
+            [questKeys.nextQuestInChain] = 12934,
         },
-        [12934] = {
+        [12934] = { -- The Amphitheater of Anguish: From Beyond!
             [questKeys.objectives] = {nil,nil,nil,nil,{{{30019,30024,30025,30026},30019}}},
+            [questKeys.nextQuestInChain] = 12935,
         },
-        [12935] = {
+        [12935] = { -- The Amphitheater of Anguish: Tuskarrmageddon!
             [questKeys.objectives] = {{{30020}}},
+            [questKeys.nextQuestInChain] = 12936,
         },
-        [12936] = {
+        [12936] = { -- The Amphitheater of Anguish: Korrak the Bloodrager!
             [questKeys.objectives] = {{{30023}}},
+            [questKeys.nextQuestInChain] = 12948,
         },
         [12937] = {
             [questKeys.requiredSourceItems] = {},
@@ -3389,7 +3393,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.finishedBy] = {nil,{191881}},
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
         },
-        [12948] = {
+        [12948] = { -- The Champion of Anguish
             [questKeys.objectives] = {{{30022}}},
         },
         [12950] = {
@@ -3430,8 +3434,9 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Get in Brann's Flying Machine"), 0, {{"monster", 30134}}}},
             [questKeys.preQuestSingle] = {12880},
         },
-        [12974] = {
-            [questKeys.exclusiveTo] = {12932,12954},
+        [12974] = { -- The Champion's Call!
+            [questKeys.exclusiveTo] = {12954},
+            [questKeys.nextQuestInChain] = 12932,
         },
         [12975] = {
             [questKeys.preQuestSingle] = {12924},
@@ -3748,7 +3753,7 @@ function QuestieWotlkQuestFixes:Load()
         },
         [13092] = {
             [questKeys.preQuestSingle] = {12999},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
         },
         [13093] = {
             [questKeys.preQuestSingle] = {13092},
@@ -4634,21 +4639,25 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.finishedBy] = {{15350}},
             [questKeys.exclusiveTo] = {11339,11340,11341,11342,14164},
         },
-        [13408] = {
+        [13408] = { -- Hellfire Fortifications A
             [questKeys.preQuestSingle] = {10143,10483},
             [questKeys.objectives] = {{{19028,nil,Questie.ICON_TYPE_EVENT},{19029,nil,Questie.ICON_TYPE_EVENT},{19032,nil,Questie.ICON_TYPE_EVENT}}},
+            [questKeys.nextQuestInChain] = 10106,
         },
-        [13409] = {
+        [13409] = { -- Hellfire Fortifications H
             [questKeys.preQuestSingle] = {10124},
             [questKeys.objectives] = {{{19028,nil,Questie.ICON_TYPE_EVENT},{19029,nil,Questie.ICON_TYPE_EVENT},{19032,nil,Questie.ICON_TYPE_EVENT}}},
+            [questKeys.nextQuestInChain] = 10110,
         },
-        [13410] = {
+        [13410] = { -- Hellfire Fortifications A
             [questKeys.preQuestSingle] = {10143,10483},
             [questKeys.objectives] = {{{19028,nil,Questie.ICON_TYPE_EVENT},{19029,nil,Questie.ICON_TYPE_EVENT},{19032,nil,Questie.ICON_TYPE_EVENT}}},
+            [questKeys.nextQuestInChain] = 10106,
         },
-        [13411] = {
+        [13411] = { -- Hellfire Fortifications H
             [questKeys.preQuestSingle] = {10124},
             [questKeys.objectives] = {{{19028,nil,Questie.ICON_TYPE_EVENT},{19029,nil,Questie.ICON_TYPE_EVENT},{19032,nil,Questie.ICON_TYPE_EVENT}}},
+            [questKeys.nextQuestInChain] = 10110,
         },
         [13413] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_MOUNT_UP, l10n("Mount up"), 1, {{"monster", 32548}}}},
@@ -6131,7 +6140,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.requiredSourceItems] = {},
         },
         [14103] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
             [questKeys.startedBy] = {{28701}},
             [questKeys.finishedBy] = {{28701}},
         },
@@ -6524,7 +6533,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.startedBy] = {nil,nil,{49643}},
         },
         [24431] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [24442] = { -- Battle Plans Of The Kvaldir
             [questKeys.startedBy] = {nil,nil,{49676}},
@@ -6988,7 +6997,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectives] = {{{37554,nil,Questie.ICON_TYPE_EVENT},{36954,nil,Questie.ICON_TYPE_EVENT}}},
         },
         [24803] = {
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [24815] = {
             [questKeys.requiredMinRep] = {1156,3000},
@@ -7823,7 +7832,8 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectives] = {nil,nil,{{211206}}},
             [questKeys.zoneOrSort] = 4395,
             [questKeys.questFlags] = 4232,
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.DAILY,
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
         },
         [78753] = {
@@ -7837,7 +7847,8 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectives] = {nil,nil,{{211207}}},
             [questKeys.zoneOrSort] = 4395,
             [questKeys.questFlags] = 4232,
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.DAILY,
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
         },
         [83713] = {
@@ -7851,7 +7862,8 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectives] = {nil,nil,{{211206}}},
             [questKeys.zoneOrSort] = 4395,
             [questKeys.questFlags] = 4232,
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.DAILY,
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
         },
         [83714] = {
@@ -7865,7 +7877,8 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectives] = {nil,nil,{{211207}}},
             [questKeys.zoneOrSort] = 4395,
             [questKeys.questFlags] = 4232,
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.DAILY,
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
         },
         [83717] = {
@@ -7879,7 +7892,8 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectives] = {nil,nil,{{211206}}},
             [questKeys.zoneOrSort] = 4395,
             [questKeys.questFlags] = 4232,
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.DAILY,
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
         },
         [87379] = {
@@ -7893,7 +7907,8 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectives] = {nil,nil,{{211207}}},
             [questKeys.zoneOrSort] = 4395,
             [questKeys.questFlags] = 4232,
-            [questKeys.specialFlags] = 1,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.DAILY,
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
         },
         [93950] = { -- A Message From The Stars -- only present on titan reforged

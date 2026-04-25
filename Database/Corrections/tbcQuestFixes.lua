@@ -32,6 +32,9 @@ function QuestieTBCQuestFixes:Load()
     local rankKeys = QuestieProfessions.rankNames
 
     return {
+        [54] = { -- Report to Goldshire
+            [questKeys.requiredLevel] = 1,
+        },
         [62] = {
             [questKeys.triggerEnd] = {"Scout through the Fargodeep Mine", {[zoneIDs.ELWYNN_FOREST]={{40.01,81.42}}}},
         },
@@ -55,6 +58,7 @@ function QuestieTBCQuestFixes:Load()
         },
         [176] = { -- Wanted:  "Hogger"
             [questKeys.startedBy] = {nil,{68,156561}},
+            [questKeys.requiredLevel] = 5,
         },
         [201] = {
             [questKeys.triggerEnd] = {"Locate the hunters' camp", {[zoneIDs.STRANGLETHORN_VALE]={{35.73,10.82}}}},
@@ -200,8 +204,8 @@ function QuestieTBCQuestFixes:Load()
         [1048] = {
             [questKeys.requiredLevel] = 30,
         },
-        [1049] = { -- Not available to UNDEAD
-            [questKeys.requiredRaces] = raceIDs.ORC + raceIDs.TAUREN + raceIDs.TROLL + raceIDs.BLOOD_ELF,
+        [1049] = { -- Compendium of the Fallen
+            [questKeys.requiredRaces] = raceIDs.ALL_HORDE - raceIDs.UNDEAD,
         },
         [1090] = { -- Gerenzo's Orders
             [questKeys.requiredRaces] = raceIDs.NONE,
@@ -982,10 +986,13 @@ function QuestieTBCQuestFixes:Load()
         [7485] = { -- Libram of Protection
             [questKeys.reputationReward] = {{factionIDs.SHEN_DRALAR,500}},
         },
-        [7583] = {
+        [7508] = { -- The Forging of Quel'Serrar
+            [questKeys.requiredLevel] = 60,
+        },
+        [7583] = { -- Suppression
             [questKeys.preQuestGroup] = {7581,7582},
         },
-        [7623] = {
+        [7623] = { -- Lord Banehollow
             [questKeys.preQuestSingle] = {},
         },
         [7792] = {
@@ -1857,7 +1864,7 @@ function QuestieTBCQuestFixes:Load()
         [9339] = {
             [questKeys.objectivesText] = {},
         },
-        [9355] = {
+        [9355] = { -- A Job for an Intelligent Man
             [questKeys.preQuestSingle] = {10143,10483},
         },
         [9358] = { -- Ranger Sareyn
@@ -2125,7 +2132,7 @@ function QuestieTBCQuestFixes:Load()
         [9555] = { -- Call of Fire
             [questKeys.requiredRaces] = raceIDs.DRAENEI,
         },
-        [9558] = {
+        [9558] = { -- The Longbeards
             [questKeys.preQuestSingle] = {10143,10483},
         },
         [9560] = {
@@ -2680,10 +2687,10 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.preQuestGroup] = {9934,9868,10011},
             [questKeys.preQuestSingle] = {},
         },
-        [10047] = {
+        [10047] = { -- The Path of Glory
             [questKeys.preQuestSingle] = {10143,10483},
         },
-        [10050] = {
+        [10050] = { -- Unyielding Souls
             [questKeys.preQuestSingle] = {10143,10483},
         },
         [10051] = {
@@ -2692,7 +2699,7 @@ function QuestieTBCQuestFixes:Load()
         [10052] = {
             [questKeys.triggerEnd] = {"Escort Isla Starmane to safety", {[zoneIDs.TEROKKAR_FOREST]={{67.51,37.28}}}},
         },
-        [10058] = {
+        [10058] = { -- An Old Gift
             [questKeys.preQuestSingle] = {10143,10483},
         },
         [10063] = {
@@ -2755,7 +2762,7 @@ function QuestieTBCQuestFixes:Load()
         [10077] = {
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
         },
-        [10079] = {
+        [10079] = { -- When This Mine's a-Rockin'
             [questKeys.preQuestSingle] = {10143,10483},
         },
         [10085] = {
@@ -2779,9 +2786,9 @@ function QuestieTBCQuestFixes:Load()
         [10105] = {
             [questKeys.exclusiveTo] = {9796},
         },
-        [10106] = { -- Hellfire Fortifications
+        [10106] = { -- Hellfire Fortifications A
             [questKeys.questLevel] = -1,
-            [questKeys.preQuestSingle] = {10483}, -- if there are others, put them in addition to existing
+            [questKeys.preQuestSingle] = {10143,10483}, -- double check 10143
             [questKeys.requiredMaxRep] = {},
             [questKeys.objectives] = {{{19028,nil,Questie.ICON_TYPE_EVENT},{19029,nil,Questie.ICON_TYPE_EVENT},{19032,nil,Questie.ICON_TYPE_EVENT}}},
         },
@@ -2791,7 +2798,7 @@ function QuestieTBCQuestFixes:Load()
         [10108] = {
             [questKeys.objectives] = {{{18261,nil,Questie.ICON_TYPE_TALK}}},
         },
-        [10110] = { -- Hellfire Fortifications
+        [10110] = { -- Hellfire Fortifications H
             [questKeys.questLevel] = -1,
             [questKeys.preQuestSingle] = {10124}, -- double check. if there are others, put them in addition to existing
             [questKeys.requiredMaxRep] = {},
@@ -3066,6 +3073,7 @@ function QuestieTBCQuestFixes:Load()
         },
         [10366] = { -- Jol
             [questKeys.breadcrumbForQuestId] = 9598,
+            [questKeys.requiredRaces] = raceIDs.DRAENEI + raceIDs.HUMAN + raceIDs.DWARF,
         },
         [10367] = {
             [questKeys.preQuestSingle] = {},
@@ -3814,17 +3822,36 @@ function QuestieTBCQuestFixes:Load()
         [10863] = {
             [questKeys.exclusiveTo] = {10908},
         },
-        [10866] = {
+        [10866] = { -- Zuluhed the Whacked
             [questKeys.objectives] = {nil,{{185156}},nil,nil,{{{11980},11980}}},
+            [questKeys.requiredRaces] = raceIDs.ALL_HORDE + raceIDs.ALL_ALLIANCE - raceIDs.HUMAN,
         },
         [10867] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_SLAY, l10n("Kill Razaani ethereals to lure Nexus-Prince Razaan out"), 0, {{"monster", 20601}, {"monster", 20609}, {"monster", 20614}}},
                                            {nil, Questie.ICON_TYPE_SLAY, l10n("Kill Nexus-Prince Razaan to spawn the Collection of Souls"), 0, {{"monster", 21057}}},
             },
         },
-        [10872] = {
+        [10870] = { -- Ally of the Netherwing
+            [questKeys.requiredRaces] = raceIDs.ALL_HORDE + raceIDs.ALL_ALLIANCE - raceIDs.HUMAN,
+            [questKeys.nextQuestInChain] = 11012,
+        },
+        [10871] = { -- Ally of the Netherwing
+            [questKeys.name] = "Ally of the Netherwing",
+            [questKeys.startedBy] = {{22112}},
+            [questKeys.finishedBy] = {{22113}},
+            [questKeys.preQuestSingle] = {10872},
+            [questKeys.requiredRaces] = raceIDs.HUMAN,
+            [questKeys.reputationReward] = {{factionIDs.NETHERWING,42000}},
+            [questKeys.nextQuestInChain] = 11012,
+        },
+        [10872] = { -- Zuluhed the Whacked
             [questKeys.name] = "Zuluhed the Whacked",
+            [questKeys.startedBy] = {{22112}},
             [questKeys.finishedBy] = {{22112}},
+            [questKeys.preQuestSingle] = {10858},
+            [questKeys.objectives] = {nil,{{185156}},nil,nil,{{{11980},11980}}},
+            [questKeys.requiredRaces] = raceIDs.HUMAN,
+            [questKeys.requiredSourceItems] = {31664},
         },
         [10873] = {
             [questKeys.objectives] = {nil,nil,nil,nil,{{{22459,22355},22459,nil,Questie.ICON_TYPE_EVENT}}},
@@ -3907,6 +3934,12 @@ function QuestieTBCQuestFixes:Load()
         },
         [10935] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Perform the exorcism"), 0, {{"monster", 22431}}}},
+        },
+        [10938] = { -- Darkmoon Blessings Deck
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+        },
+        [10939] = { -- Darkmoon Storms Deck
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [10942] = {
             [questKeys.questLevel] = -1,
@@ -4087,6 +4120,9 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.requiredLevel] = 70,
             [questKeys.requiredClasses] = classIDs.WARLOCK + classIDs.ROGUE + classIDs.MAGE + classIDs.PRIEST + classIDs.WARRIOR + classIDs.PALADIN + classIDs.HUNTER + classIDs.SHAMAN,
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_SLAY, l10n("Use the Skyguard Bombs to destroy 15 Fel Cannonball Stacks"), 0, {{"object", 185861}}}},
+        },
+        [11012] = { -- Blood Oath of the Netherwing
+            [questKeys.preQuestSingle] = {10870,10871},
         },
         [11013] = {
             [questKeys.requiredRaces] = raceIDs.NONE,
@@ -5398,7 +5434,7 @@ function QuestieTBCQuestFixes:Load()
         [11917] = {
             [questKeys.finishedBy] = {{26221}},
             [questKeys.preQuestSingle] = {12012},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
             [questKeys.requiredMaxLevel] = 28,
         },
         [11922] = {
@@ -5416,7 +5452,7 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.startedBy] = {{25975}},
             [questKeys.finishedBy] = {{25975}},
             [questKeys.preQuestSingle] = {11657},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
             [questKeys.triggerEnd] = {"Hit 20 braziers.", {
                 [zoneIDs.ORGRIMMAR]={{46.67,38.13}},
                 [zoneIDs.THUNDER_BLUFF]={{20.99,26.46}},
@@ -5440,7 +5476,7 @@ function QuestieTBCQuestFixes:Load()
         [11924] = {
             [questKeys.startedBy] = {{25975}},
             [questKeys.finishedBy] = {{25975}},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
             [questKeys.preQuestSingle] = {11657},
             [questKeys.triggerEnd] = {"Catch 10 torches in a row.", {
                 [zoneIDs.ORGRIMMAR]={{47.11,36.69}},
@@ -5453,7 +5489,7 @@ function QuestieTBCQuestFixes:Load()
         [11925] = {
             [questKeys.startedBy] = {{26113}},
             [questKeys.finishedBy] = {{26113}},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
             [questKeys.preQuestSingle] = {11923},
             [questKeys.triggerEnd] = {"Catch 10 torches in a row.", {
                 [zoneIDs.ORGRIMMAR]={{47.11,36.69}},
@@ -5466,7 +5502,7 @@ function QuestieTBCQuestFixes:Load()
         [11926] = {
             [questKeys.startedBy] = {{26113}},
             [questKeys.finishedBy] = {{26113}},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
             [questKeys.preQuestSingle] = {11923},
             [questKeys.triggerEnd] = {"Hit 20 braziers.", {
                 [zoneIDs.ORGRIMMAR]={{46.67,38.13}},
@@ -5485,25 +5521,25 @@ function QuestieTBCQuestFixes:Load()
         [11947] = {
             [questKeys.finishedBy] = {{26221}},
             [questKeys.preQuestSingle] = {12012},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
             [questKeys.requiredMaxLevel] = 38,
         },
         [11948] = {
             [questKeys.finishedBy] = {{26221}},
             [questKeys.preQuestSingle] = {12012},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
             [questKeys.requiredMaxLevel] = 48,
         },
         [11952] = {
             [questKeys.finishedBy] = {{26221}},
             [questKeys.preQuestSingle] = {12012},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
             [questKeys.requiredMaxLevel] = 55,
         },
         [11953] = {
             [questKeys.finishedBy] = {{26221}},
             [questKeys.preQuestSingle] = {12012},
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
             [questKeys.requiredMaxLevel] = 63,
         },
         [11954] = {
@@ -5511,7 +5547,7 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.finishedBy] = {{26221}},
             [questKeys.preQuestSingle] = {12012},
             [questKeys.requiredLevel] = 64,
-            [questKeys.specialFlags] = 0,
+            [questKeys.specialFlags] = specialFlags.NONE,
         },
         [11955] = {
             [questKeys.startedBy] = {{26221}},
@@ -6910,6 +6946,18 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.zoneOrSort] = sortKeys.BATTLEGROUNDS,
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
+        --[[[95456] = { -- Concerted Efforts
+            [questKeys.name] = "Concerted Efforts",
+            [questKeys.startedBy] = {{15351}},
+            [questKeys.finishedBy] = {{15351}},
+            [questKeys.requiredLevel] = 51,
+            [questKeys.questLevel] = 60,
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
+            [questKeys.objectivesText] = nil,
+            [questKeys.objectives] = {nil,nil,{{20560},{20559},{20558}}},
+            [questKeys.zoneOrSort] = sortKeys.BATTLEGROUNDS,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+        },]]
         [95457] = { -- For Great Honor
             [questKeys.name] = "For Great Honor",
             [questKeys.startedBy] = {{15350}},
@@ -6922,6 +6970,18 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.zoneOrSort] = sortKeys.BATTLEGROUNDS,
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
+        --[[[95458] = { -- For Great Honor
+            [questKeys.name] = "For Great Honor",
+            [questKeys.startedBy] = {{15350}},
+            [questKeys.finishedBy] = {{15350}},
+            [questKeys.requiredLevel] = 51,
+            [questKeys.questLevel] = 60,
+            [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
+            [questKeys.objectivesText] = nil,
+            [questKeys.objectives] = {nil,nil,{{20560},{20559},{20558}}},
+            [questKeys.zoneOrSort] = sortKeys.BATTLEGROUNDS,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+        },]]
     }
 end
 
