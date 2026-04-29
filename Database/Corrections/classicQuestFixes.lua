@@ -3565,9 +3565,6 @@ function QuestieQuestFixes:Load()
             [questKeys.objectives] = {{{13016,nil,Questie.ICON_TYPE_INTERACT}}},
             [questKeys.nextQuestInChain] = 6662,
         },
-        [6681] = { -- The Manor, Ravenholdt
-            [questKeys.startedBy] = {{332,918,3327,3328,3401,4214,4215,4163,4582,4583,4584,5165,5166,5167},nil,{17126}}, -- #7244
-        },
         [6721] = {
             [questKeys.startedBy] = {{5116}},
             [questKeys.exclusiveTo] = {6071,6072,6073,6722},
@@ -3864,8 +3861,8 @@ function QuestieQuestFixes:Load()
             [questKeys.exclusiveTo] = {8258}, -- 8258 after Phase 4
             [questKeys.preQuestSingle] = {7667},
         },
-        [7669] = { -- #1449
-            [questKeys.name] = "Again Into the Great Ossuary",
+        [7669] = { -- Again Into the Great Ossuary
+            [questKeys.name] = "Again Into the Great Ossuary", -- #1449
             [questKeys.startedBy] = {{13417}},
             [questKeys.finishedBy] = {{13417}},
             [questKeys.requiredLevel] = 58,
@@ -3876,8 +3873,8 @@ function QuestieQuestFixes:Load()
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
             [questKeys.preQuestSingle] = {7668,8258},
         },
-        [7670] = { -- #1432
-            [questKeys.name] = "Lord Grayson Shadowbreaker",
+        [7670] = { -- Lord Grayson Shadowbreaker
+            [questKeys.name] = "Lord Grayson Shadowbreaker", -- #1432
             [questKeys.startedBy] = {{5149}},
             [questKeys.finishedBy] = {{928}},
             [questKeys.requiredLevel] = 60,
@@ -4129,7 +4126,7 @@ function QuestieQuestFixes:Load()
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Place a tribute at Grom's Monument"),0,{{"object", 21004},}}},
         },
-        [8151] = {
+        [8151] = { -- The Hunter's Charm
             [questKeys.startedBy] = {{3039,3352,4205,5116,5516}},
         },
         [8166] = {
@@ -4244,8 +4241,8 @@ function QuestieQuestFixes:Load()
             [questKeys.requiredLevel] = 35,
             [questKeys.requiredSkill] = {profKeys.FISHING,175},
         },
-        [8233] = {
-            [questKeys.startedBy] = {{918,3328,4163,4583,5165}},
+        [8233] = { -- A Simple Request
+            [questKeys.startedBy] = {{918,3328,4163,4583,5165,5167}},
         },
         [8238] = {
             [questKeys.zoneOrSort] = zoneIDs.ZUL_GURUB,
@@ -4265,14 +4262,14 @@ function QuestieQuestFixes:Load()
         [8249] = {
             [questKeys.requiredClasses] = classIDs.NONE,
         },
-        [8250] = {
+        [8250] = { -- Magecraft
             [questKeys.startedBy] = {{331,3047,4567,7311,7312}},
         },
         [8251] = {
             [questKeys.preQuestSingle] = {},
         },
         [8254] = { -- Cenarion Aid
-            [questKeys.startedBy] = {{5489,6018,11406}},
+            [questKeys.startedBy] = {{3045,5489,6018,11406}},
         },
         [8258] = {
             [questKeys.exclusiveTo] = {7668}, -- 7668 before Phase 4
@@ -6018,9 +6015,6 @@ function QuestieQuestFixes:LoadFactionFixes()
         [5050] = {
             [questKeys.startedBy] = {{8403}},
         },
-        [6681] = { -- The Manor, Ravenholdt
-            [questKeys.startedBy] = {{3327,3328,3401,4582,4583,4584},nil,{17126}}, -- #7244
-        },
         [6981] = {
             [questKeys.nextQuestInChain] = 3369,
         },
@@ -6028,8 +6022,17 @@ function QuestieQuestFixes:LoadFactionFixes()
             [questKeys.startedBy] = {{5753,5815}},
             [questKeys.requiredRaces] = raceIDs.NONE,
         },
+        [8233] = { -- A Simple Request
+            [questKeys.startedBy] = {{3328,4583}},
+        },
+        [8250] = { -- Magecraft
+            [questKeys.startedBy] = {{3047,4567,7311}},
+        },
         [8254] = { -- Cenarion Aid
-            [questKeys.startedBy] = {{6018}},
+            [questKeys.startedBy] = {{3045,6018}},
+        },
+        [8419] = { -- An Imp's Request
+            [questKeys.startedBy] = {{3326,4563}},
         },
         [8928] = {
             [questKeys.nextQuestInChain] = 8978,
@@ -6055,7 +6058,7 @@ function QuestieQuestFixes:LoadFactionFixes()
         [1198] = {
             [questKeys.breadcrumbForQuestId] = 1200,
         },
-        [1718] = {
+        [1718] = { -- The Islander
             [questKeys.startedBy] = {{5113,5479}},
         },
         [1947] = { -- Journey to the Marsh
@@ -6076,9 +6079,6 @@ function QuestieQuestFixes:LoadFactionFixes()
         [5050] = {
             [questKeys.startedBy] = {{3520}},
         },
-        [6681] = { -- The Manor, Ravenholdt
-            [questKeys.startedBy] = {{332,918,4214,4215,4163,5165,5166,5167},nil,{17126}}, -- #7244
-        },
         [6981] = {
             [questKeys.nextQuestInChain] = 3370,
         },
@@ -6086,8 +6086,17 @@ function QuestieQuestFixes:LoadFactionFixes()
             [questKeys.startedBy] = {{5520,6382}},
             [questKeys.requiredRaces] = raceIDs.NONE,
         },
+        [8233] = { -- A Simple Request
+            [questKeys.startedBy] = {{918,4163,5165,5167}},
+        },
+        [8250] = { -- Magecraft
+            [questKeys.startedBy] = {{331,7312}},
+        },
         [8254] = { -- Cenarion Aid
             [questKeys.startedBy] = {{5489,11406}},
+        },
+        [8419] = { -- An Imp's Request
+            [questKeys.startedBy] = {{461,5172}},
         },
         [8928] = {
             [questKeys.nextQuestInChain] = 8977,

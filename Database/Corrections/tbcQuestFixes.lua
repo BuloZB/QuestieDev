@@ -391,6 +391,9 @@ function QuestieTBCQuestFixes:Load()
         [1716] = { -- Devourer of Souls
             [questKeys.preQuestSingle] = {},
         },
+        [1718] = { -- The Islander
+            [questKeys.startedBy] = {{3041,3354,4595,5113,5479,16771}},
+        },
         [1719] = {
             [questKeys.triggerEnd] = {"Step on the grate to begin the Affray", {[zoneIDs.THE_BARRENS]={{68.61,48.72}}}},
         },
@@ -458,6 +461,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [1939] = { -- High Sorcerer Andromath
             [questKeys.startedBy] = {{5144,5497,17513}},
+        },
+        [1943] = { -- Speak with Deino
+            [questKeys.startedBy] = {{4568,16652}},
         },
         [1947] = { -- Journey to the Marsh
             [questKeys.startedBy] = {{3048,4568,5885,16652,5144,5497,17513}}, -- further split in faction fixes below
@@ -940,6 +946,9 @@ function QuestieTBCQuestFixes:Load()
         [5726] = { -- Hidden Enemies
             [questKeys.nextQuestInChain] = 5727,
         },
+        [5924] = { -- Heeding the Call
+            [questKeys.startedBy] = {{5505,16721}},
+        },
         [5961] = {
             [questKeys.requiredLevel] = 54,
         },
@@ -968,9 +977,6 @@ function QuestieTBCQuestFixes:Load()
         [6421] = {
             [questKeys.triggerEnd] = {"Investigate Cave in Boulderslide Ravine", {[zoneIDs.STONETALON_MOUNTAINS]={{58.96,90.16}}}},
         },
-        [6681] = { -- The Manor, Ravenholdt
-            [questKeys.startedBy] = {{332,918,3327,3328,3401,4214,4215,4163,4582,4583,4584,5165,5166,5167,6467,13283,16684,16685,16686},nil,{17126}},
-        },
         [6761] = {
             [questKeys.preQuestSingle] = {1015,1019,1047},
         },
@@ -994,6 +1000,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [7623] = { -- Lord Banehollow
             [questKeys.preQuestSingle] = {},
+        },
+        [7670] = { -- Lord Grayson Shadowbreaker
+            [questKeys.startedBy] = {{5149,17509}},
         },
         [7792] = {
             [questKeys.startedBy] = {{20604}},
@@ -1067,6 +1076,9 @@ function QuestieTBCQuestFixes:Load()
         [8122] = {
             [questKeys.triggerEnd] = {"Hold Five Bases in Arathi Basin", {[zoneIDs.ARATHI_HIGHLANDS]={{73.2,30}}}},
         },
+        [8151] = { -- The Hunter's Charm
+            [questKeys.startedBy] = {{3039,3352,4205,5116,5516,16673,17505}},
+        },
         [8193] = { -- Master Angler
             [questKeys.questLevel] = -1,
         },
@@ -1091,13 +1103,21 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.zoneOrSort] = sortKeys.FISHING,
         },
         [8233] = { -- A Simple Request
+            [questKeys.startedBy] = {{918,3328,4163,4583,5165,5167,16684}},
             [questKeys.requiredRaces] = raceIDs.NONE,
         },
         [8249] = { -- Junkboxes Needed
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
-        [8259] = {
+        [8250] = { -- Magecraft
+            [questKeys.startedBy] = {{331,3047,4567,7311,7312,16652,17513}},
+        },
+        [8254] = { -- Cenarion Aid
+            [questKeys.startedBy] = {{3045,5489,6018,11406,16658,16756}},
+        },
+        [8259] = { -- A More Fitting Reward
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
+            [questKeys.preQuestSingle] = {8258},
         },
         [8311] = {
             [questKeys.requiredLevel] = 10,
@@ -1195,8 +1215,11 @@ function QuestieTBCQuestFixes:Load()
         [8413] = {
             [questKeys.requiredRaces] = raceIDs.NONE,
         },
+        [8417] = { -- A Troubled Spirit
+            [questKeys.startedBy] = {{3041,3354,4593,5113,5479,7315,17120}},
+        },
         [8419] = { -- An Imp's Request
-            [questKeys.startedBy] = {{461,3326,4563,5172,16646}},
+            [questKeys.startedBy] = {{461,3326,4563,5172,16647}},
         },
         [8423] = {
             [questKeys.preQuestSingle] = {},
@@ -1683,6 +1706,9 @@ function QuestieTBCQuestFixes:Load()
         [9062] = { -- Soaked Pages
             [questKeys.breadcrumbs] = {9035},
         },
+        [9063] = { -- Torwa Pathfinder
+            [questKeys.startedBy] = {{3033,4217,5505,12042,16655,16721}},
+        },
         [9066] = {
             [questKeys.objectives] = {{{15945,nil,Questie.ICON_TYPE_INTERACT},{15941,nil,Questie.ICON_TYPE_INTERACT}}},
         },
@@ -1836,6 +1862,9 @@ function QuestieTBCQuestFixes:Load()
         [9312] = {
             [questKeys.preQuestSingle] = {},
             [questKeys.preQuestGroup] = {9305,9311},
+        },
+        [9314] = { -- Word from Azure Watch
+            [questKeys.requiredLevel] = 1,
         },
         [9317] = {
             [questKeys.zoneOrSort] = sortKeys.INVASION,
@@ -2788,7 +2817,7 @@ function QuestieTBCQuestFixes:Load()
         },
         [10106] = { -- Hellfire Fortifications A
             [questKeys.questLevel] = -1,
-            [questKeys.preQuestSingle] = {10143,10483}, -- double check 10143
+            [questKeys.preQuestSingle] = {10143,10483},
             [questKeys.requiredMaxRep] = {},
             [questKeys.objectives] = {{{19028,nil,Questie.ICON_TYPE_EVENT},{19029,nil,Questie.ICON_TYPE_EVENT},{19032,nil,Questie.ICON_TYPE_EVENT}}},
         },
@@ -7112,6 +7141,9 @@ function QuestieTBCQuestFixes:LoadFactionFixes()
     local raceIDs = QuestieDB.raceKeys
 
     local questFixesHorde = {
+        [1718] = { -- The Islander
+            [questKeys.startedBy] = {{3041,3354,4595}},
+        },
         [1947] = { -- Journey to the Marsh
             [questKeys.startedBy] = {{3048,4568,5885,16652}},
         },
@@ -7124,9 +7156,24 @@ function QuestieTBCQuestFixes:LoadFactionFixes()
         [4738] = { -- In Search of Menara Voidrender
             [questKeys.startedBy] = {{16646}},
         },
+        [8233] = { -- A Simple Request
+            [questKeys.startedBy] = {{3328,4583,16684}},
+        },
+        [8250] = { -- Magecraft
+            [questKeys.startedBy] = {{3047,4567,7311,16652}},
+        },
+        [8254] = { -- Cenarion Aid
+            [questKeys.startedBy] = {{3045,6018,16658}},
+        },
+        [8419] = { -- An Imp's Request
+            [questKeys.startedBy] = {{3326,4563,16647}},
+        },
     }
 
     local questFixesAlliance = {
+        [1718] = { -- The Islander
+            [questKeys.startedBy] = {{5113,5479,16771}},
+        },
         [1947] = { -- Journey to the Marsh
             [questKeys.startedBy] = {{5144,5497,17513}},
         },
@@ -7138,6 +7185,15 @@ function QuestieTBCQuestFixes:LoadFactionFixes()
         },
         [4738] = { -- In Search of Menara Voidrender
             [questKeys.startedBy] = {{461}},
+        },
+        [8250] = { -- Magecraft
+            [questKeys.startedBy] = {{331,7312,17513}},
+        },
+        [8254] = { -- Cenarion Aid
+            [questKeys.startedBy] = {{5489,11406,16756}},
+        },
+        [8419] = { -- An Imp's Request
+            [questKeys.startedBy] = {{461,5172}},
         },
     }
 
