@@ -375,15 +375,6 @@ function QuestieWotlkQuestFixes:Load()
         [7704] = {
             [questKeys.startedBy] = {nil,nil,{18950}},
         },
-        [7785] = {
-            [questKeys.requiredClasses] = classIDs.NONE,
-        },
-        [7786] = {
-            [questKeys.requiredClasses] = classIDs.NONE,
-        },
-        [7787] = {
-            [questKeys.requiredClasses] = classIDs.NONE,
-        },
         [8149] = {
             [questKeys.objectives] = {nil,{{1323}}},
             [questKeys.extraObjectives] = {},
@@ -1947,9 +1938,10 @@ function QuestieWotlkQuestFixes:Load()
             },
             [questKeys.requiredSourceItems] = {},
         },
-        [12204] = {
+        [12204] = { -- In the Name of Loken
             [questKeys.preQuestSingle] = {12099,12058},
             [questKeys.preQuestGroup] = {},
+            [questKeys.objectives] = {{{26484,nil,Questie.ICON_TYPE_TALK},{26420,nil,Questie.ICON_TYPE_TALK}}},
         },
         [12206] = {
             [questKeys.objectives] = {{{27349,nil,Questie.ICON_TYPE_INTERACT}}},
@@ -3665,7 +3657,8 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.preQuestSingle] = {},
             [questKeys.preQuestGroup] = {13008,13039,13040},
         },
-        [13045] = {
+        [13045] = { -- Into The Wild Green Yonder
+            [questKeys.objectives] = {{{30407,nil,Questie.ICON_TYPE_EVENT}}},
             [questKeys.extraObjectives] = {
                 {nil, Questie.ICON_TYPE_MOUNT_UP, l10n("Mount Argent Skytalon"), 0, {{"monster", 30500}}},
                 {{[zoneIDs.ICECROWN]={{86.85,76.61}}}, Questie.ICON_TYPE_EVENT, l10n("Drop Off Captured Crusader"), 0},
@@ -4372,8 +4365,9 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.preQuestSingle] = {13332},
             [questKeys.requiredSourceItems] = {},
         },
-        [13315] = {
+        [13315] = { -- Sneak Preview
             [questKeys.preQuestSingle] = {13288},
+            [questKeys.objectives] = {{{32195,nil,Questie.ICON_TYPE_EVENT},{32196,nil,Questie.ICON_TYPE_EVENT},{32197,nil,Questie.ICON_TYPE_EVENT},{32199,nil,Questie.ICON_TYPE_EVENT}}},
         },
         [13316] = {
             [questKeys.preQuestSingle] = {13329},
@@ -4482,8 +4476,9 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectives] = {{{32300}}},
             [questKeys.requiredSourceItems] = {44476,44477,44478,44479,44480},
         },
-        [13351] = {
+        [13351] = { -- Sneak Preview
             [questKeys.preQuestSingle] = {13264},
+            [questKeys.objectives] = {{{32195,nil,Questie.ICON_TYPE_EVENT},{32196,nil,Questie.ICON_TYPE_EVENT},{32197,nil,Questie.ICON_TYPE_EVENT},{32199,nil,Questie.ICON_TYPE_EVENT}}},
         },
         [13352] = {
             [questKeys.objectives] = {{{32236,nil,Questie.ICON_TYPE_INTERACT}}},
@@ -7953,6 +7948,19 @@ function QuestieWotlkQuestFixes:Load()
         --     [questKeys.specialFlags] = specialFlags.NONE,
         --     [questKeys.questFlags] = questFlags.NONE,
         -- },
+        [94576] = { -- Find a New Way -- only present on titan reforged
+            [questKeys.name] = "Find a New Way",
+            [questKeys.startedBy] = {{31136}},
+            [questKeys.finishedBy] = {{31136}},
+            [questKeys.requiredLevel] = 80,
+            [questKeys.questLevel] = 80,
+            [questKeys.requiredRaces] = raceIDs.NONE,
+            [questKeys.objectivesText] = {"Find a way to power the Wind - Kissed Blade, then return to High Warlord Uro in the sewers of Dalaran."},
+            [questKeys.zoneOrSort] = sortKeys.LEGENDARY,
+            [questKeys.specialFlags] = specialFlags.NONE,
+            [questKeys.questFlags] = questFlags.NONE,
+            [questKeys.preQuestSingle] = {7787},
+        },
         [94577] = { -- Kael'thas Must Die! -- only present on titan reforged
             [questKeys.name] = "Kael'thas Must Die!",
             [questKeys.startedBy] = {{20735}},
@@ -7977,6 +7985,20 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.objectivesText] = {"Kill Patchwerk."},
             [questKeys.objectives] = {{{16028}}},
             [questKeys.zoneOrSort] = zoneIDs.NAXXRAMAS,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.WEEKLY,
+            [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
+        },
+        [95037] = { -- Lord Jaraxxus Must Die! -- only present on titan reforged
+            [questKeys.name] = "Lord Jaraxxus Must Die!",
+            [questKeys.startedBy] = {{20735}},
+            [questKeys.finishedBy] = {{20735}},
+            [questKeys.requiredLevel] = 80,
+            [questKeys.questLevel] = 80,
+            [questKeys.requiredRaces] = raceIDs.NONE,
+            [questKeys.objectivesText] = {"Kill Lord Jaraxxus."},
+            [questKeys.objectives] = {{{34780}}},
+            [questKeys.zoneOrSort] = zoneIDs.TRIAL_OF_THE_CRUSADER,
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
             [questKeys.questFlags] = questFlags.WEEKLY,
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
@@ -8033,6 +8055,48 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.questFlags] = questFlags.NONE,
             [questKeys.preQuestSingle] = {95844},
         },
+        [96312] = { -- Brutallus Must Die! -- only present on titan reforged
+            [questKeys.name] = "Brutallus Must Die!",
+            [questKeys.startedBy] = {{20735}},
+            [questKeys.finishedBy] = {{20735}},
+            [questKeys.requiredLevel] = 80,
+            [questKeys.questLevel] = 80,
+            [questKeys.requiredRaces] = raceIDs.NONE,
+            [questKeys.objectivesText] = {"Kill Brutallus."},
+            [questKeys.objectives] = {{{24882}}},
+            [questKeys.zoneOrSort] = zoneIDs.SUNWELL_PLATEAU,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.WEEKLY,
+            [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
+        },
+        [96315] = { -- XT-002 Deconstructor Must Die! -- only present on titan reforged
+            [questKeys.name] = "XT-002 Deconstructor Must Die!",
+            [questKeys.startedBy] = {{20735}},
+            [questKeys.finishedBy] = {{20735}},
+            [questKeys.requiredLevel] = 80,
+            [questKeys.questLevel] = 80,
+            [questKeys.requiredRaces] = raceIDs.NONE,
+            [questKeys.objectivesText] = {"Kill XT-002 Deconstructor."},
+            [questKeys.objectives] = {{{33293}}},
+            [questKeys.zoneOrSort] = zoneIDs.ULDUAR,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.WEEKLY,
+            [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
+        },
+        [96318] = { -- Shade of Aran Must Die!-- only present on titan reforged
+            [questKeys.name] = "Shade of Aran Must Die!",
+            [questKeys.startedBy] = {{20735}},
+            [questKeys.finishedBy] = {{20735}},
+            [questKeys.requiredLevel] = 80,
+            [questKeys.questLevel] = 80,
+            [questKeys.requiredRaces] = raceIDs.NONE,
+            [questKeys.objectivesText] = {"Kill Shade of Aran."},
+            [questKeys.objectives] = {{{16524}}},
+            [questKeys.zoneOrSort] = zoneIDs.KARAZHAN,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.WEEKLY,
+            [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
+        },
     }
 end
 
@@ -8064,6 +8128,15 @@ function QuestieWotlkQuestFixes:LoadTitanReforgedFixes()
         [7486] = { -- A Hero's Reward
             [questKeys.questLevel] = 80,
             [questKeys.requiredLevel] = 80,
+        },
+        [7787] = { -- Rise, Thunderfury!
+            [questKeys.name] = "Legend of the Past",
+            [questKeys.questLevel] = 80,
+            [questKeys.requiredLevel] = 80,
+            [questKeys.finishedBy] = {{31136}},
+            [questKeys.objectivesText] = {"Look for someone who has knowledge about the Dormant Blade."},
+            [questKeys.preQuestSingle] = {},
+            [questKeys.nextQuestInChain] = 94576,
         },
         [11007] = { -- Kael'thas and the Verdant Sphere
             [questKeys.questLevel] = 80,
@@ -8130,5 +8203,8 @@ function _QuestieWotlkQuestFixes:InsertMissingQuestIds()
     QuestieDB.questData[95706] = {} -- Gobb's Weekly Greed Deal
     QuestieDB.questData[95844] = {} -- Gobb's Grand Tank Temptation
     QuestieDB.questData[95845] = {} -- Another Shot at the Scarab
-
+    QuestieDB.questData[95037] = {} -- Lord Jaraxxus Must Die!
+    QuestieDB.questData[96312] = {} -- Brutallus Must Die!
+    QuestieDB.questData[96315] = {} -- XT-002 Deconstructor Must Die!
+    QuestieDB.questData[96318] = {} -- Shade of Aran Must Die!
 end

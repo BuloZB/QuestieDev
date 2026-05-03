@@ -338,18 +338,6 @@ local mapOptionsLocales = {
         ["zhCN"] = "大地图的坐标要显示到小数点后几位\n（默认：%s）",
         ["zhTW"] = "大地圖的玩家和滑鼠游標坐標要顯示幾位小數。\n（預設值：%s）",
     },
-    ["Setting clustering value, clusterLevelHotzone set to %s : Redrawing!"] = {
-        ["enUS"] = true,
-        ["deDE"] = "Clusterlevel geändert auf %s : Zeichne neu!",
-        ["esES"] = "Configuración NYI valor de agrupamiento, nivel de agrupamiento establecido a %s : Redibujando!",
-        ["esMX"] = "Configuración NYI valor de agrupamiento, nivel de agrupamiento establecido a %s : Redibujando!",
-        ["frFR"] = "Réglage de la valeur de fusionnement, clusterLevelHotzone réglée sur %s : réorganisation !",
-        ["koKR"] = "클러스터링 값 설정 중, 클러스터 레벨 핫존이 %s로 설정됨: Redrawing!",
-        ["ptBR"] = "Valor de cluster dos parâmetros da, clusterLevelHotzone definido como% s: Redrawing!",
-        ["ruRU"] = "Группировка значков: %s. Перерисовка",
-        ["zhCN"] = "设置群集值，clusterLevelHotzone设置为 %s : 重新绘制中!",
-        ["zhTW"] = "設定密集度，clusterLevelHotzone 設為 %s : 重新繪製中!",
-    },
 }
 
 for k, v in pairs(mapOptionsLocales) do

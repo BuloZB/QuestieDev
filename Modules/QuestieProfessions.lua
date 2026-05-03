@@ -169,9 +169,8 @@ function QuestieProfessions:HasProfessionAndRankLevel(requiredRanks)
         if rankLevel > 0 then
             if _HasProfession(profession) then
                 hasProfession = true
-                if _HasRankLevel(profession, rankLevel) then
+                if not hasRankLevel and _HasRankLevel(profession, rankLevel) then
                     hasRankLevel = true
-                    return hasProfession, hasRankLevel, hasNegativeRanks
                 end
             end
         else
@@ -180,12 +179,15 @@ function QuestieProfessions:HasProfessionAndRankLevel(requiredRanks)
             hasNegativeRanks = true
             if _HasProfession(profession) then
                 hasProfession = true
-                if not _HasRankLevel(profession, rankLevel, hasNegativeRanks) then
+                if not hasRankLevel and _HasRankLevel(profession, rankLevel, hasNegativeRanks) then
                     hasRankLevel = true
-                    return hasProfession, hasRankLevel, hasNegativeRanks
                 end
             end
         end
+    end
+    -- If looking for exact rankLevel, we need to inverse the results so the logic fails when it's detected
+    if hasNegativeRanks and hasProfession then
+        hasRankLevel = not hasRankLevel
     end
     return hasProfession, hasRankLevel, hasNegativeRanks
 end
@@ -547,6 +549,13 @@ QuestieProfessions.rankKeys = {
       [6] = 51311, -- 375-450
       [7] = 73318, -- 450-525
       [8] = 110420, -- 525-600
+    },
+    [762] = { -- Riding
+      [1] = 33388, -- 1-75          60%
+      [2] = 33391, -- 75-150       100%
+      [3] = 34090, -- 150-225   60/150%
+      [4] = 34091, -- 225-300      280%
+      [5] = 90265, -- 300-375      310%
     },
     [773] = { -- Inscription
       [1] = 45357, -- 1-75

@@ -998,6 +998,9 @@ function QuestieTBCNpcFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.NETHERSTORM] = {{72.33,44.98}}},
             [npcKeys.zoneID] = zoneIDs.NETHERSTORM,
         },
+        [18653] = { -- Seth
+            [npcKeys.waypoints] = {},
+        },
         [18707] = {
             [npcKeys.spawns] = {[zoneIDs.TEROKKAR_FOREST] = {{27.05,55.66}}},
         },
@@ -1007,12 +1010,15 @@ function QuestieTBCNpcFixes:Load()
         [18817] = {
             [npcKeys.spawns] = {[zoneIDs.NAGRAND] = {{41.2,44.2}}},
         },
-        [18927] = { -- Human Commoner
-            [npcKeys.questStarts] = {11441,11970},
-        },
         [18849] = {
             [npcKeys.name] = "Eastern Cannon",
             [npcKeys.spawns] = {[zoneIDs.HELLFIRE_PENINSULA] = {{60.7,51.78}}},
+        },
+        [18927] = { -- Human Commoner
+            [npcKeys.questStarts] = {11441,11970},
+        },
+        [18976] = { -- Urga'zz
+            [npcKeys.waypoints] = {},
         },
         [19008] = {
             [npcKeys.name] = "Western Cannon",
@@ -1410,13 +1416,12 @@ function QuestieTBCNpcFixes:Load()
         [22817] = {
             [npcKeys.spawns] = {[zoneIDs.SHATTRATH_CITY]={{75.23,48.0},},},
             [npcKeys.zoneID] = zoneIDs.SHATTRATH_CITY,
-            [npcKeys.questStarts] = {10945,10951,10953,10963,10967,11975}, -- removed the SWP quest
+            [npcKeys.questStarts] = {10945,10951,10953,10963,10967,11975},
         },
         [22818] = {
             [npcKeys.spawns] = {[zoneIDs.SHATTRATH_CITY]={{75.23,48.0},},},
             [npcKeys.zoneID] = zoneIDs.SHATTRATH_CITY,
-            [npcKeys.questEnds] = {10943,10950,10952,10962}, -- removed the horde starting quest
-            [npcKeys.questEnds] = {10943,10950,10952,10954,10956,10962},
+            [npcKeys.questEnds] = {10943,10950,10952,10962},
         },
         [22825] = {
             [npcKeys.spawns] = {[zoneIDs.BLADES_EDGE_MOUNTAINS] = {{52.5,20.43},{52.68,20.25},{52.87,20.08},{49.62,21.42},{49.39,21.3},{49.15,21.13},{49.63,15.76},{49.48,15.54}}},
@@ -1433,6 +1438,11 @@ function QuestieTBCNpcFixes:Load()
         [22828] = {
             [npcKeys.spawns] = {[zoneIDs.BLADES_EDGE_MOUNTAINS] = {{52.5,20.43},{52.68,20.25},{52.87,20.08},{49.62,21.42},{49.39,21.3},{49.15,21.13},{49.63,15.76},{49.48,15.54}}},
             [npcKeys.zoneID] = zoneIDs.BLADES_EDGE_MOUNTAINS,
+        },
+        [22836] = { -- Jheel
+            [npcKeys.spawns] = {[zoneIDs.NAGRAND] = {{31.49,57.61}}},
+            [npcKeys.zoneID] = zoneIDs.NAGRAND,
+            [npcKeys.questEnds] = {10954},
         },
         [22890] = {
             [npcKeys.spawns] = {[zoneIDs.SHADOW_LABYRINTH] = {{-1,-1}}},
@@ -1507,6 +1517,9 @@ function QuestieTBCNpcFixes:Load()
         [23271] = { -- Vindicator Kaan
             [npcKeys.spawns] = {[zoneIDs.SHATTRATH_CITY] = {{35.05,32.39}}},
             [npcKeys.questStarts] = {11038},
+        },
+        [23272] = { -- Arcanist Savan
+            [npcKeys.questStarts] = {11039},
         },
         [23281] = {
             [npcKeys.waypoints] = {},
