@@ -1308,9 +1308,6 @@ function CataQuestFixes.Load()
             [questKeys.startedBy] = {nil,nil,{24558}},
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
         },
-        [9882] = { -- Stealing from Thieves
-            [questKeys.breadcrumbs] = {9913},
-        },
         [9888] = { -- The Impotent Leader
             [questKeys.zoneOrSort] = zoneIDs.TEROKKAR_FOREST,
         },
@@ -1319,9 +1316,6 @@ function CataQuestFixes.Load()
         },
         [9890] = { -- Success!
             [questKeys.zoneOrSort] = zoneIDs.TEROKKAR_FOREST,
-        },
-        [9913] = { -- The Consortium Needs You!
-            [questKeys.breadcrumbForQuestId] = 9882,
         },
         [9931] = { -- Returning the Favor
             [questKeys.preQuestSingle] = {},
@@ -1332,26 +1326,11 @@ function CataQuestFixes.Load()
         [9934] = { -- Message to Garadar
             [questKeys.preQuestSingle] = {},
         },
-        [9944] = { -- Missing Mag'hari Procession
-            [questKeys.breadcrumbForQuestId] = 9945,
-        },
-        [9945] = { -- War on the Warmaul
-            [questKeys.breadcrumbs] = {9944},
-        },
         [9968] = { -- Strange Energy
             [questKeys.preQuestSingle] = {},
         },
         [9978] = { -- By Any Means Necessary
             [questKeys.preQuestSingle] = {},
-        },
-        [9982] = { -- He Called Himself Altruis...
-            [questKeys.breadcrumbForQuestId] = 9991,
-        },
-        [9983] = { -- He Called Himself Altruis...
-            [questKeys.breadcrumbForQuestId] = 9991,
-        },
-        [9991] = { -- Survey the Land
-            [questKeys.breadcrumbs] = {9982,9983},
         },
         [10009] = { -- Crackin' Some Skulls
             [questKeys.zoneOrSort] = zoneIDs.TEROKKAR_FOREST,
@@ -1440,10 +1419,6 @@ function CataQuestFixes.Load()
         [10231] = { -- What Book? I Don't See Any Book.
             [questKeys.zoneOrSort] = zoneIDs.SHATTRATH_CITY,
         },
-        [10234] = { -- One Demon's Trash...
-            [questKeys.breadcrumbs] = {10333},
-            [questKeys.preQuestSingle] = {},
-        },
         [10251] = { -- The Master's Grand Design?
             [questKeys.zoneOrSort] = zoneIDs.NAGRAND,
         },
@@ -1458,26 +1433,18 @@ function CataQuestFixes.Load()
         },
         [10277] = { -- The Caverns of Time
             [questKeys.zoneOrSort] = zoneIDs.CAVERNS_OF_TIME,
-            [questKeys.preQuestSingle] = {},
-            [questKeys.breadcrumbs] = {10279},
             [questKeys.triggerEnd] = {"Caverns of Time Explained", {[zoneIDs.TANARIS]={{58.56,54.14}}}},
         },
         [10279] = { -- To The Master's Lair
             [questKeys.zoneOrSort] = zoneIDs.CAVERNS_OF_TIME,
             [questKeys.requiredRaces] = raceIDs.NONE,
-            [questKeys.breadcrumbForQuestId] = 10277,
         },
         [10282] = { -- Old Hillsbrad
             [questKeys.zoneOrSort] = zoneIDs.CAVERNS_OF_TIME,
             [questKeys.nextQuestInChain] = 0,
         },
-        [10289] = { -- Journey to Thrallmar
-            [questKeys.breadcrumbForQuestId] = 10291,
-        },
         [10291] = { -- Report to Nazgrel
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
-            [questKeys.breadcrumbs] = {10289},
-            [questKeys.nextQuestInChain] = 0,
         },
         [10296] = { -- The Black Morass
             [questKeys.zoneOrSort] = zoneIDs.CAVERNS_OF_TIME,
@@ -1500,17 +1467,8 @@ function CataQuestFixes.Load()
         [10307] = { -- Cohlien Frostweaver
             [questKeys.startedBy] = {nil,nil,{29236}},
         },
-        [10310] = { -- Sabotage the Warp-Gate!
-            [questKeys.breadcrumbs] = {10311},
-        },
-        [10311] = { -- Sabotage the Warp-Gate!
-            [questKeys.breadcrumbForQuestId] = 10310,
-        },
         [10328] = { -- Sunfury Briefings
             [questKeys.preQuestSingle] = {},
-        },
-        [10333] = { -- Help Mama Wheeler
-            [questKeys.breadcrumbForQuestId] = 10234,
         },
         [10346] = { -- Return to the Abyssal Shelf
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
@@ -1606,14 +1564,12 @@ function CataQuestFixes.Load()
             [questKeys.breadcrumbs] = {10615},
         },
         [10595] = { -- Besieged!
-            [questKeys.breadcrumbs] = {11048},
             [questKeys.preQuestSingle] = {},
         },
         [10615] = { -- Ruuan Weald
             [questKeys.breadcrumbForQuestId] = 10567,
         },
         [10624] = { -- A Haunted History
-            [questKeys.breadcrumbs] = {11046},
             [questKeys.preQuestSingle] = {},
         },
         [10639] = { -- Teron Gorefiend, I am...
@@ -1758,13 +1714,8 @@ function CataQuestFixes.Load()
         [10968] = { -- Call on the Farseer
             [questKeys.zoneOrSort] = sortKeys.CHILDRENS_WEEK,
         },
-        [10969] = { -- Seek Out Ameer
-            [questKeys.nextQuestInChain] = 10970,
-            [questKeys.breadcrumbForQuestId] = 10970,
-        },
         [10970] = { -- A Mission of Mercy
             [questKeys.preQuestSingle] = {},
-            [questKeys.breadcrumbs] = {10969},
         },
         [10983] = { -- Mog'dorg the Wizened
             [questKeys.preQuestSingle] = {},
@@ -1820,15 +1771,11 @@ function CataQuestFixes.Load()
         [11037] = { -- A Strange Vision
             [questKeys.zoneOrSort] = zoneIDs.NAGRAND,
         },
-        [11046] = { -- Chief Apothecary Hildagard
-            [questKeys.breadcrumbForQuestId] = 10624,
-        },
         [11047] = { -- The Apprentice's Request
             [questKeys.zoneOrSort] = zoneIDs.BLADES_EDGE_MOUNTAINS,
         },
         [11048] = { -- Kroghan's Report
             [questKeys.zoneOrSort] = zoneIDs.NAGRAND,
-            [questKeys.breadcrumbForQuestId] = 10595,
         },
         [11056] = { -- Hazzik's Bargain
             [questKeys.zoneOrSort] = zoneIDs.SKETTIS,
@@ -8287,6 +8234,7 @@ function CataQuestFixes.Load()
         },
         [26693] = { -- The Dark Tower
             [questKeys.preQuestSingle] = {26668},
+            [questKeys.questFlags] = questFlags.NONE,
         },
         [26694] = { -- The Grand Magus Doane
             [questKeys.startedBy] = {{43611}},

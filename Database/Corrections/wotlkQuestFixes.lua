@@ -4643,7 +4643,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.nextQuestInChain] = 10106,
         },
         [13409] = { -- Hellfire Fortifications H
-            [questKeys.preQuestSingle] = {10124},
+            [questKeys.preQuestSingle] = {10124,10449},
             [questKeys.objectives] = {{{19028,nil,Questie.ICON_TYPE_EVENT},{19029,nil,Questie.ICON_TYPE_EVENT},{19032,nil,Questie.ICON_TYPE_EVENT}}},
             [questKeys.nextQuestInChain] = 10110,
         },
@@ -4653,7 +4653,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.nextQuestInChain] = 10106,
         },
         [13411] = { -- Hellfire Fortifications H
-            [questKeys.preQuestSingle] = {10124},
+            [questKeys.preQuestSingle] = {10124,10449},
             [questKeys.objectives] = {{{19028,nil,Questie.ICON_TYPE_EVENT},{19029,nil,Questie.ICON_TYPE_EVENT},{19032,nil,Questie.ICON_TYPE_EVENT}}},
             [questKeys.nextQuestInChain] = 10110,
         },
@@ -8102,6 +8102,7 @@ end
 
 function QuestieWotlkQuestFixes:LoadTitanReforgedFixes()
     local questKeys = QuestieDB.questKeys
+    local classIDs = QuestieDB.classKeys
 
     return {
         [6805] = { -- Greater Stormers and Rumblers
@@ -8137,6 +8138,16 @@ function QuestieWotlkQuestFixes:LoadTitanReforgedFixes()
             [questKeys.objectivesText] = {"Look for someone who has knowledge about the Dormant Blade."},
             [questKeys.preQuestSingle] = {},
             [questKeys.nextQuestInChain] = 94576,
+        },
+        [9250] = { -- Frame of Atiesh
+            [questKeys.questLevel] = 80,
+            [questKeys.requiredLevel] = 80,
+            [questKeys.requiredClasses] = classIDs.SHAMAN + classIDs.MAGE + classIDs.WARLOCK + classIDs.PRIEST + classIDs.DRUID,
+        },
+        [9251] = { -- Atiesh, the Befouled Greatstaff
+            [questKeys.questLevel] = 80,
+            [questKeys.requiredLevel] = 80,
+            [questKeys.requiredClasses] = classIDs.SHAMAN + classIDs.MAGE + classIDs.WARLOCK + classIDs.PRIEST + classIDs.DRUID,
         },
         [11007] = { -- Kael'thas and the Verdant Sphere
             [questKeys.questLevel] = 80,

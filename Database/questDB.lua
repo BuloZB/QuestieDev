@@ -121,6 +121,7 @@ QuestieDB.questFlags = {
     AUTO_REWARDED = 1024,
     DAILY = 4096,
     WEEKLY = 32768,
+    MONTHLY = 65536,
 }
 
 QuestieDB.factionIDs = {
@@ -135,6 +136,7 @@ QuestieDB.factionIDs = {
     STORMWIND = 72,
     ORGRIMMAR = 76,
     THUNDER_BLUFF = 81,
+    BLOODSAIL_BUCCANEERS = 87,
     GELKIS_CLAN_CENTAUR = 92,
     MAGRAM_CLAN_CENTAUR = 93,
     STEAMWHEEDLE_CARTEL = 169,

@@ -61,8 +61,8 @@ local questStateLocales = {
         ["koKR"] = "이벤트",
         ["ptBR"] = "Evento",
         ["ruRU"] = "Игровое событие",
-        ["zhCN"] = "节日",
-        ["zhTW"] = "節慶",
+        ["zhCN"] = "事件",
+        ["zhTW"] = "事件",
     },
     ["Repeatable"] = {
         ["enUS"] = true,
@@ -123,6 +123,18 @@ local questStateLocales = {
         ["ruRU"] = "Еженедельное",
         ["zhCN"] = "每周",
         ["zhTW"] = "每周",
+    },
+    ["Monthly"] = {
+        ["enUS"] = true,
+        ["deDE"] = "Monatlich",
+        ["esES"] = "Mensual",
+        ["esMX"] = "Mensual",
+        ["frFR"] = "Mensuel",
+        ["koKR"] = "월간 간행물",
+        ["ptBR"] = "Mensal",
+        ["ruRU"] = "Ежемесячно",
+        ["zhCN"] = "每月",
+        ["zhTW"] = "每月",
     },
     ["Daily Celestial"] = {
         ["enUS"] = true,
@@ -253,7 +265,7 @@ local questStateLocales = {
         ["koKR"] = (Expansions.Current == Expansions.Era and "정예") or "파티",
         ["ptBR"] = (Expansions.Current == Expansions.Era and true) or "Grupo",
         ["ruRU"] = (Expansions.Current == Expansions.Era and "Элитный") or "Группа",
-        ["zhCN"] = "精英",
+        ["zhCN"] = (Expansions.Current <= Expansions.Tbc and "精英") or "组队",
         ["zhTW"] = (Expansions.Current == Expansions.Era and "精英") or "團體",
     },
     ["Escort"] = {

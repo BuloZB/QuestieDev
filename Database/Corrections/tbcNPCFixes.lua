@@ -685,6 +685,7 @@ function QuestieTBCNpcFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.THE_EXODAR] = {{29.78,33.26}}},
             [npcKeys.waypoints] = {},
             [npcKeys.zoneID] = zoneIDs.THE_EXODAR,
+            [npcKeys.questEnds] = {9500,9502,9509,9547,9551,9554,9555,10490,10491,10968},
         },
         [17206] = {
             [npcKeys.spawns] = {[zoneIDs.AZUREMYST_ISLE]={{11.36,82.34}}},
@@ -804,6 +805,10 @@ function QuestieTBCNpcFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.HELLFIRE_RAMPARTS] = {{-1,-1}}},
             [npcKeys.zoneID] = zoneIDs.HELLFIRE_RAMPARTS,
         },
+        [17538] = { -- O'ros
+            [npcKeys.questStarts] = {10968},
+            [npcKeys.questEnds] = {10956},
+        },
         [17544] = {
             [npcKeys.spawns] = {[zoneIDs.SILVERMOON_CITY] = {{92.6,37.5}}},
             [npcKeys.zoneID] = zoneIDs.SILVERMOON_CITY,
@@ -921,6 +926,9 @@ function QuestieTBCNpcFixes:Load()
             [npcKeys.questStarts] = {10066,10067},
             [npcKeys.spawns] = {[zoneIDs.BLOODMYST_ISLE] = {{55.56,52.32,phases.BLOODMYST_ISLE_SAVED}}},
         },
+        [18072] = { -- Elementalist Sharvak
+            [npcKeys.questEnds] = {9869,9870,10953},
+        },
         [18096] = {
             [npcKeys.spawns] = {[zoneIDs.OLD_HILLSBRAD_FOOTHILLS] = {{-1,-1}}},
             [npcKeys.zoneID] = zoneIDs.OLD_HILLSBRAD_FOOTHILLS,
@@ -998,8 +1006,14 @@ function QuestieTBCNpcFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.NETHERSTORM] = {{72.33,44.98}}},
             [npcKeys.zoneID] = zoneIDs.NETHERSTORM,
         },
+        [18648] = { -- Stonegazer
+            [npcKeys.spawns] = {[zoneIDs.TEROKKAR_FOREST] = {{62.81,27.69}}},
+        },
         [18653] = { -- Seth
             [npcKeys.waypoints] = {},
+        },
+        [18670] = { -- Ironjaw
+            [npcKeys.spawns] = {[zoneIDs.TEROKKAR_FOREST] = {{69.25,33.1}}},
         },
         [18707] = {
             [npcKeys.spawns] = {[zoneIDs.TEROKKAR_FOREST] = {{27.05,55.66}}},
@@ -1310,6 +1324,10 @@ function QuestieTBCNpcFixes:Load()
         [21725] = {
             [npcKeys.spawns] = {[zoneIDs.SHADOWMOON_VALLEY] = {{35.19,40.18}}},
         },
+        [21729] = { -- Electromental
+            [npcKeys.spawns] = {[zoneIDs.BLADES_EDGE_MOUNTAINS] = {{57.7,60.03},{57.74,57.19},{57.94,60.39},{56.82,58.11},{56.96,55.01},{56.71,56.37},{56.72,56.98},{58.24,59.08},{56.45,59.73},{57.61,58.57},{57.31,54.37},{57.51,55.83},{58.14,55.18},{58.48,54.22},{59.25,54.52},{59.75,54.58},{59.0,55.83},{57.47,60.75},{58.54,57.48},{56.84,58.71}}},
+            [npcKeys.zoneID] = zoneIDs.BLADES_EDGE_MOUNTAINS,
+        },
         [21735] = {
             [npcKeys.spawns] = {[zoneIDs.SHADOWMOON_VALLEY] = {{37.80,38.73}}},
         },
@@ -1392,6 +1410,10 @@ function QuestieTBCNpcFixes:Load()
         [22408] = {
             [npcKeys.spawns] = {[zoneIDs.NETHERSTORM] = {{35.6,66.6}}},
         },
+        [22419] = { -- Wood Mite
+            [npcKeys.spawns] = {[zoneIDs.TEROKKAR_FOREST] = {{45.86,50.23},{45.06,51.17},{45.67,51.7},{41.4,50.41},{40.58,49.57},{40.01,47.97},{39.82,47.2},{38.71,46.97},{34.93,47.67},{34.42,49.52},{34.6,48.95},{31.41,79.37},{31.2,76.34},{30.4,73.74},{29.27,73.04},{29.54,72.32},{32.88,77.96},{33.0,79.22},{33.6,79.08},{48.04,53.15},{47.99,52.6},{52.59,63.22},{51.83,62.09},{52.89,66.47},{52.87,69.08},{52.42,69.2},{52.33,69.22},{52.38,71.12},{51.68,72.19},{49.34,76.62},{48.8,78.59},{49.63,78.59},{50.91,74.11},{53.16,70.65},{53.39,68.33},{53.01,65.01},{53.49,63.8},{53.46,62.98},{52.32,59.02},{51.91,59.0},{51.34,57.93},{51.32,59.78},{52.08,57.51},{50.08,55.34},{50.74,56.24},{48.71,51.37},{40.48,48.2},{49.03,81.33},{53.12,70.73},{52.29,58.52}}},
+            [npcKeys.zoneID] = zoneIDs.TEROKKAR_FOREST,
+        },
         [22423] = {
             [npcKeys.spawns] = {[zoneIDs.BLADES_EDGE_MOUNTAINS] = {{61.4,59.9},{64.9,68.1}}},
         },
@@ -1413,15 +1435,19 @@ function QuestieTBCNpcFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.TEROKKAR_FOREST] = {{31.9,76.3}}},
             [npcKeys.zoneID] = zoneIDs.TEROKKAR_FOREST,
         },
-        [22817] = {
+        [22817] = { -- Blood Elf Orphan
             [npcKeys.spawns] = {[zoneIDs.SHATTRATH_CITY]={{75.23,48.0},},},
             [npcKeys.zoneID] = zoneIDs.SHATTRATH_CITY,
             [npcKeys.questStarts] = {10945,10951,10953,10963,10967,11975},
+            [npcKeys.questEnds] = {10942,10951,10963,11975},
         },
-        [22818] = {
+        [22818] = { -- Draenei Orphan
             [npcKeys.spawns] = {[zoneIDs.SHATTRATH_CITY]={{75.23,48.0},},},
             [npcKeys.zoneID] = zoneIDs.SHATTRATH_CITY,
             [npcKeys.questEnds] = {10943,10950,10952,10962},
+        },
+        [22823] = { -- Hch'uu
+            [npcKeys.questEnds] = {10945},
         },
         [22825] = {
             [npcKeys.spawns] = {[zoneIDs.BLADES_EDGE_MOUNTAINS] = {{52.5,20.43},{52.68,20.25},{52.87,20.08},{49.62,21.42},{49.39,21.3},{49.15,21.13},{49.63,15.76},{49.48,15.54}}},

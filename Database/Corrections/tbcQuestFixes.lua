@@ -50,10 +50,10 @@ function QuestieTBCQuestFixes:Load()
         [123] = { -- The Collector
             [questKeys.nextQuestInChain] = 147,
         },
-        [171] = {
+        [171] = { -- A Warden of the Alliance
             [questKeys.questLevel] = -1,
         },
-        [172] = {
+        [172] = { -- Children's Week
             [questKeys.questLevel] = -1,
         },
         [176] = { -- Wanted:  "Hogger"
@@ -236,11 +236,21 @@ function QuestieTBCQuestFixes:Load()
         [1220] = {
             [questKeys.startedBy] = {{23951}},
         },
+        [1252] = { -- Lieutenant Paval Reethe
+            [questKeys.preQuestSingle] = {11123},
+        },
+        [1253] = { -- The Black Shield
+            [questKeys.preQuestSingle] = {11123},
+        },
         [1268] = { -- Suspicious Hoofprints
             [questKeys.startedBy] = {nil,{187273}},
         },
+        [1282] = { -- They Call Him Smiling Jim
+            [questKeys.breadcrumbForQuestId] = 11123,
+        },
         [1284] = { -- Suspicious Hoofprints
             [questKeys.startedBy] = {nil,{187273}},
+            [questKeys.preQuestSingle] = {11123},
         },
         [1287] = { -- The Deserters
             [questKeys.nextQuestInChain] = 11143,
@@ -1945,11 +1955,11 @@ function QuestieTBCQuestFixes:Load()
         [9395] = { -- Saltheril's Haven
             [questKeys.breadcrumbForQuestId] = 9067,
         },
-        [9397] = {
+        [9397] = { -- Birds of a Feather
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Disturb the nest"), 0, {{"object", 181582}}}},
         },
-        [9400] = {
-            [questKeys.preQuestSingle] = {10124},
+        [9400] = { -- The Assassin
+            [questKeys.preQuestSingle] = {10124,10449},
             [questKeys.triggerEnd] = nil,
             [questKeys.objectives] = {{{17062,nil,Questie.ICON_TYPE_EVENT}}},
         },
@@ -1958,6 +1968,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [9403] = { -- The Purest Water
             [questKeys.preQuestSingle] = {1882,1884,9402},
+        },
+        [9407] = { -- Through the Dark Portal
+            [questKeys.breadcrumbForQuestId] = 10120,
         },
         [9410] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Use the Wolf Totem at the location where you found Krun Spinebreaker's body and follow the Ancestral Spirit Wolf."), 0, {{"monster", 17062}}}},
@@ -2082,12 +2095,12 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.zoneOrSort] = zoneIDs.HELLFIRE_CITADEL,
         },
         [9498] = { -- Falcon Watch
-            [questKeys.preQuestSingle] = {10123},
+            [questKeys.preQuestSingle] = {10124,10449},
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE - raceIDs.BLOOD_ELF,
             [questKeys.breadcrumbForQuestId] = 9340,
         },
         [9499] = { -- Falcon Watch
-            [questKeys.preQuestSingle] = {10123},
+            [questKeys.preQuestSingle] = {10124,10449},
             [questKeys.requiredRaces] = raceIDs.BLOOD_ELF,
             [questKeys.breadcrumbForQuestId] = 9340,
         },
@@ -2206,6 +2219,7 @@ function QuestieTBCQuestFixes:Load()
         },
         [9572] = { -- Weaken the Ramparts
             [questKeys.zoneOrSort] = zoneIDs.HELLFIRE_CITADEL,
+            [questKeys.preQuestSingle] = {10124,10449},
         },
         [9573] = {
             [questKeys.preQuestSingle] = {9560,9562}, -- without 9564
@@ -2493,11 +2507,12 @@ function QuestieTBCQuestFixes:Load()
         [9816] = {
             [questKeys.objectives] = {nil,{{182164,nil,Questie.ICON_TYPE_EVENT}}},
         },
-        [9824] = {
+        [9824] = { -- Arcane Disturbances
             [questKeys.objectives] = {{{18161,nil,Questie.ICON_TYPE_EVENT},{18162,nil,Questie.ICON_TYPE_EVENT}}},
             [questKeys.zoneOrSort] = zoneIDs.KARAZHAN,
+            [questKeys.breadcrumbs] = {11216},
         },
-        [9825] = {
+        [9825] = { -- Restless Activity
             [questKeys.zoneOrSort] = zoneIDs.KARAZHAN,
         },
         [9830] = {
@@ -2555,10 +2570,10 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.triggerEnd] = {"Free the Mag'har Captive", {[zoneIDs.NAGRAND]={{31.77,38.78}}}},
             [questKeys.requiredMinRep] = {941,0},
         },
-        [9869] = {
+        [9869] = { -- The Throne of the Elements
             [questKeys.requiredMinRep] = {978,0},
         },
-        [9870] = {
+        [9870] = { -- The Throne of the Elements
             [questKeys.requiredMinRep] = {941,0},
         },
         [9871] = {
@@ -2581,6 +2596,21 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.requiredMinRep] = {978,0},
             [questKeys.triggerEnd] = {"Free the Kurenai Captive", {[zoneIDs.NAGRAND]={{31.57,38.78}}}},
         },
+        [9882] = { -- Stealing from Thieves
+            [questKeys.breadcrumbs] = {9913},
+        },
+        [9884] = { -- Membership Benefits
+            [questKeys.questFlags] = questFlags.MONTHLY,
+        },
+        [9885] = { -- Membership Benefits
+            [questKeys.questFlags] = questFlags.MONTHLY,
+        },
+        [9886] = { -- Membership Benefits
+            [questKeys.questFlags] = questFlags.MONTHLY,
+        },
+        [9887] = { -- Membership Benefits
+            [questKeys.questFlags] = questFlags.MONTHLY,
+        },
         [9889] = {
             [questKeys.objectives] = {{{18260},{18262}}},
         },
@@ -2599,8 +2629,9 @@ function QuestieTBCQuestFixes:Load()
         [9911] = {
             [questKeys.startedBy] = {nil,nil,{25459}},
         },
-        [9913] = {
-            [questKeys.exclusiveTo] = {9882},
+        [9913] = { -- The Consortium Needs You!
+            [questKeys.breadcrumbForQuestId] = 9882,
+            [questKeys.nextQuestInChain] = 9882,
         },
         [9918] = {
             [questKeys.objectives] = {{{18351,nil,Questie.ICON_TYPE_TALK}}},
@@ -2648,12 +2679,14 @@ function QuestieTBCQuestFixes:Load()
         [9940] = {
             [questKeys.requiredMinRep] = {978,0},
         },
-        [9944] = {
+        [9944] = { -- Missing Mag'hari Procession
             [questKeys.requiredMinRep] = {941,0},
+            [questKeys.breadcrumbForQuestId] = 9945,
         },
-        [9945] = {
+        [9945] = { -- War on the Warmaul
             [questKeys.requiredMinRep] = {941,0},
             [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {9944},
         },
         [9948] = {
             [questKeys.requiredMinRep] = {941,0},
@@ -2694,15 +2727,18 @@ function QuestieTBCQuestFixes:Load()
         [9973] = {
             [questKeys.nextQuestInChain] = 9977,
         },
-        [9982] = {
+        [9982] = { -- He Called Himself Altruis...
             [questKeys.requiredMinRep] = {978,0},
-            [questKeys.exclusiveTo] = {9991},
+            [questKeys.nextQuestInChain] = 9991,
+            [questKeys.breadcrumbForQuestId] = 9991,
         },
-        [9983] = {
-            [questKeys.exclusiveTo] = {9991},
+        [9983] = { -- He Called Himself Altruis...
             [questKeys.requiredMinRep] = {941,0},
+            [questKeys.nextQuestInChain] = 9991,
+            [questKeys.breadcrumbForQuestId] = 9991,
         },
-        [9991] = {
+        [9991] = { -- Survey the Land
+            [questKeys.breadcrumbs] = {9982,9983},
             [questKeys.triggerEnd] = {"Forge Camps Surveyed", {[zoneIDs.NAGRAND]={{27.22,43.05}}}},
             [questKeys.preQuestSingle] = {},
         },
@@ -2721,9 +2757,10 @@ function QuestieTBCQuestFixes:Load()
         [10013] = {
             [questKeys.preQuestSingle] = {9998,10000},
         },
-        [10017] = {
+        [10017] = { -- Strained Supplies
             [questKeys.preQuestSingle] = {10211},
             [questKeys.requiredMaxRep] = {932,0},
+            [questKeys.nextQuestInChain] = 10019,
         },
         [10019] = {
             [questKeys.preQuestSingle] = {},
@@ -2737,9 +2774,10 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.preQuestSingle] = {10551},
             [questKeys.requiredMinRep] = {932,0},
         },
-        [10024] = {
+        [10024] = { -- Voren'thal's Visions
             [questKeys.preQuestSingle] = {10211},
             [questKeys.requiredMaxRep] = {934,0},
+            [questKeys.nextQuestInChain] = 10025,
         },
         [10025] = {
             [questKeys.preQuestSingle] = {},
@@ -2857,6 +2895,7 @@ function QuestieTBCQuestFixes:Load()
         },
         [10094] = { -- The Codex of Blood
             [questKeys.zoneOrSort] = zoneIDs.AUCHINDOUN_DUNGEONS,
+            [questKeys.breadcrumbs] = {10177},
         },
         [10095] = { -- Into the Heart of the Labyrinth
             [questKeys.zoneOrSort] = zoneIDs.AUCHINDOUN_DUNGEONS,
@@ -2885,27 +2924,32 @@ function QuestieTBCQuestFixes:Load()
         },
         [10110] = { -- Hellfire Fortifications H
             [questKeys.questLevel] = -1,
-            [questKeys.preQuestSingle] = {10124}, -- double check. if there are others, put them in addition to existing
+            [questKeys.preQuestSingle] = {10124,10449},
             [questKeys.requiredMaxRep] = {},
             [questKeys.objectives] = {{{19028,nil,Questie.ICON_TYPE_EVENT},{19029,nil,Questie.ICON_TYPE_EVENT},{19032,nil,Questie.ICON_TYPE_EVENT}}},
         },
         [10111] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Jump!"), 0, {{"object", 183146}}}},
         },
-        [10113] = {
-            [questKeys.exclusiveTo] = {9854,9857,9789},
+        [10113] = { -- The Nesingwary Safari
+            [questKeys.breadcrumbForQuestId] = 9789,
+            [questKeys.nextQuestInChain] = 9789,
             [questKeys.requiredLevel] = 64,
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
         },
-        [10114] = {
-            [questKeys.exclusiveTo] = {9854,9857,9789},
+        [10114] = { -- The Nesingwary Safari
+            [questKeys.breadcrumbForQuestId] = 9789,
+            [questKeys.nextQuestInChain] = 9789,
+            [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
         },
         [10119] = { -- Through the Dark Portal
             [questKeys.breadcrumbForQuestId] = 10288,
         },
-        [10120] = {
+        [10120] = { -- Arrival in Outland
             [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {9407},
         },
-        [10121] = {
+        [10121] = { -- Eradicate the Burning Legion
             [questKeys.preQuestSingle] = {},
         },
         [10129] = { -- Mission: Gateways Murketh and Shaadraz
@@ -2939,6 +2983,7 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.objectives] = {{{18141,nil,Questie.ICON_TYPE_TALK}}},
         },
         [10177] = { -- Trouble at Auchindoun
+            [questKeys.breadcrumbForQuestId] = 10094,
             [questKeys.zoneOrSort] = zoneIDs.AUCHINDOUN_DUNGEONS,
         },
         [10178] = { -- Find Spy To'gun
@@ -2991,7 +3036,10 @@ function QuestieTBCQuestFixes:Load()
         [10211] = {
             [questKeys.triggerEnd] = {"City of Light", {[zoneIDs.SHATTRATH_CITY]={{50.45,42.93}}}},
         },
-        [10218] = {
+        [10216] = { -- Safety Is Job One
+            [questKeys.nextQuestInChain] = 10218,
+        },
+        [10218] = { -- Someone Else's Hard Work Pays Off
             [questKeys.triggerEnd] = {"Escort Cryo-Engineer Sha'heen", {[zoneIDs.MANA_TOMBS]={{-1,-1}}}},
         },
         [10222] = {
@@ -3002,6 +3050,10 @@ function QuestieTBCQuestFixes:Load()
         },
         [10231] = {
             [questKeys.objectives] = {{{19720}}},
+        },
+        [10234] = { -- One Demon's Trash...
+            [questKeys.breadcrumbs] = {10333},
+            [questKeys.preQuestSingle] = {10206},
         },
         [10240] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Activate the rune"), 0, {{"object", 183947}}}},
@@ -3033,16 +3085,19 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.objectives] = {{{19938,nil,Questie.ICON_TYPE_EVENT}}},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Use Apex's Crystal Focus near Archmage Vargoth's Orb"), 0, {{"object", 183507}}}},
         },
-        [10263] = {
+        [10263] = { -- Assisting the Consortium
             [questKeys.preQuestGroup] = {10551,10186},
             [questKeys.requiredMinRep] = {932,3000},
+            [questKeys.breadcrumbForQuestId] = 10265,
         },
-        [10264] = {
+        [10264] = { -- Assisting the Consortium
             [questKeys.preQuestGroup] = {10552,10186},
             [questKeys.requiredMinRep] = {934,3000},
+            [questKeys.breadcrumbForQuestId] = 10265,
         },
-        [10265] = {
+        [10265] = { -- Consortium Crystal Collection
             [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {10263,10264},
         },
         [10269] = {
             [questKeys.triggerEnd] = {"First triangulation point discovered", {[zoneIDs.NETHERSTORM]={{66.67,33.85}}}},
@@ -3056,19 +3111,32 @@ function QuestieTBCQuestFixes:Load()
         [10275] = {
             [questKeys.triggerEnd] = {"Second triangulation point discovered", {[zoneIDs.NETHERSTORM]={{28.92,41.25}}}},
         },
-        [10277] = {
+        [10277] = { -- The Caverns of Time
+            [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {10279},
             [questKeys.triggerEnd] = {"Caverns of Time Explained", {[zoneIDs.TANARIS]={{58.87,54.3}}}},
             [questKeys.nextQuestInChain] = 10282,
         },
+        [10279] = { -- To The Master's Lair
+            [questKeys.breadcrumbForQuestId] = 10277,
+        },
         [10283] = {
             [questKeys.objectives] = {nil,{{182589}}},
+        },
+        [10285] = { -- Return to Andormu
+            [questKeys.nextQuestInChain] = 10296,
         },
         [10288] = { -- Arrival in Outland
             [questKeys.preQuestSingle] = {},
             [questKeys.breadcrumbs] = {10119},
         },
-        [10291] = {
+        [10289] = { -- Journey to Thrallmar
+            [questKeys.breadcrumbForQuestId] = 10291,
+        },
+        [10291] = { -- Report to Nazgrel
             [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {10289},
+            [questKeys.nextQuestInChain] = 0,
         },
         [10296] = {
             [questKeys.startedBy] = {{20130}},
@@ -3098,9 +3166,13 @@ function QuestieTBCQuestFixes:Load()
         [10308] = {
             [questKeys.requiredMinRep] = {933,0},
         },
-        [10310] = {
+        [10310] = { -- Sabotage the Warp-Gate!
             [questKeys.preQuestSingle] = {},
             [questKeys.triggerEnd] = {"Burning Legion warp-gate sabotaged", {[zoneIDs.NETHERSTORM]={{48.14,63.38}}}},
+            [questKeys.breadcrumbs] = {10311},
+        },
+        [10311] = { -- Drijya Needs Your Help
+            [questKeys.breadcrumbForQuestId] = 10310,
         },
         [10321] = {
             [questKeys.objectives] = {nil,{{183956}},{{29396}}},
@@ -3130,6 +3202,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [10330] = {
             [questKeys.objectives] = {nil,{{183956}},{{29396}}},
+        },
+        [10333] = { -- Help Mama Wheeler
+            [questKeys.breadcrumbForQuestId] = 10234,
         },
         [10335] = {
             [questKeys.objectives] = {{{20473,nil,Questie.ICON_TYPE_EVENT},{20475,nil,Questie.ICON_TYPE_EVENT},{20476,nil,Questie.ICON_TYPE_EVENT}}},
@@ -3214,7 +3289,7 @@ function QuestieTBCQuestFixes:Load()
         [10385] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Communicate with Commander Ameer"), 0, {{"object", 410018}}}},
         },
-        [10388] = {
+        [10388] = { -- Return to Thrallmar
             [questKeys.startedBy] = {{16576,19273}},
             [questKeys.preQuestSingle] = {10129},
         },
@@ -3263,6 +3338,12 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.preQuestGroup] = {10412,10552},
             [questKeys.preQuestSingle] = {},
         },
+        [10416] = { -- Synthesis of Power
+            [questKeys.nextQuestInChain] = 10419,
+        },
+        [10420] = { -- A Cleansing Light
+            [questKeys.nextQuestInChain] = 10421,
+        },
         [10422] = {
             [questKeys.requiredSourceItems] = {29742},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the prison"), 0, {{"object", 184588}}}},
@@ -3295,17 +3376,20 @@ function QuestieTBCQuestFixes:Load()
         [10443] = { -- Helping the Cenarion Post
             [questKeys.breadcrumbForQuestId] = 9372,
         },
-        [10446] = {
+        [10446] = { -- The Final Code
             [questKeys.objectives] = {nil,{{184725,nil,Questie.ICON_TYPE_EVENT}}},
+            [questKeys.nextQuestInChain] = 10005,
         },
-        [10447] = {
+        [10447] = { -- The Final Code
             [questKeys.objectives] = {nil,{{184725,nil,Questie.ICON_TYPE_EVENT}}},
+            [questKeys.nextQuestInChain] = 10006,
         },
         [10451] = {
             [questKeys.triggerEnd] = {"Earthmender Wilda Escorted to Safety", {[zoneIDs.SHADOWMOON_VALLEY]={{53.14,25.17}}}},
         },
-        [10458] = {
+        [10458] = { -- Enraged Spirits of Fire and Earth
             [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {10680,10681},
             [questKeys.objectives] = {{{21050,nil,Questie.ICON_TYPE_INTERACT},{21061,nil,Questie.ICON_TYPE_INTERACT}}},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Use the Totem of Spirits on Enraged Earth and Fiery Spirits"), 0, {{"monster", 21050}, {"monster", 21061}}}},
         },
@@ -3488,6 +3572,9 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.triggerEnd] = {"Test Tally's Experiment", {[zoneIDs.BLADES_EDGE_MOUNTAINS]={{-1,-1}}}},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Speak with Rally Zapnabber and use the Zephyrium Capacitorium"), 0, {{"monster", 21461}}}},
         },
+        [10562] = { -- Besieged!
+            [questKeys.breadcrumbs] = {11044},
+        },
         [10563] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Use the Box o'Tricks while standing near the communication device"), 0, {{"object", 184833}}}},
         },
@@ -3508,14 +3595,11 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.objectives] = {{{20563,nil,Questie.ICON_TYPE_TALK}}},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Use the Blood Elf Disguise before talking to him"), 0, {{"monster", 20563}}}},
         },
-        [10580] = {
+        [10580] = { -- Where Did Those Darn Gnomes Go?
             [questKeys.exclusiveTo] = {10584},
         },
-        [10581] = {
-            [questKeys.exclusiveTo] = {10584},
-        },
-        [10584] = {
-            [questKeys.objectives] = {{{21729,nil,Questie.ICON_TYPE_INTERACT},{21731,nil,Questie.ICON_TYPE_INTERACT}}},
+        [10584] = { -- Picking Up Some Power Converters
+            [questKeys.objectives] = {{{21729,nil,Questie.ICON_TYPE_INTERACT}}},
             [questKeys.preQuestSingle] = {},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the Power Converters and encase what is inside with the Protovoltaic Magneto Collector"), 0, {{"object", 184906}}}},
         },
@@ -3534,6 +3618,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [10594] = {
             [questKeys.triggerEnd] = {"Singing crystal resonant frequency gauged", {[zoneIDs.BLADES_EDGE_MOUNTAINS]={{59.77,73.83}}}},
+        },
+        [10595] = { -- Besieged!
+            [questKeys.breadcrumbs] = {11048},
         },
         [10596] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Use the Box o'Tricks while standing near the communication device"), 0, {{"object", 184833}}}},
@@ -3568,6 +3655,9 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Use a Fel Reaver Control Console to take control of a Fel Reaver Sentinel"), 0, {{"object", 185059}}}},
             [questKeys.objectives] = {nil,{{184979}}},
         },
+        [10624] = { -- A Haunted History
+            [questKeys.breadcrumbs] = {11046},
+        },
         [10629] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_SLAY, l10n("Kill some Deranged Helboars"), 0, {{"monster", 16863}}},
                                            {nil, Questie.ICON_TYPE_EVENT, l10n("Use the Felhound Whistle"), 0, {{"monster", 16915}}},
@@ -3590,6 +3680,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [10641] = {
             [questKeys.preQuestSingle] = {10640,10689},
+        },
+        [10642] = { -- A Ghost in the Machine
+            [questKeys.breadcrumbs] = {11045},
         },
         [10645] = {
             [questKeys.preQuestGroup] = {10634,10635,10636},
@@ -3652,6 +3745,12 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_SLAY, l10n("Kill Razaani ethereals to lure Nexus-Prince Razaan out"), 0, {{"monster", 20601}, {"monster", 20609}, {"monster", 20614}}},
                                            {nil, Questie.ICON_TYPE_SLAY, l10n("Kill Nexus-Prince Razaan to spawn the Collection of Souls"), 0, {{"monster", 21057}}},
             },
+        },
+        [10680] = { -- The Hand of Gul'dan
+            [questKeys.breadcrumbForQuestId] = 10458,
+        },
+        [10681] = { -- The Hand of Gul'dan
+            [questKeys.breadcrumbForQuestId] = 10458,
         },
         [10682] = {
             [questKeys.objectives] = {{{21981,nil,Questie.ICON_TYPE_TALK}}},
@@ -3902,14 +4001,16 @@ function QuestieTBCQuestFixes:Load()
         [10833] = {
             [questKeys.requiredSkill] = {197,350},
         },
-        [10838] = {
+        [10838] = { -- The Demoniac Scryer
+            [questKeys.objectives] = {nil,nil,{{31607,nil,Questie.ICON_TYPE_TALK}}},
             [questKeys.extraObjectives] = {{{[3483]={{44,51}}}, Questie.ICON_TYPE_EVENT, l10n("Use the Demoniac Scryer")}},
         },
         [10839] = {
             [questKeys.objectives] = {nil,{{185191}}},
         },
-        [10840] = {
+        [10840] = { -- The Tomb of Lights
             [questKeys.preQuestSingle] = {10915,10852},
+            [questKeys.nextQuestInChain] = 10030,
         },
         [10842] = {
             [questKeys.preQuestSingle] = {10915,10852},
@@ -3918,9 +4019,10 @@ function QuestieTBCQuestFixes:Load()
         [10847] = { -- The Eyes of Skettis
             [questKeys.breadcrumbs] = {10862,10863,10908},
         },
-        [10852] = {
+        [10852] = { -- Missing Friends
             [questKeys.objectives] = {{{22314,nil,Questie.ICON_TYPE_EVENT}}},
             [questKeys.extraObjectives] = {{nil,Questie.ICON_TYPE_INTERACT,l10n("Open the cage"),0,{{"object",185202}}}},
+            [questKeys.requiredSourceItems] = {31655},
         },
         [10854] = {
             [questKeys.objectives] = {{{21722,nil,Questie.ICON_TYPE_INTERACT}}},
@@ -4045,8 +4147,9 @@ function QuestieTBCQuestFixes:Load()
         [10915] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the coffin and kill its contents"), 0, {{"object", 184999}}}},
         },
-        [10917] = {
+        [10917] = { -- The Outcast's Plight
             [questKeys.requiredMaxRep] = {},
+            [questKeys.nextQuestInChain] = 10918,
         },
         [10922] = {
             [questKeys.triggerEnd] = {"Protect the Explorers", {[zoneIDs.TEROKKAR_FOREST]={{30.12,70.9}}}},
@@ -4071,52 +4174,59 @@ function QuestieTBCQuestFixes:Load()
         [10939] = { -- Darkmoon Storms Deck
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
-        [10942] = {
+        [10942] = { -- Children's Week
             [questKeys.questLevel] = -1,
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
-            [questKeys.finishedBy] = {{22817}}, -- removed Draenei Orphan as turn in NPC
+            [questKeys.finishedBy] = {{22817}},
         },
-        [10943] = {
+        [10943] = { -- Children's Week
             [questKeys.questLevel] = -1,
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
         },
-        [10945] = {
+        [10945] = { -- Hch'uu and the Mushroom People
+            [questKeys.finishedBy] = {{22823}},
             [questKeys.questLevel] = -1,
             [questKeys.triggerEnd] = {"Salandria taken to Sporeggar", {[zoneIDs.ZANGARMARSH]={{19.22,51.23}}}},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
             [questKeys.preQuestSingle] = {10942},
+            [questKeys.requiredSourceItems] = {31880},
         },
         [10946] = {
             [questKeys.objectives] = {{{19514}}},
         },
-        [10950] = {
+        [10950] = { -- Auchindoun and the Ring of Observance
             [questKeys.questLevel] = -1,
             [questKeys.triggerEnd] = {"Dornaa taken to the Ring of Observance", {[zoneIDs.TEROKKAR_FOREST]={{39.71,64.6}}}},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
             [questKeys.preQuestSingle] = {10943},
+            [questKeys.requiredSourceItems] = {31881},
         },
-        [10951] = {
+        [10951] = { -- A Trip to the Dark Portal
             [questKeys.questLevel] = -1,
             [questKeys.triggerEnd] = {"Salandria taken to the Dark Portal", {[zoneIDs.HELLFIRE_PENINSULA]={{88.33,50.19}}}},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
             [questKeys.preQuestSingle] = {10942},
+            [questKeys.requiredSourceItems] = {31880},
         },
-        [10952] = {
+        [10952] = { -- A Trip to the Dark Portal
             [questKeys.questLevel] = -1,
             [questKeys.triggerEnd] = {"Dornaa taken to the Dark Portal", {[zoneIDs.HELLFIRE_PENINSULA]={{88.26,50.32}}}},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
             [questKeys.preQuestSingle] = {10943},
+            [questKeys.requiredSourceItems] = {31881},
         },
-        [10953] = {
+        [10953] = { -- Visit the Throne of the Elements
+            [questKeys.finishedBy] = {{18072}},
             [questKeys.questLevel] = -1,
             [questKeys.triggerEnd] = {"Salandria taken to the Throne of the Elements", {[zoneIDs.NAGRAND]={{60.5,22.7}}}},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
             [questKeys.preQuestSingle] = {10942},
+            [questKeys.requiredSourceItems] = {31880},
         },
         [10954] = { -- Jheel is at Aeris Landing!
             [questKeys.finishedBy] = {{22836}},
@@ -4125,53 +4235,69 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
             [questKeys.preQuestSingle] = {10943},
+            [questKeys.requiredSourceItems] = {31881},
         },
-        [10956] = {
+        [10956] = { -- The Seat of the Naaru
+            [questKeys.finishedBy] = {{17538}},
             [questKeys.questLevel] = -1,
             [questKeys.preQuestGroup] = {10950,10952,10954},
             [questKeys.triggerEnd] = {"Dornaa taken to the Seat of the Naaru", {[zoneIDs.THE_EXODAR]={{56.65,40.73}}}},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
+            [questKeys.requiredSourceItems] = {31881},
+            [questKeys.nextQuestInChain] = 10968,
         },
-        [10960] = {
+        [10960] = { -- When I Grow Up...
             [questKeys.questLevel] = -1,
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
+            [questKeys.requiredSourceItems] = {31880},
         },
-        [10962] = {
+        [10962] = { -- Time to Visit the Caverns
             [questKeys.questLevel] = -1,
             [questKeys.preQuestGroup] = {10950,10952,10954},
             [questKeys.triggerEnd] = {"Dornaa taken to the Caverns of Time", {[zoneIDs.TANARIS]={{60.52,57.74}}}},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
+            [questKeys.requiredSourceItems] = {31881},
         },
-        [10963] = {
+        [10963] = { -- Time to Visit the Caverns
             [questKeys.questLevel] = -1,
             [questKeys.triggerEnd] = {"Salandria taken to the Caverns of Time", {[zoneIDs.TANARIS]={{60.53,57.72}}}},
             [questKeys.preQuestGroup] = {10945,10951,10953},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
+            [questKeys.requiredSourceItems] = {31880},
         },
-        [10966] = {
+        [10966] = { -- Back to the Orphanage
             [questKeys.questLevel] = -1,
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
             [questKeys.preQuestGroup] = {10962,10968},
             [questKeys.preQuestSingle] = {},
         },
-        [10967] = {
+        [10967] = { -- Back to the Orphanage
             [questKeys.questLevel] = -1,
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
             [questKeys.preQuestGroup] = {10963,11975},
         },
-        [10968] = {
+        [10968] = { -- Call on the Farseer
+            [questKeys.startedBy] = {{17538}},
+            [questKeys.finishedBy] = {{17204}},
             [questKeys.questLevel] = -1,
             [questKeys.objectives] = {{{17204,nil,Questie.ICON_TYPE_EVENT}}},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
             [questKeys.preQuestGroup] = {},
             [questKeys.preQuestSingle] = {10956},
+            [questKeys.requiredSourceItems] = {31881},
+        },
+        [10969] = { -- Seek Out Ameer
+            [questKeys.breadcrumbForQuestId] = 10970,
+        },
+        [10970] = { -- A Mission of Mercy
+            [questKeys.breadcrumbs] = {10969},
         },
         [10971] = {
             [questKeys.requiredSourceItems] = {29460},
@@ -4373,26 +4499,30 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.requiredMinRep] = {978,0},
             [questKeys.breadcrumbForQuestId] = 10186,
         },
-        [11043] = {
+        [11043] = { -- Building a Better Gryphon
             [questKeys.requiredLevel] = 67,
             [questKeys.exclusiveTo] = {11044,11045},
         },
-        [11044] = {
+        [11044] = { -- Visions of Destruction
             [questKeys.requiredLevel] = 67,
             [questKeys.exclusiveTo] = {11043,11045},
             [questKeys.requiredMinRep] = {978,0},
+            [questKeys.breadcrumbForQuestId] = 10562,
         },
-        [11045] = {
-            [questKeys.exclusiveTo] = {11043,11044,10642},
+        [11045] = { -- Zorus the Judicator
+            [questKeys.exclusiveTo] = {11043,11044},
+            [questKeys.breadcrumbForQuestId] = 10642,
         },
-        [11046] = {
+        [11046] = { -- Chief Apothecary Hildagard
             [questKeys.exclusiveTo] = {11047,11048},
+            [questKeys.breadcrumbForQuestId] = 10624,
         },
-        [11047] = {
+        [11047] = { -- The Apprentice's Request
             [questKeys.exclusiveTo] = {11046,11048},
         },
-        [11048] = {
+        [11048] = { -- Kroghan's Report
             [questKeys.exclusiveTo] = {11046,11047},
+            [questKeys.breadcrumbForQuestId] = 10595,
         },
         [11049] = {
             [questKeys.requiredRaces] = raceIDs.NONE,
@@ -4586,8 +4716,9 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.preQuestSingle] = {11102,11010},
             [questKeys.requiredLevel] = 70,
         },
-        [11123] = {
+        [11123] = { -- Inspecting the Ruins
             [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {1282},
         },
         [11126] = { -- Traitors Among Us
             [questKeys.objectives] = {{{23602,nil,Questie.ICON_TYPE_TALK}}},
@@ -4693,8 +4824,9 @@ function QuestieTBCQuestFixes:Load()
         [11215] = {
             [questKeys.exclusiveTo] = {11158,11214,11211},
         },
-        [11216] = {
+        [11216] = { -- Archmage Alturus
             [questKeys.nextQuestInChain] = 9824,
+            [questKeys.breadcrumbForQuestId] = 9824,
             [questKeys.zoneOrSort] = zoneIDs.KARAZHAN,
         },
         [11219] = {
@@ -5721,12 +5853,13 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.startedBy] = {nil,{187892},{35723}},
             [questKeys.finishedBy] = {{25697}},
         },
-        [11975] = {
+        [11975] = { -- Now, When I Grow Up...
             [questKeys.questLevel] = -1,
             [questKeys.triggerEnd] = {"Take Salandria to visit the Elite Tauren Chieftain in Silvermoon City.", {[zoneIDs.SILVERMOON_CITY]={{76.6,81.2}}}},
             [questKeys.preQuestGroup] = {10945,10951,10953},
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
+            [questKeys.requiredSourceItems] = {31880},
         },
         [12012] = {
             [questKeys.startedBy] = {{25324}},
@@ -7304,6 +7437,9 @@ function QuestieTBCQuestFixes:LoadFactionFixes()
         [9063] = { -- Torwa Pathfinder
             [questKeys.startedBy] = {{3033,12042,16655}},
         },
+        [9990] = { -- Investigate Tuurem
+            [questKeys.nextQuestInChain] = 9995,
+        },
     }
 
     local questFixesAlliance = {
@@ -7342,6 +7478,9 @@ function QuestieTBCQuestFixes:LoadFactionFixes()
         },
         [9063] = { -- Torwa Pathfinder
             [questKeys.startedBy] = {{4217,5505,12042,16721}},
+        },
+        [9990] = { -- Investigate Tuurem
+            [questKeys.nextQuestInChain] = 9994,
         },
     }
 

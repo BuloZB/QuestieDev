@@ -322,12 +322,6 @@ function MopQuestFixes.Load()
         [10277] = { -- The Caverns of Time
             [questKeys.triggerEnd] = {"Caverns of Time Explained", {[zoneIDs.CAVERNS_OF_TIME]={{44.31,38.73}}}},
         },
-        [13408] = { -- Hellfire Fortifications
-            [questKeys.requiredClasses] = 2015, -- all classes except DK
-        },
-        [13409] = { -- Hellfire Fortifications
-            [questKeys.requiredClasses] = 2015, -- all classes except DK
-        },
         [14007] = { -- Steady Shot
             [questKeys.requiredLevel] = 2,
             [questKeys.extraObjectives] = {},
@@ -1218,6 +1212,7 @@ function MopQuestFixes.Load()
             [questKeys.finishedBy] = {{110005}},
             [questKeys.objectives] = {nil,{{214873}}},
             [questKeys.preQuestSingle] = {29745},
+            [questKeys.questFlags] = questFlags.NONE,
         },
         [29749] = { -- An Urgent Plea
             [questKeys.preQuestSingle] = {},
@@ -4502,6 +4497,9 @@ function MopQuestFixes.Load()
         [30907] = { -- Round 4: The P.U.G
             [questKeys.questFlags] = questFlags.DAILY,
         },
+        [30910] = { -- Greenstone Village
+            [questKeys.questFlags] = questFlags.NONE,
+        },
         [30921] = { -- The Motives of the Mantid
             [questKeys.objectives] = {nil,nil,nil,nil,{ -- all clues are found on the same NPCs
                 {{61376,61377},61376},
@@ -4726,6 +4724,7 @@ function MopQuestFixes.Load()
             [questKeys.objectives] = {nil,{{212524}}},
             [questKeys.preQuestSingle] = {31006},
             [questKeys.extraObjectives] = {{nil,Questie.ICON_TYPE_TALK,l10n("Talk to Kil'ruk"),0,{{"monster",62538}}}},
+            [questKeys.questFlags] = questFlags.NONE,
         },
         [31010] = { -- In Her Clutch
             [questKeys.objectives] = {nil,{{214674}}},
@@ -8450,6 +8449,7 @@ function MopQuestFixes.Load()
         },
         [32317] = { -- Seeking the Soulstones
             [questKeys.objectives] = {nil,nil,{{92494},{92495},{92496},{92497}}},
+            [questKeys.questFlags] = questFlags.NONE,
         },
         [32318] = { -- Regeneration Takes Time
             [questKeys.preQuestSingle] = {32284},
@@ -9974,9 +9974,26 @@ function MopQuestFixes.Load()
             [questKeys.questFlags] = questFlags.WEEKLY,
             [questKeys.objectives] = {{{73082,nil,Questie.ICON_TYPE_PET_BATTLE}}},
         },
+        [33161] = { -- A Timeless Tour
+            [questKeys.objectives] = {{{73577,nil,Questie.ICON_TYPE_EVENT},{73576,nil,Questie.ICON_TYPE_EVENT},{73579,nil,Questie.ICON_TYPE_EVENT},{73578,nil,Questie.ICON_TYPE_EVENT},{73574,nil,Questie.ICON_TYPE_EVENT},{73575,nil,Questie.ICON_TYPE_EVENT}}},
+        },
         [33222] = { -- Little Tommy Newcomer
             [questKeys.requiredSpell] = 119467,
             [questKeys.objectives] = {{{73626,nil,Questie.ICON_TYPE_PET_BATTLE}}},
+        },
+        [33229] = { -- A Flash of Bronze...
+            [questKeys.breadcrumbForQuestId] = 33231,
+        },
+        [33230] = { -- A Flash of Bronze...
+            [questKeys.breadcrumbForQuestId] = 33232,
+        },
+        [33231] = { -- Journey to the Timeless Isle
+            [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {33229},
+        },
+        [33232] = { -- Journey to the Timeless Isle
+            [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {33230},
         },
         [33252] = { -- A Winter Veil Gift
             [questKeys.startedBy] = {nil,{187236}},
