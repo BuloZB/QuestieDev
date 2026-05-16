@@ -1506,9 +1506,6 @@ function CataQuestFixes.Load()
         [10450] = { -- Bonechewer Blood
             [questKeys.preQuestSingle] = {},
         },
-        [10458] = { -- Enraged Spirits of Fire and Earth
-            [questKeys.breadcrumbs] = {10681},
-        },
         [10460] = { -- Defender's Pledge
             [questKeys.startedBy] = {{19935}},
         },
@@ -1589,9 +1586,6 @@ function CataQuestFixes.Load()
         },
         [10676] = { -- Bane of the Illidari
             [questKeys.preQuestSingle] = {},
-        },
-        [10681] = { -- The Hand of Gul'dan
-            [questKeys.breadcrumbForQuestId] = 10458,
         },
         [10729] = { -- Path of the Violet Mage
             [questKeys.exclusiveTo] = {10730,10731,10732},
@@ -2424,7 +2418,7 @@ function CataQuestFixes.Load()
             [questKeys.requiredSourceItems] = {44886},
             [questKeys.extraObjectives] = {{nil,Questie.ICON_TYPE_EVENT,l10n("Use Bear's Paw Bundle"),0,{{"object",194106}}}},
         },
-        [13545] = { -- Coaxing the Spirits
+        [13545] = { -- Cleansing the Afflicted
             [questKeys.extraObjectives] = {{nil,Questie.ICON_TYPE_INTERACT,l10n("Use the Blessed Herb Bundle"),0,{{"monster",33043},{"monster",33044}}}},
             [questKeys.objectives] = {nil,nil,nil,nil,{{{33000,33044},30000,nil,Questie.ICON_TYPE_INTERACT}}},
         },

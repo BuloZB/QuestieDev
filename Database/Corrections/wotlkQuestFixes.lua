@@ -672,8 +672,8 @@ function QuestieWotlkQuestFixes:Load()
         [10888] = {
             [questKeys.exclusiveTo] = {13430},
         },
-        [10900] = {
-            [questKeys.requiredMaxLevel] = 70,
+        [10900] = { -- The Mark of Vashj
+            [questKeys.nextQuestInChain] = 13431,
         },
         [10901] = {
             [questKeys.exclusiveTo] = {13431},
@@ -687,8 +687,19 @@ function QuestieWotlkQuestFixes:Load()
         [10985] = {
             [questKeys.exclusiveTo] = {13429},
         },
+        [11009] = { -- Ogre Heaven
+            [questKeys.breadcrumbForQuestId] = 11025,
+            [questKeys.nextQuestInChain] = 11025,
+        },
         [11010] = {
             [questKeys.requiredClasses] = classIDs.WARLOCK + classIDs.ROGUE + classIDs.MAGE + classIDs.PRIEST + classIDs.WARRIOR + classIDs.PALADIN + classIDs.HUNTER + classIDs.SHAMAN + classIDs.DEATH_KNIGHT,
+        },
+        [11025] = { -- The Crystals
+            [questKeys.preQuestSingle] = {11000},
+            [questKeys.breadcrumbs] = {11009},
+        },
+        [11026] = { -- Banish the Demons
+            [questKeys.preQuestSingle] = {11009},
         },
         [11117] = {
             [questKeys.startedBy] = {{23486}},

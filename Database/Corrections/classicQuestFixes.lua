@@ -5289,17 +5289,20 @@ function QuestieQuestFixes:Load()
         [8950] = {
             [questKeys.nextQuestInChain] = 9015,
         },
+        [8961] = {
+            [questKeys.nextQuestInChain] = 8962,
+        },
         [8962] = {
-            [questKeys.nextQuestInChain] = 0,
+            [questKeys.nextQuestInChain] = 8966,
         },
         [8963] = {
-            [questKeys.nextQuestInChain] = 0,
+            [questKeys.nextQuestInChain] = 8966,
         },
         [8964] = {
-            [questKeys.nextQuestInChain] = 0,
+            [questKeys.nextQuestInChain] = 8966,
         },
         [8965] = {
-            [questKeys.nextQuestInChain] = 0,
+            [questKeys.nextQuestInChain] = 8966,
         },
         [8966] = {
             [questKeys.exclusiveTo] = {8967,8968,8969},
@@ -5317,6 +5320,9 @@ function QuestieQuestFixes:Load()
             [questKeys.exclusiveTo] = {8966,8967,8968},
             [questKeys.preQuestSingle] = {8962,8963,8964,8965},
         },
+        [8970] = { -- I See Alcaz Island In Your Future...
+            [questKeys.nextQuestInChain] = 8985,
+        },
         [8979] = { -- Fenstad's Hunch
             [questKeys.nextQuestInChain] = 8980,
             [questKeys.preQuestSingle] = {8900,8901,8902,8904},
@@ -5327,22 +5333,22 @@ function QuestieQuestFixes:Load()
         [8985] = {
             [questKeys.preQuestSingle] = {8970},
             [questKeys.exclusiveTo] = {8986,8987,8988},
-            [questKeys.nextQuestInChain] = 0,
+            [questKeys.nextQuestInChain] = 8989,
         },
         [8986] = {
             [questKeys.preQuestSingle] = {8970},
             [questKeys.exclusiveTo] = {8985,8987,8988},
-            [questKeys.nextQuestInChain] = 0,
+            [questKeys.nextQuestInChain] = 8989,
         },
         [8987] = {
             [questKeys.preQuestSingle] = {8970},
             [questKeys.exclusiveTo] = {8986,8988,8989},
-            [questKeys.nextQuestInChain] = 0,
+            [questKeys.nextQuestInChain] = 8989,
         },
         [8988] = {
             [questKeys.preQuestSingle] = {8970},
             [questKeys.exclusiveTo] = {8986,8987,8989},
-            [questKeys.nextQuestInChain] = 0,
+            [questKeys.nextQuestInChain] = 8989,
         },
         [8989] = {
             [questKeys.preQuestSingle] = {8985,8986,8987,8988},
@@ -5975,6 +5981,7 @@ end
 function QuestieQuestFixes:LoadFactionFixes()
     local questKeys = QuestieDB.questKeys
     local raceIDs = QuestieDB.raceKeys
+    local playerClass = UnitClassBase("player")
 
     local questFixesHorde = {
         [687] = {
@@ -6038,8 +6045,44 @@ function QuestieQuestFixes:LoadFactionFixes()
         [8928] = {
             [questKeys.nextQuestInChain] = 8978,
         },
+        [8978] = { -- Return to Mokvar
+            [questKeys.nextQuestInChain] = ({
+                ["DRUID"]   = 8927,
+                ["HUNTER"]  = 8938,
+                ["MAGE"]    = 8939,
+                ["PRIEST"]  = 8940,
+                ["ROGUE"]   = 8941,
+                ["SHAMAN"]  = 8942,
+                ["WARLOCK"] = 8943,
+                ["WARRIOR"] = 8944,
+            })[playerClass],
+        },
         [8996] = {
             [questKeys.nextQuestInChain] = 8998,
+        },
+        [8998] = { -- Back to the Beginning
+            [questKeys.nextQuestInChain] = ({
+                ["DRUID"]   = 9007,
+                ["HUNTER"]  = 9008,
+                ["MAGE"]    = 9014,
+                ["PRIEST"]  = 9009,
+                ["ROGUE"]   = 9010,
+                ["SHAMAN"]  = 9011,
+                ["WARLOCK"] = 9012,
+                ["WARRIOR"] = 9013,
+            })[playerClass],
+        },
+        [9015] = { -- The Challenge
+            [questKeys.nextQuestInChain] = ({
+                ["DRUID"]   = 9016,
+                ["HUNTER"]  = 9017,
+                ["MAGE"]    = 9018,
+                ["PRIEST"]  = 9019,
+                ["ROGUE"]   = 9020,
+                ["SHAMAN"]  = 8957,
+                ["WARLOCK"] = 9021,
+                ["WARRIOR"] = 9022,
+            })[playerClass],
         },
         [9063] = { -- Torwa Pathfinder
             [questKeys.startedBy] = {{3033,12042}},
@@ -6111,8 +6154,44 @@ function QuestieQuestFixes:LoadFactionFixes()
         [8928] = {
             [questKeys.nextQuestInChain] = 8977,
         },
+        [8977] = { -- Return to Deliana
+            [questKeys.nextQuestInChain] = ({
+                ["DRUID"]   = 8926,
+                ["HUNTER"]  = 8931,
+                ["MAGE"]    = 8932,
+                ["PALADIN"] = 8933,
+                ["PRIEST"]  = 8934,
+                ["ROGUE"]   = 8935,
+                ["WARLOCK"] = 8936,
+                ["WARRIOR"] = 8937,
+            })[playerClass],
+        },
         [8996] = {
             [questKeys.nextQuestInChain] = 8997,
+        },
+        [8997] = { -- Back to the Beginning
+            [questKeys.nextQuestInChain] = ({
+                ["DRUID"]   = 8999,
+                ["HUNTER"]  = 9000,
+                ["MAGE"]    = 9001,
+                ["PALADIN"] = 9002,
+                ["PRIEST"]  = 9003,
+                ["ROGUE"]   = 9004,
+                ["WARLOCK"] = 9005,
+                ["WARRIOR"] = 9006,
+            })[playerClass],
+        },
+        [9015] = { -- The Challenge
+            [questKeys.nextQuestInChain] = ({
+                ["DRUID"]   = 8951,
+                ["HUNTER"]  = 8952,
+                ["MAGE"]    = 8953,
+                ["PALADIN"] = 8954,
+                ["PRIEST"]  = 8955,
+                ["ROGUE"]   = 8956,
+                ["WARLOCK"] = 8958,
+                ["WARRIOR"] = 8959,
+            })[playerClass],
         },
         [9063] = { -- Torwa Pathfinder
             [questKeys.startedBy] = {{4217,5505,12042}},

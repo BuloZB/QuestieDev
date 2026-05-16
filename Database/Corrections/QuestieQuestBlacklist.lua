@@ -979,7 +979,7 @@ function QuestieQuestBlacklist:Load()
         [8614] = Expansions.Current >= Expansions.Tbc,
         [8615] = Expansions.Current >= Expansions.Tbc,
         [8616] = Expansions.Current >= Expansions.Tbc,
-        [8743] = Expansions.Current >= Expansions.Tbc or HIDE_ON_MAP, -- Bang a Gong! (AQ40 opening quest)
+        [8743] = Expansions.Current >= Expansions.Tbc, -- Bang a Gong! (AQ40 opening quest)
         [8792] = Expansions.Current >= Expansions.Tbc,
         [8793] = Expansions.Current >= Expansions.Tbc,
         [8794] = Expansions.Current >= Expansions.Tbc,
@@ -1348,13 +1348,13 @@ function QuestieQuestBlacklist:Load()
         [8368] = Expansions.Current >= Expansions.Tbc,
         [8369] = Expansions.Current >= Expansions.Tbc,
         [8370] = Expansions.Current >= Expansions.Tbc,
-        [8371] = Expansions.Current >= Expansions.Tbc,
+        [8371] = Expansions.Current >= Expansions.Wotlk, -- enabled in tbc P2
         [8372] = Expansions.Current >= Expansions.Tbc,
         [8374] = Expansions.Current >= Expansions.Tbc,
         [8375] = Expansions.Current >= Expansions.Tbc,
         [8383] = Expansions.Current >= Expansions.Tbc,
         [8384] = Expansions.Current >= Expansions.Tbc,
-        [8385] = Expansions.Current >= Expansions.Tbc,
+        [8385] = Expansions.Current >= Expansions.Wotlk, -- enabled in tbc P2
         [8386] = Expansions.Current >= Expansions.Tbc,
         [8387] = Expansions.Current >= Expansions.Tbc,
         [8388] = Expansions.Current >= Expansions.Tbc,
@@ -7159,6 +7159,7 @@ QuestieQuestBlacklist.AQWarEffortQuests = {
     [8614] = true,
     [8615] = true,
     [8616] = true,
+    [8743] = true,
     [8792] = true,
     [8793] = true,
     [8794] = true,

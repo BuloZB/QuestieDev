@@ -1932,6 +1932,10 @@ function CataNpcFixes.Load()
         [13598] = { -- Stormpike Explosives Expert
             [npcKeys.questStarts] = {7367},
         },
+        [13602] = { -- The Abominable Greench
+            [npcKeys.spawns] = {[zoneIDs.HILLSBRAD_FOOTHILLS] = {{43.54,39.11}}},
+            [npcKeys.zoneID] = zoneIDs.HILLSBRAD_FOOTHILLS,
+        },
         [13636] = { -- Strange Snowman
             [npcKeys.questStarts] = {6983,7043},
         },
