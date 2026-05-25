@@ -1341,7 +1341,6 @@ function QuestieQuestBlacklist:Load()
         [8411] = Expansions.Current >= Expansions.Cata, -- not sure when this quest was removed, Wowhead says Cata, it is present in Classic SoD
         [9712] = true,
         [10377] = true,
-        [11052] = true,
 
         -- Marks of Honor PvP quests - All of them should only be available in Era
         [8367] = Expansions.Current >= Expansions.Tbc,
@@ -1681,7 +1680,7 @@ function QuestieQuestBlacklist:Load()
         [95706] = not Questie.IsTitanReforged, -- Gobb's Weekly Greed Deal -- only present on Titan servers
         [95844] = not Questie.IsTitanReforged, -- Gobb's Grand Tank Temptation -- only present on Titan servers
         [95845] = not Questie.IsTitanReforged, -- Another Shot at the Scarab -- only present on Titan servers
-        [95037] = true, -- Lord Jaraxxus Must Die! not open now
+        [95037] = not Questie.IsTitanReforged, -- Lord Jaraxxus Must Die!
         [96312] = true, -- Brutallus Must Die! not open now
         [96315] = true, -- XT-002 Deconstructor Must Die! not open now
         [96318] = true, -- Shade of Aran Must Die! not open now
@@ -6108,6 +6107,7 @@ function QuestieQuestBlacklist:Load()
         [29817] = true, -- Not in the game
         [29818] = true, -- Not in the game
         [29819] = true, -- Not in the game
+        [29820] = true, -- Not in the game
         [29837] = true, -- Not in the game
         [29841] = true, -- Not in the game
         [29842] = true, -- Not in the game
@@ -6168,6 +6168,7 @@ function QuestieQuestBlacklist:Load()
         [30358] = true, -- Not in the game
         [30362] = true, -- Not in the game
         [30364] = true, -- Not in the game
+        [30377] = true, -- Not in the game
         [30378] = true, -- Not in the game
         [30442] = true, -- Not in the game
         [30443] = true, -- Not in the game
@@ -6270,6 +6271,7 @@ function QuestieQuestBlacklist:Load()
         [31155] = true, -- Hidden quest
         [31126] = true, -- Hidden quest
         [31172] = true, -- Not in the game
+        [31206] = true, -- Not in the game
         [31212] = true, -- Not in the game
         [31213] = true, -- Not in the game
         [31214] = true, -- Not in the game
@@ -6439,16 +6441,31 @@ function QuestieQuestBlacklist:Load()
         [32504] = true, -- Not in the game
         [32508] = true, -- Not in the game
         [32534] = true, -- Not in the game
+        [32609] = true, -- Hidden quest
+        [32610] = true, -- Hidden quest
+        [32611] = true, -- Hidden quest
         [32622] = true, -- Hidden quest
+        [32626] = true, -- Hidden quest
+        [32629] = true, -- Hidden quest
         [32651] = true, -- Hidden quest
         [32666] = true, -- Hidden quest
+        [32694] = true, -- Hidden quest
+        [32695] = true, -- Hidden quest
         [32696] = true, -- Not in the game
+        [32697] = true, -- Hidden quest
+        [32698] = true, -- Hidden quest
         [32699] = true, -- Not in the game
+        [32700] = true, -- Hidden quest
+        [32701] = true, -- Hidden quest
         [32702] = true, -- Not in the game
+        [32703] = true, -- Hidden quest
+        [32704] = true, -- Hidden quest
         [32705] = true, -- Not in the game
         [32717] = true, -- Not in the game
         [32723] = true, -- Hidden quest
         [32725] = true, -- Hidden quest
+        [32727] = true, -- Hidden quest
+        [32825] = true, -- Hidden quest
         [32826] = true, -- Hidden quest
         [32827] = true, -- Hidden quest
         [32832] = true, -- Not in the game
@@ -6887,6 +6904,7 @@ function QuestieQuestBlacklist:Load()
         [13541] = true, -- Not in the game
         [30415] = true, -- A Ruby Shard for Chee Chee (duplicate of 30397) - wowhead even lists this as "Tracking Quest - Successful"
         [31533] = true, -- The Perfect Feather (not in the game)
+        [31816] = true, -- Traitor Gluk
         [31878] = true, -- Audrey Burnhep
         [31879] = true, -- Audrey Burnhep
         [31880] = true, -- Audrey Burnhep

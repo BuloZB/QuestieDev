@@ -2310,8 +2310,9 @@ function QuestieTBCQuestFixes:Load()
         [9629] = {
             [questKeys.objectives] = {{{17326,nil,Questie.ICON_TYPE_INTERACT}}},
         },
-        [9630] = {
+        [9630] = { -- Medivh's Journal
             [questKeys.zoneOrSort] = zoneIDs.KARAZHAN,
+            [questKeys.preQuestSingle] = {9837}, -- not 100% sure, but makes sense
         },
         [9634] = { -- Alien Predators
             [questKeys.preQuestSingle] = {},
@@ -3421,6 +3422,9 @@ function QuestieTBCQuestFixes:Load()
         [10443] = { -- Helping the Cenarion Post
             [questKeys.breadcrumbForQuestId] = 9372,
         },
+        [10445] = { -- The Vials of Eternity
+            [questKeys.startedBy] = {{19935,19936}},
+        },
         [10446] = { -- The Final Code
             [questKeys.objectives] = {nil,{{184725,nil,Questie.ICON_TYPE_EVENT}}},
             [questKeys.nextQuestInChain] = 10005,
@@ -3831,8 +3835,11 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.objectivesText] = {"Go to the top of the Ata'mal Terrace in Shadowmoon Valley and obtain the Heart of Fury. Return to Akama at the Warden's Cage in Shadowmoon Valley when you've completed this task."},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Kill the 3 Shadowmoon Soulstealers to force Shadowlord Deathwail to land"), 0, {{"object", 185125}}}},
         },
-        [10708] = {
+        [10708] = { -- Akama's Promise
             [questKeys.exclusiveTo] = {11052},
+            [questKeys.requiredLevel] = 68,
+            [questKeys.nextQuestInChain] = 10944,
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
         },
         [10710] = { -- Test Flight: The Singing Ridge
             [questKeys.triggerEnd] = {"Test Tally's Experiment", {[zoneIDs.BLADES_EDGE_MOUNTAINS]={{60.17,68.8}}}},
@@ -4268,6 +4275,9 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.questLevel] = -1,
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
         },
+        [10944] = { -- The Secret Compromised
+            [questKeys.preQuestSingle] = {10708,11052},
+        },
         [10945] = { -- Hch'uu and the Mushroom People
             [questKeys.finishedBy] = {{22823}},
             [questKeys.questLevel] = -1,
@@ -4385,22 +4395,25 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.breadcrumbs] = {10969},
             [questKeys.nextQuestInChain] = 10971,
         },
-        [10971] = {
+        [10971] = { -- Ethereum Secrets
             [questKeys.requiredSourceItems] = {29460},
-            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the prison"), 0, {{"object", 184998}}}},
-            [questKeys.nextQuestInChain] = 10972,
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the prison"), 0, {{"object", 184418},{"object", 184419},{"object", 184420},{"object", 184421},{"object", 184422},{"object", 184423},{"object", 184424},{"object", 184425},{"object", 184426},{"object", 184427},{"object", 184428},{"object", 184429},{"object", 184430},{"object", 184431}}}},
+            [questKeys.nextQuestInChain] = 10973,
         },
-        [10974] = {
+        [10974] = { -- Stasis Chambers of Bash'ir
+            [questKeys.requiredMinRep] = {933,21000},
+            [questKeys.nextQuestInChain] = 10976,
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the prison"), 0, {{"object", 185512}}}},
+        },
+        [10975] = { -- Purging the Chambers of Bash'ir
             [questKeys.requiredMinRep] = {933,21000},
         },
-        [10975] = {
+        [10976] = { -- The Mark of the Nexus-King
             [questKeys.requiredMinRep] = {933,21000},
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the prison"), 0, {{"object", 184595},{"object", 185461},{"object", 185462},{"object", 185463},{"object", 185464},{"object", 185465},{"object", 185466},{"object", 185467}}}},
+            [questKeys.nextQuestInChain] = 10977,
         },
-        [10976] = {
-            [questKeys.requiredMinRep] = {933,21000},
-            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the prison"), 0, {{"object", 185001}}}},
-        },
-        [10977] = {
+        [10977] = { -- Stasis Chambers of the Mana-Tombs
             [questKeys.objectives] = {nil,{{185519}}},
             [questKeys.requiredMinRep] = {933,21000},
         },
@@ -4531,6 +4544,7 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.preQuestSingle] = {11025},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_SLAY, l10n("Use the Banishing Crystal and slay demons near the summoned portal"), 0, {{"monster", 20557},{"monster", 22195},{"monster", 22291},{"monster", 19973},{"monster", 22204},{"monster", 22304},{"monster", 23174}}}},
             [questKeys.objectives] = {nil,nil,nil,nil,{{{20557,22195,22291,19973,22204,22304,23174},20557}}},
+            [questKeys.nextQuestInChain] = 11051,
         },
         [11028] = { -- Countdown to Doom
             [questKeys.nextQuestInChain] = 11056,
@@ -4630,11 +4644,14 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_SLAY, l10n("Use the Banishing Crystal and slay demons near the summoned portal"), 0, {{"monster", 20557},{"monster", 22195},{"monster", 22291},{"monster", 19973},{"monster", 22204},{"monster", 22304},{"monster", 23174}}}},
             [questKeys.objectives] = {nil,nil,nil,nil,{{{20557,22195,22291,19973,22204,22304,23174},20557}}},
         },
-        [11052] = {
+        [11052] = { -- Akama's Promise
             [questKeys.name] = "Akama's Promise",
             [questKeys.exclusiveTo] = {10708},
             [questKeys.startedBy] = {{21700}},
             [questKeys.finishedBy] = {{18481}},
+            [questKeys.requiredLevel] = 68,
+            [questKeys.nextQuestInChain] = 10944,
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
         },
         [11057] = { -- The Trouble Below
             [questKeys.requiredLevel] = 70,
@@ -7582,6 +7599,9 @@ function QuestieTBCQuestFixes:LoadFactionFixes()
         [9990] = { -- Investigate Tuurem
             [questKeys.nextQuestInChain] = 9995,
         },
+        [10707] = { -- The Ata'mal Terrace
+            [questKeys.nextQuestInChain] = 10708,
+        },
         [10858] = { -- Karynaku
             [questKeys.nextQuestInChain] = 10866,
         },
@@ -7665,6 +7685,9 @@ function QuestieTBCQuestFixes:LoadFactionFixes()
         },
         [9990] = { -- Investigate Tuurem
             [questKeys.nextQuestInChain] = 9994,
+        },
+        [10707] = { -- The Ata'mal Terrace
+            [questKeys.nextQuestInChain] = 11052,
         },
         [10858] = { -- Karynaku
             [questKeys.nextQuestInChain] = playerRace == "Human" and 10872 or 10866,

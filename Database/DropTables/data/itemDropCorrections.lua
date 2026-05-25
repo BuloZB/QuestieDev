@@ -242,6 +242,12 @@ QuestieItemDropCorrections.Era = {
         [3234] = 100,
         [3236] = 100,
     },
+    [21108] = { -- Draconic for Dummies (Chapter VI)
+        [10184] = 100,
+    },
+    [21110] = { -- Draconic for Dummies (Chapter VIII)
+        [11502] = 100,
+    },
     [190232] = { -- Withered Scarf
         [3782] = 5, -- super bad drop rate, wowhead shows 3%. it's somewhere between 5-10%
         [3784] = 5, -- super bad drop rate, wowhead shows 3%. it's somewhere between 5-10%
@@ -309,6 +315,12 @@ QuestieItemDropCorrections.Tbc = {
     [24485] = { -- Marshlight Bleeder Venom
         [18133] = DropKeys.WOWHEAD,
         [20198] = DropKeys.WOWHEAD,
+    },
+    [25461] = { -- Book of Forgotten Names
+        [18472] = 100,
+    },
+    [25462] = { -- Tome of Dusk
+        [16807] = 100,
     },
     [25463] = { -- Pair of Ivory Tusks
         [18334] = 100,

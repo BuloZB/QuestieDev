@@ -156,6 +156,9 @@ function QuestieQuestFixes:Load()
             [questKeys.breadcrumbForQuestId] = 148, -- #1173
             [questKeys.nextQuestInChain] = 148,
         },
+        [179] = { -- Dwarven Outfitters
+            [questKeys.nextQuestInChain] = 233,
+        },
         [201] = {
             [questKeys.triggerEnd] = {"Locate the hunters' camp", {[zoneIDs.STRANGLETHORN_VALE]={{35.65,10.59}}}},
         },
@@ -181,6 +184,9 @@ function QuestieQuestFixes:Load()
         },
         [239] = {
             [questKeys.breadcrumbForQuestId] = 11,
+        },
+        [248] = {
+            [questKeys.nextQuestInChain] = 249,
         },
         [249] = {
             [questKeys.startedBy] = {{313},{31}},
@@ -320,6 +326,9 @@ function QuestieQuestFixes:Load()
         },
         [452] = {
             [questKeys.objectives] = {nil,nil,nil,nil,{{{2060,2061,2062,2063,2064,2065,2066,2067,2068},2060}}},
+        },
+        [454] = { -- After the Ambush
+            [questKeys.nextQuestInChain] = 309,
         },
         [455] = {
             [questKeys.preQuestSingle] = {}, -- #1858
@@ -1794,6 +1803,9 @@ function QuestieQuestFixes:Load()
         [2480] = {
             [questKeys.triggerEnd] = {"Cure Completed",{[zoneIDs.HILLSBRAD_FOOTHILLS]={{61.57, 19.21}}}},
         },
+        [2500] = { -- Badlands Reagent Run
+            [questKeys.nextQuestInChain] = 17,
+        },
         [2501] = {
             [questKeys.preQuestSingle] = {}, -- #1541
             [questKeys.preQuestGroup] = {2500,17}, -- #1541
@@ -2125,8 +2137,17 @@ function QuestieQuestFixes:Load()
             [questKeys.objectives] = {{{8479,nil,Questie.ICON_TYPE_TALK}}},
             [questKeys.nextQuestInChain] = 3442,
         },
-        [3449] = {
-            [questKeys.childQuests] = {3483}, -- #1008
+        [3449] = { -- Arcane Runes
+            [questKeys.childQuests] = {3450},
+            [questKeys.requiredSourceItems] = {10444},
+        },
+        [3450] = { -- An Easy Pickup
+            [questKeys.parentQuest] = 3449,
+            [questKeys.preQuestSingle] = {},
+        },
+        [3451] = { -- Signal for Pickup
+            [questKeys.availableUntilCompleted] = 3449,
+            [questKeys.nextQuestInChain] = 3483,
         },
         [3453] = {
             [questKeys.objectives] = {{{8479,nil,Questie.ICON_TYPE_EVENT}}},
@@ -2140,9 +2161,9 @@ function QuestieQuestFixes:Load()
         [3481] = { -- Trinkets...
             [questKeys.nextQuestInChain] = 4022,
         },
-        [3483] = {
-            [questKeys.parentQuest] = 3449, -- #1008
+        [3483] = { -- Signal for Pickup
             [questKeys.specialFlags] = specialFlags.REPEATABLE, -- #1131
+            [questKeys.availableUntilCompleted] = 3449,
         },
         [3520] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_SLAY, l10n("Slay Vale Screechers and use Yeh'kinya's Bramble on their corpse."), 0, {{"monster", 5307},{"monster", 5308}}}},
@@ -2448,13 +2469,13 @@ function QuestieQuestFixes:Load()
             [questKeys.nextQuestInChain] = 4322,
         },
         [4285] = {
-            [questKeys.triggerEnd] = {"Discover and examine the Northern Crystal Pylon",{[zoneIDs.UN_GORO_CRATER]={{56,12}}}},
+            [questKeys.objectives] = {nil,{{164955}}},
         },
         [4287] = {
-            [questKeys.triggerEnd] = {"Discover and examine the Eastern Crystal Pylon",{[zoneIDs.UN_GORO_CRATER]={{77,50}}}},
+            [questKeys.objectives] = {nil,{{164957}}},
         },
         [4288] = {
-            [questKeys.triggerEnd] = {"Discover and examine the Western Crystal Pylon",{[zoneIDs.UN_GORO_CRATER]={{23,59}}}},
+            [questKeys.objectives] = {nil,{{164956}}},
         },
         [4289] = { -- The Apes of Un'Goro
             [questKeys.nextQuestInChain] = 4301,
@@ -2842,6 +2863,7 @@ function QuestieQuestFixes:Load()
         },
         [5214] = { -- The Great Ezra Grimm
             [questKeys.name] = "The Great Ezra Grimm",
+            [questKeys.objectivesText] = {"Find Ezra Grimm's smoke shop in Stratholme and recover a box of Grimm's Premium Tobacco. Return to Smokey LaRue when the job is done."},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the box"), 0, {{"object", 176248}}}},
         },
         [5218] = {
