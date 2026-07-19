@@ -20,6 +20,8 @@ local ZoneDB = QuestieLoader:ImportModule("ZoneDB")
 local l10n = QuestieLoader:ImportModule("l10n")
 ---@type QuestLogCache
 local QuestLogCache = QuestieLoader:ImportModule("QuestLogCache")
+---@type QuestiePartyObjectives
+local QuestiePartyObjectives = QuestieLoader:ImportModule("QuestiePartyObjectives")
 
 local HBD = LibStub("HereBeDragonsQuestie-2.0")
 
@@ -361,6 +363,8 @@ function QuestieComms:InsertQuestDataPacketV2_noclass_RenameMe(questPacket, play
                 --Write to tooltip data
                 QuestieComms.data:RegisterTooltip(questPacketid, playerName, objectives)
             end
+
+            QuestiePartyObjectives:ScheduleUpdate(questPacketid)
         end
     end
     return offset, allDone
@@ -415,6 +419,8 @@ function QuestieComms:InsertQuestDataPacketV2(questPacket, playerName, offset, d
                     QuestieComms.remoteQuestLogs[questPacketid][playerName] = nil
                 end
             end
+
+            QuestiePartyObjectives:ScheduleUpdate(questPacketid)
         end
     end
     return offset, allDone
@@ -439,6 +445,7 @@ function QuestieComms:RemoveRemotePlayer(name)
             players[name] = nil
         end
     end
+    QuestiePartyObjectives:ScheduleUpdate()
 end
 
 function QuestieComms:SortRemotePlayers()
@@ -831,6 +838,8 @@ function QuestieComms:InsertQuestDataPacket(questPacket, playerName)
 
             --Write to tooltip data
             QuestieComms.data:RegisterTooltip(questPacket.id, playerName, objectives);
+
+            QuestiePartyObjectives:ScheduleUpdate(questPacket.id)
         end
     end
 end
@@ -873,6 +882,7 @@ _QuestieComms.packets = {
             QuestieComms.remoteQuestLogs[questId][playerName] = nil;
         end
         QuestieComms.data:RemoveQuestFromPlayer(questId, playerName);
+        QuestiePartyObjectives:ScheduleUpdate(questId)
       end
     },
     [_QuestieComms.QC_ID_BROADCAST_FULL_QUESTLIST] = { --10
@@ -1089,6 +1099,5 @@ end
 function QuestieComms:ResetAll()
     QuestieComms.data:ResetAll()
     QuestieComms.remoteQuestLogs = {}
+    QuestiePartyObjectives:ScheduleUpdate()
 end
-
-return QuestieComms

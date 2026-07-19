@@ -1,7 +1,5 @@
-dofile("Modules/Libs/QuestieLoader.lua")
-_G["Questie"] = {}
-_G.UnitFactionGroup = function() return "Horde" end
-dofile("Modules/Expansions.lua")
+dofile("setupTests.lua")
+
 dofile("Database/Zones/data/dungeons.lua")
 dofile("Database/Zones/data/zoneIds.lua")
 dofile("Database/Zones/data/areaIdToUiMapId.lua")
@@ -15,29 +13,31 @@ describe("ZoneDB", function()
 
     before_each(function()
         _G["Questie"] = {db={profile={}}}
-        ZoneDB = require("Database.Zones.zoneDB")
+
+        dofile("Database/Zones/zoneDB.lua")
+        ZoneDB = QuestieLoader:ImportModule("ZoneDB")
         ZoneDB.Initialize()
     end)
 
     describe("GetAreaIdByUiMapId", function()
         it("should correctly handle map ID for Kalimdor and EK", function()
             local areaId = ZoneDB:GetAreaIdByUiMapId(1414)
-            assert.are.equal(10073, areaId)
+            assert.is_equal(10073, areaId)
 
             areaId = ZoneDB:GetAreaIdByUiMapId(1415)
-            assert.are.equal(10074, areaId)
+            assert.is_equal(10074, areaId)
         end)
     end)
 
     describe("GetDungeonLocation", function()
         it("should return correct values for Dire Maul", function()
             local dungeonLocation = ZoneDB:GetDungeonLocation(ZoneDB.zoneIDs.DIRE_MAUL)
-            assert.are.same({{ZoneDB.zoneIDs.FERALAS, 59.2, 45.1}}, dungeonLocation)
+            assert.are_same({{ZoneDB.zoneIDs.FERALAS, 59.2, 45.1}}, dungeonLocation)
         end)
 
         it("should return correct values for alternative BRD ID", function()
             local dungeonLocation = ZoneDB:GetDungeonLocation(1585)
-            assert.are.same({{ZoneDB.zoneIDs.SEARING_GORGE, 34.8, 85.3},{ZoneDB.zoneIDs.BURNING_STEPPES, 29.4, 38.3}}, dungeonLocation)
+            assert.are_same({{ZoneDB.zoneIDs.SEARING_GORGE, 34.8, 85.3},{ZoneDB.zoneIDs.BURNING_STEPPES, 29.4, 38.3}}, dungeonLocation)
         end)
 
         it("should return nil for non-dungeon areaId", function()

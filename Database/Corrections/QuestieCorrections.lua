@@ -142,8 +142,10 @@ do
             addOverride(QuestieDB.npcDataOverrides, QuestieWotlkNpcFixes:LoadFactionFixes())
             addOverride(QuestieDB.itemDataOverrides, QuestieWotlkItemFixes:LoadFactionFixes())
             addOverride(QuestieDB.objectDataOverrides, QuestieWotlkObjectFixes:LoadFactionFixes())
+            addOverride(QuestieDB.questDataOverrides, QuestieWotlkQuestFixes:LoadFactionFixes())
             -- TitanReforged Corrections
             if Questie.IsTitanReforged then
+                addOverride(QuestieDB.npcDataOverrides, QuestieWotlkNpcFixes:LoadTitanReforgedFixes())
                 addOverride(QuestieDB.questDataOverrides, QuestieWotlkQuestFixes:LoadTitanReforgedFixes())
                 addOverride(QuestieDB.itemDataOverrides, QuestieWotlkItemFixes:LoadTitanReforgedFixes())
                 -- TO DO: improve this
@@ -167,6 +169,10 @@ do
             addOverride(QuestieDB.questDataOverrides, MopQuestFixes:LoadFactionFixes())
             addOverride(QuestieDB.npcDataOverrides, MopNpcFixes:LoadFactionFixes())
             addOverride(QuestieDB.objectDataOverrides, MopObjectFixes:LoadFactionFixes())
+
+            addOverride(QuestieDB.questDataOverrides, MopQuestFixes:LoadContentPhaseFixes())
+            addOverride(QuestieDB.npcDataOverrides, MopNpcFixes:LoadContentPhaseFixes())
+            addOverride(QuestieDB.objectDataOverrides, MopObjectFixes:LoadContentPhaseFixes())
         end
 
         -- Season of Discovery Corrections
@@ -442,5 +448,3 @@ function QuestieCorrections:PreCompile() -- this happens only if we are about to
         end
     end
 end
-
-return QuestieCorrections

@@ -553,7 +553,7 @@ _AddStarter = function(starter, quest, tooltipKey, limit)
         return 0
     end
 
-    -- Need to know when this quest starts from an item, so we save it later
+    -- Need to know when this quest starts from an item or object, so we save it later
     ---@type string|nil
     local starterType
 
@@ -678,5 +678,3 @@ _MarkQuestAsUnavailableFromNPC = function(questId, npcId)
     unavailableQuestsDeterminedByTalking[questId] = true
     availableQuestsByNpc[npcId][questId] = nil
 end
-
-return AvailableQuests

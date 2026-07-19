@@ -2,14 +2,15 @@
 local QuestieJourney = QuestieLoader:ImportModule("QuestieJourney")
 local _QuestieJourney = QuestieJourney.private
 
+---@type QuestDetailsFrame
+local QuestDetailsFrame = QuestieLoader:ImportModule("QuestDetailsFrame")
+
 ---@type QuestieDB
 local QuestieDB = QuestieLoader:ImportModule("QuestieDB")
 ---@type QuestieLib
 local QuestieLib = QuestieLoader:ImportModule("QuestieLib")
 ---@type QuestiePlayer
 local QuestiePlayer = QuestieLoader:ImportModule("QuestiePlayer")
----@type QuestieReputation
-local QuestieReputation = QuestieLoader:ImportModule("QuestieReputation")
 ---@type QuestieCorrections
 local QuestieCorrections = QuestieLoader:ImportModule("QuestieCorrections")
 ---@type QuestieQuestBlacklist
@@ -18,8 +19,6 @@ local QuestieQuestBlacklist = QuestieLoader:ImportModule("QuestieQuestBlacklist"
 local QuestieEvent = QuestieLoader:ImportModule("QuestieEvent")
 ---@type QuestieLink
 local QuestieLink = QuestieLoader:ImportModule("QuestieLink")
----@type QuestieProfessions
-local QuestieProfessions = QuestieLoader:ImportModule("QuestieProfessions")
 ---@type l10n
 local l10n = QuestieLoader:ImportModule("l10n")
 
@@ -82,7 +81,7 @@ function _QuestieJourney.questsByZone:RestoreSavedQuestSelection(treeFrame, zone
                 scrollFrame:SetFullHeight(true)
                 master:AddChild(scrollFrame)
 
-                _QuestieJourney:DrawQuestDetailsFrame(scrollFrame, quest)
+                QuestDetailsFrame:Draw(scrollFrame, quest)
             end
         end)
     else
@@ -104,6 +103,7 @@ function _QuestieJourney.questsByZone:ManageTree(container, zoneTree)
     zoneTreeFrame = AceGUI:Create("TreeGroup")
     zoneTreeFrame:SetFullWidth(true)
     zoneTreeFrame:SetFullHeight(true)
+    zoneTreeFrame:EnableButtonTooltips(false)
     zoneTreeFrame:SetTree(zoneTree)
 
     zoneTreeFrame.treeframe:SetWidth(415)
@@ -146,13 +146,13 @@ function _QuestieJourney.questsByZone:ManageTree(container, zoneTree)
         -- Add the quest to the open chat window if it was a shift click
         if (IsModifiedClick("CHATLINK") and ChatEdit_GetActiveWindow()) then
             if Questie.db.profile.trackerShowQuestLevel then
-                ChatEdit_InsertLink(QuestieLink:GetQuestLinkString(quest.level, quest.name, quest.Id))
+                ChatEdit_InsertLink(QuestieLink:GetQuestLinkStringById(quest.Id))
             else
                 ChatEdit_InsertLink("[" .. quest.name .. " (" .. quest.Id .. ")]")
             end
         end
 
-        _QuestieJourney:DrawQuestDetailsFrame(scrollFrame, quest)
+        QuestDetailsFrame:Draw(scrollFrame, quest)
     end)
 
     container:AddChild(zoneTreeFrame)
@@ -235,6 +235,16 @@ function _QuestieJourney.questsByZone:CategorizeQuests(quests)
         -- Only show quests which are not hidden
         if hiddenQuests and (((not hiddenQuests[questId]) or hiddenQuests[questId] == HIDE_ON_MAP) or QuestieEvent.IsEventQuest(questId)) and QuestieDB.QuestPointers[questId] then
             temp.value = questId
+            temp.iconSize = 14
+            temp.useIconGutter = true
+            temp.iconGutterOffset = -3
+            if QuestiePlayer.currentQuestlog[questId] then
+                if QuestieDB.IsComplete(questId) == 1 then
+                    temp.icon = Questie.icons["complete"]
+                else
+                    temp.icon = Questie.icons["incomplete"]
+                end
+            end
             temp.text = QuestieLib:GetColoredQuestName(questId, Questie.db.profile.enableTooltipsQuestLevel, false)
 
             local breadcrumbForQuestId = QuestieDB.QueryQuest(questId,{"breadcrumbForQuestId"})[1] or {}
@@ -368,13 +378,13 @@ function _QuestieJourney.questsByZone:CategorizeQuests(quests)
                     local nextQuestInChain = QuestieDB.QueryQuestSingle(questId, "nextQuestInChain")
                     local preQuestSingle = QuestieDB.QueryQuestSingle(questId, "preQuestSingle")
                     local questDecidedCategory = false
-                    -- checking for some weird cases where the exclusiveTo is on the same level as other preQuestSingle values
+                    -- checking for cases where the exclusiveTo is on the same level as other preQuestSingle values
                     if preQuestSingle then
                         for i = 1,#preQuestSingle do
                             local exclusivePreQuests = QuestieDB.QueryQuestSingle(preQuestSingle[i], "exclusiveTo")
                             if exclusivePreQuests then
                                 for _, exclusivePreQuestId in pairs(exclusivePreQuests) do
-                                    if Questie.db.char.complete[exclusivePreQuestId] or QuestiePlayer.currentQuestlog[exclusivePreQuestId] then
+                                    if not questDecidedCategory and (Questie.db.char.complete[exclusivePreQuestId] or QuestiePlayer.currentQuestlog[exclusivePreQuestId]) then
                                         tinsert(zoneTree[6].children, temp)
                                         unobtainableCounter = unobtainableCounter + 1
                                         questDecidedCategory = true
@@ -384,12 +394,12 @@ function _QuestieJourney.questsByZone:CategorizeQuests(quests)
                             end
                         end
                     end
-                    -- checking for some weird cases where the exclusiveTo is on the same level as other nextQuestInChain values
-                    if nextQuestInChain and nextQuestInChain ~= 0 and not questDecidedCategory then
+                    -- checking for cases where the exclusiveTo is on the same level as other nextQuestInChain values
+                    if nextQuestInChain and nextQuestInChain ~= 0 then
                         local exclusiveFollowups = QuestieDB.QueryQuestSingle(nextQuestInChain, "exclusiveTo")
                         if exclusiveFollowups then
                             for _, exclusiveFollowupId in pairs(exclusiveFollowups) do
-                                if Questie.db.char.complete[exclusiveFollowupId] or QuestiePlayer.currentQuestlog[exclusiveFollowupId] then
+                                if not questDecidedCategory and Questie.db.char.complete[exclusiveFollowupId] or QuestiePlayer.currentQuestlog[exclusiveFollowupId] then
                                     tinsert(zoneTree[6].children, temp)
                                     unobtainableCounter = unobtainableCounter + 1
                                     questDecidedCategory = true

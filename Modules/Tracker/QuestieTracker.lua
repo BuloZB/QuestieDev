@@ -90,41 +90,6 @@ function QuestieTracker.Initialize()
         return
     end
 
-    -- These values might also be accessed by other modules, so we need to make sure they exist. Even when the Tracker is disabled
-    if (not Questie.db.char.TrackerHiddenQuests) then
-        Questie.db.char.TrackerHiddenQuests = {}
-    end
-    if (not Questie.db.char.TrackerHiddenObjectives) then
-        Questie.db.char.TrackerHiddenObjectives = {}
-    end
-    if (not Questie.db.char.TrackedQuests) then
-        Questie.db.char.TrackedQuests = {}
-    end
-    if (not Questie.db.char.AutoUntrackedQuests) then
-        Questie.db.char.AutoUntrackedQuests = {}
-    end
-    if (not Questie.db.char.collapsedZones) then
-        Questie.db.char.collapsedZones = {}
-    end
-    if (not Questie.db.char.minAllQuestsInZone) then
-        Questie.db.char.minAllQuestsInZone = {}
-    end
-    if (not Questie.db.char.collapsedQuests) then
-        Questie.db.char.collapsedQuests = {}
-    end
-    if (not Questie.db.char.trackedAchievementIds) then
-        Questie.db.char.trackedAchievementIds = {}
-    end
-    if (not Questie.db.profile.TrackerWidth) then
-        Questie.db.profile.TrackerWidth = 0
-    end
-    if (not Questie.db.profile.TrackerHeight) then
-        Questie.db.profile.TrackerHeight = 0
-    end
-    if (not Questie.db.profile.trackerSetpoint) then
-        Questie.db.profile.trackerSetpoint = "TOPLEFT"
-    end
-
     if (not Questie.db.profile.trackerEnabled) then
         -- The Tracker is disabled, no need to continue
         return
@@ -175,6 +140,11 @@ function QuestieTracker.Initialize()
             QuestieQuest:ToggleNotes(false)
         elseif focusType == "string" then
             local questId, objectiveIndex = string.match(Questie.db.char.TrackerFocus, "(%d+) (%d+)")
+            questId = tonumber(questId)
+            objectiveIndex = tonumber(objectiveIndex)
+
+            ---@cast questId number
+            ---@cast objectiveIndex number
             TrackerUtils:FocusObjective(questId, objectiveIndex)
             QuestieQuest:ToggleNotes(false)
         end
@@ -807,7 +777,7 @@ function QuestieTracker:Update()
                     if timedQuest then
                         coloredQuestName = QuestieLib:GetColoredQuestName(quest.Id, Questie.db.profile.trackerShowQuestLevel, false)
                     else
-                        coloredQuestName = QuestieLib:GetColoredQuestName(quest.Id, Questie.db.profile.trackerShowQuestLevel, (Questie.db.profile.collapseCompletedQuests and isMinimizable))
+                        coloredQuestName = QuestieLib:GetColoredQuestName(quest.Id, Questie.db.profile.trackerShowQuestLevel, ((isMinimizable and Questie.db.profile.collapseCompletedQuests) or Questie.db.char.collapsedQuests[quest.Id] ~= nil))
                     end
 
                     line.label:SetText(coloredQuestName)
@@ -1542,37 +1512,7 @@ function QuestieTracker:Update()
     -- First run clean up
     if isFirstRun then
         trackerBaseFrame:Hide()
-        for questId, quest in pairs(QuestiePlayer.currentQuestlog) do
-            if quest then
-                if Questie.db.char.TrackerHiddenQuests[questId] then
-                    quest.HideIcons = true
-                end
 
-                if Questie.db.char.TrackerFocus and type(Questie.db.char.TrackerFocus) == "number" and Questie.db.char.TrackerFocus == quest.Id then -- quest focus
-                    TrackerUtils:FocusQuest(quest.Id)
-                end
-
-                for _, objective in pairs(quest.Objectives) do
-                    if Questie.db.char.TrackerHiddenObjectives[tostring(questId) .. " " .. tostring(objective.Index)] then
-                        objective.HideIcons = true
-                    end
-
-                    if Questie.db.char.TrackerFocus and type(Questie.db.char.TrackerFocus) == "string" and Questie.db.char.TrackerFocus == tostring(quest.Id) .. " " .. tostring(objective.Index) then
-                        TrackerUtils:FocusObjective(quest.Id, objective.Index)
-                    end
-                end
-
-                for _, objective in pairs(quest.SpecialObjectives) do
-                    if Questie.db.char.TrackerHiddenObjectives[tostring(questId) .. " " .. tostring(objective.Index)] then
-                        objective.HideIcons = true
-                    end
-
-                    if Questie.db.char.TrackerFocus and type(Questie.db.char.TrackerFocus) == "string" and Questie.db.char.TrackerFocus == tostring(quest.Id) .. " " .. tostring(objective.Index) then
-                        TrackerUtils:FocusObjective(quest.Id, objective.Index)
-                    end
-                end
-            end
-        end
         isFirstRun = false
         C_Timer.After(1.0, function()
             QuestieCombatQueue:Queue(function()
@@ -1627,6 +1567,7 @@ function QuestieTracker:UpdateFormatting()
         local questMarginLeft = (trackerMarginLeft + trackerMarginRight) - (18 - trackerFontSizeQuest)
         local objectiveMarginLeft = questMarginLeft + trackerFontSizeQuest
         local questItemButtonSize = 12 + trackerFontSizeQuest
+
         TrackerLinePool.UpdateObjectiveLines(function(line)
             if line.questHasSecondaryQIB then
                 -- The objective line belongs to a quest with two quest items, so we need to add extra padding to account for the second QIB
@@ -1635,7 +1576,20 @@ function QuestieTracker:UpdateFormatting()
                 _UpdateLineWidth(line, objectiveMarginLeft)
             end
         end)
+
         QuestieTracker:UpdateWidth(trackerVarsCombined)
+
+        -- Expand all objective line labels to the full available tracker width. Since widths are not updated during combat (only text is via UpdateQuestLines),
+        -- giving lines the maximum width here prevents text cutoff until the next full Update().
+        TrackerLinePool.UpdateObjectiveLines(function(line)
+            local effectiveMarginLeft = objectiveMarginLeft
+            if line.questHasSecondaryQIB then
+                effectiveMarginLeft = objectiveMarginLeft + questItemButtonSize
+            end
+            local margin = effectiveMarginLeft + trackerMarginRight
+            line.label:SetWidth(trackerBaseFrame:GetWidth() - margin)
+            line:SetWidth(line.label:GetWidth() + effectiveMarginLeft)
+        end)
         TrackerLinePool.UpdateQuestTitleLines(function(line)
             line.label:SetWidth(trackerBaseFrame:GetWidth() - questMarginLeft - trackerMarginRight)
             line:SetWidth(line.label:GetWidth() + questMarginLeft)
@@ -1911,8 +1865,14 @@ function QuestieTracker:RemoveQuest(questId)
     end
 
     if Questie.db.char.TrackerFocus then
-        if (type(Questie.db.char.TrackerFocus) == "number" and Questie.db.char.TrackerFocus == questId)
-            or (type(Questie.db.char.TrackerFocus) == "string" and Questie.db.char.TrackerFocus:sub(1, #tostring(questId)) == tostring(questId)) then
+        local focusedQuestId
+        if type(Questie.db.char.TrackerFocus) == "number" then
+            focusedQuestId = Questie.db.char.TrackerFocus
+        elseif type(Questie.db.char.TrackerFocus) == "string" then
+            focusedQuestId = tonumber(Questie.db.char.TrackerFocus:match("^(%d+)%s"))
+        end
+
+        if focusedQuestId == questId then
             TrackerUtils:UnFocus()
             QuestieQuest:ToggleNotes(true)
         end
@@ -2185,5 +2145,3 @@ end
 function QuestieTracker.UpdateScenarioLines(criteriaIndex)
     TrackerLinePool.UpdateScenarioLines(criteriaIndex)
 end
-
-return QuestieTracker

@@ -18,6 +18,8 @@ local QuestieTracker = QuestieLoader:ImportModule("QuestieTracker")
 local QuestieDBMIntegration = QuestieLoader:ImportModule("QuestieDBMIntegration")
 ---@type QuestieMap
 local QuestieMap = QuestieLoader:ImportModule("QuestieMap")
+---@type QuestieFramePool
+local QuestieFramePool = QuestieLoader:ImportModule("QuestieFramePool")
 ---@type QuestieLib
 local QuestieLib = QuestieLoader:ImportModule("QuestieLib")
 ---@type QuestiePlayer
@@ -107,6 +109,19 @@ function QuestieQuest:ToggleNotes(showIcons)
     else
         QuestieQuest:HideQuestIcons()
         _QuestieQuest:HideManualIcons()
+    end
+end
+
+---Updates all quest icons to ensure they are correctly shown/hidden
+---@param showIcons boolean @ Whether to show or hide the icons
+function QuestieQuest.ToggleQuestNotes(showIcons)
+    Questie:Debug(Questie.DEBUG_DEVELOP, "[QuestieQuest.ToggleQuestNotes] showIcons:", showIcons)
+    QuestieQuest:GetAllQuestIds() -- add notes that weren't added from previous hidden state
+
+    if showIcons then
+        QuestieQuest:ShowQuestIcons()
+    else
+        QuestieQuest:HideQuestIcons()
     end
 end
 
@@ -215,7 +230,7 @@ function QuestieQuest:ClearAllNotes()
         for _, frameName in pairs(frameList) do
             local icon = _G[frameName]
             if icon and icon.Unload then
-                icon:Unload()
+                QuestieFramePool:UnloadFrame(icon)
             end
         end
     end
@@ -394,16 +409,22 @@ function QuestieQuest:SmoothReset()
 end
 
 ---@param questId number
+---@return boolean @true if the local player is tracking this quest (independent of any option)
+function QuestieQuest:IsQuestTracked(questId)
+    local autoWatch = Questie.db.profile.autoTrackQuests
+    local trackedAuto = autoWatch and (not Questie.db.char.AutoUntrackedQuests or not Questie.db.char.AutoUntrackedQuests[questId])
+    local trackedManual = not autoWatch and (Questie.db.char.TrackedQuests and Questie.db.char.TrackedQuests[questId])
+    return (trackedAuto or trackedManual) and true or false
+end
+
+---@param questId number
 ---@return boolean
 function QuestieQuest:ShouldShowQuestNotes(questId)
     if not Questie.db.profile.hideUntrackedQuestsMapIcons then
         return true
     end
 
-    local autoWatch = Questie.db.profile.autoTrackQuests
-    local trackedAuto = autoWatch and (not Questie.db.char.AutoUntrackedQuests or not Questie.db.char.AutoUntrackedQuests[questId])
-    local trackedManual = not autoWatch and (Questie.db.char.TrackedQuests and Questie.db.char.TrackedQuests[questId])
-    return trackedAuto or trackedManual
+    return QuestieQuest:IsQuestTracked(questId)
 end
 
 ---@param questId QuestId
@@ -762,6 +783,22 @@ function QuestieQuest:GetAllQuestIds()
                     QuestieQuest:CheckQuestSourceItem(questId, true)
                     QuestieQuest:PopulateQuestLogInfo(quest)
 
+                    -- Restore HideIcons flags from saved tracker state before spawning icons,
+                    -- so they are created in the correct hidden/visible state from the start.
+                    if Questie.db.char.TrackerHiddenQuests[questId] then
+                        quest.HideIcons = true
+                    end
+                    for _, objective in pairs(quest.Objectives) do
+                        if Questie.db.char.TrackerHiddenObjectives[tostring(questId) .. " " .. tostring(objective.Index)] then
+                            objective.HideIcons = true
+                        end
+                    end
+                    for _, objective in pairs(quest.SpecialObjectives) do
+                        if Questie.db.char.TrackerHiddenObjectives[tostring(questId) .. " " .. tostring(objective.Index)] then
+                            objective.HideIcons = true
+                        end
+                    end
+
                     if QuestieQuest:ShouldShowQuestNotes(questId) then
                         QuestieQuest:PopulateObjectiveNotes(quest)
                     else
@@ -1068,8 +1105,8 @@ _RegisterObjectiveTooltips = function(objective, questId, blockItemTooltips)
 
     if objective.spawnList then
         if (not objective.hasRegisteredTooltips) then
-            for id, spawnData in pairs(objective.spawnList) do
-                if spawnData.TooltipKey and (not objective.AlreadySpawned[id]) then
+            for _, spawnData in pairs(objective.spawnList) do
+                if spawnData.TooltipKey then
                     QuestieTooltips:RegisterObjectiveTooltip(questId, spawnData.TooltipKey, objective)
                 end
             end
@@ -1099,10 +1136,10 @@ _UnloadAlreadySpawnedIcons = function(objective)
             local spawn = objective.AlreadySpawned[id]
             if spawn then
                 for _, mapIcon in pairs(spawn.mapRefs) do
-                    mapIcon:Unload()
+                    QuestieFramePool:UnloadFrame(mapIcon)
                 end
                 for _, minimapIcon in pairs(spawn.minimapRefs) do
-                    minimapIcon:Unload()
+                    QuestieFramePool:UnloadFrame(minimapIcon)
                 end
                 spawn.mapRefs = {}
                 spawn.minimapRefs = {}
@@ -1411,19 +1448,13 @@ function QuestieQuest:PopulateQuestLogInfo(quest)
                 Questie:Error(l10n("Missing objective data for quest "), quest.Id, " ", objective.text)
             else
                 if not quest.Objectives[objectiveIndex] then
-                    local fullDesc
-                    if (not Questie.db.profile.trimObjectiveText) then
-                        -- Grab the entire objective text including "slain". First regex is for non-Chinese clients, second is for Chinese clients where the colon is a different character
-                        fullDesc = string.match(objective.raw_text, "^(.*):%s*%d+/%d+$") or string.match(objective.raw_text, "^(.*)：%s*%d+/%d+$")
-                    end
-
                     quest.Objectives[objectiveIndex] = {
                         Id = quest.ObjectiveData[objectiveIndex].Id,
                         Index = objectiveIndex,
                         questId = quest.Id,
                         _lastUpdate = 0,
                         Description = objective.text,
-                        FullDescription = fullDesc,
+                        FullDescription = QuestieLib.GetFullObjectiveText(objective.raw_text),
                         spawnList = {},
                         AlreadySpawned = {},
                         Update = _QuestieQuest.ObjectiveUpdate,
@@ -1493,15 +1524,9 @@ function _QuestieQuest.ObjectiveUpdate(self)
             local numRequired = obj.numRequired or 0
             local finished = obj.finished or false -- ensure its boolean false and not nil (hack)
 
-            local fullDesc
-            if (not Questie.db.profile.trimObjectiveText) then
-                -- Grab the entire objective text including "slain". First regex is for non-Chinese clients, second is for Chinese clients where the colon is a different character
-                fullDesc = string.match(obj.raw_text, "^(.*):%s*%d+/%d+$") or string.match(obj.raw_text, "^(.*)：%s*%d+/%d+$")
-            end
-
             self.Type = obj.type;
             self.Description = obj.text
-            self.FullDescription = fullDesc
+            self.FullDescription = QuestieLib.GetFullObjectiveText(obj.raw_text)
             self.Collected = tonumber(numFulfilled);
             self.Needed = tonumber(numRequired);
             self.Completed = (self.Needed == self.Collected and self.Needed > 0) or
@@ -1535,5 +1560,3 @@ function QuestieQuest.DrawDailyQuest(questId)
         AvailableQuests.DrawAvailableQuest(quest)
     end
 end
-
-return QuestieQuest
