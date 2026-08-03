@@ -18,8 +18,6 @@ QuestieCorrections.killCreditObjectiveFirst[10503] = true -- The Bladespire Thre
 
 
 function QuestieTBCQuestFixes:Load()
-    _QuestieTBCQuestFixes:InsertMissingQuestIds()
-
     local questKeys = QuestieDB.questKeys
     local raceIDs = QuestieDB.raceKeys
     local classIDs = QuestieDB.classKeys
@@ -2273,6 +2271,9 @@ function QuestieTBCQuestFixes:Load()
         [9372] = { -- Demonic Contamination
             [questKeys.breadcrumbs] = {10442,10443},
         },
+        [9374] = { -- Arelion's Journal
+            [questKeys.requiredSourceItems] = {31955},
+        },
         [9375] = {
             [questKeys.triggerEnd] = {"Escort Wounded Blood Elf Pilgrim to Falcon Watch", {[zoneIDs.HELLFIRE_PENINSULA]={{27.09,61.92}}}},
         },
@@ -2357,8 +2358,17 @@ function QuestieTBCQuestFixes:Load()
         [9437] = { -- Twilight of the Dawn Runner
             [questKeys.objectives] = {{{17119,nil,Questie.ICON_TYPE_TALK}},nil,{{23657}}},
         },
+        [9438] = { -- Messenger to Thrall
+            [questKeys.nextQuestInChain] = 9441,
+        },
+        [9441] = { -- Envoy to the Mag'har
+            [questKeys.nextQuestInChain] = 9442,
+        },
         [9446] = {
             [questKeys.triggerEnd] = {"Escort Anchorite Truuen to Uther's Tomb", {[zoneIDs.WESTERN_PLAGUELANDS]={{52.06,83.26}}}},
+        },
+        [9447] = { -- Administering the Salve
+            [questKeys.objectives] = {{{16847,nil,Questie.ICON_TYPE_INTERACT}}},
         },
         [9454] = { -- The Great Moongraze Hunt
             [questKeys.preQuestSingle] = {},
@@ -2797,13 +2807,16 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.objectives] = {{{17664,nil,Questie.ICON_TYPE_INTERACT}}},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Call for help from Trackers of the Hand"), 0, {{"monster", 17664}}}},
         },
-        [9716] = {
+        [9715] = { -- Bring Me A Shrubbery!
+            [questKeys.nextQuestInChain] = 9714,
+        },
+        [9716] = { -- Disturbance at Umbrafen Lake
             [questKeys.triggerEnd] = {"Umbrafen Lake Investigated", {[zoneIDs.ZANGARMARSH]={{70.89,80.51}}}},
         },
-        [9718] = {
-            [questKeys.triggerEnd] = {"Use the Stormcrow Amulet and explore the lakes of Zangarmarsh", {[zoneIDs.ZANGARMARSH]={{76.8,44.1}}}},
+        [9718] = { -- As the Crow Flies
+            [questKeys.triggerEnd] = {"Use the Stormcrow Amulet and explore the lakes of Zangarmarsh", {[zoneIDs.ZANGARMARSH]={{78.4,62.02}}}},
         },
-        [9720] = {
+        [9720] = { -- Balance Must Be Preserved
             [questKeys.objectives] = {{{17998,nil,Questie.ICON_TYPE_EVENT},{18002,nil,Questie.ICON_TYPE_EVENT},{18000,nil,Questie.ICON_TYPE_EVENT},{17999,nil,Questie.ICON_TYPE_EVENT}}},
         },
         [9721] = { -- A Summons from Lord Solanar
@@ -2827,7 +2840,7 @@ function QuestieTBCQuestFixes:Load()
         },
         [9731] = { -- Drain Schematics
             [questKeys.triggerEnd] = {"Drain Located", {[zoneIDs.ZANGARMARSH]={{50.44,40.91}}}},
-            [questKeys.preQuestSingle] = {9718},
+            [questKeys.preQuestSingle] = {9718}, -- confirmed dropping after this quest. check if drops after 9716
             [questKeys.nextQuestInChain] = 9724,
         },
         [9735] = { -- True Masters of the Light
@@ -2850,16 +2863,18 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.zoneOrSort] = zoneIDs.COILFANG_RESERVOIR,
             [questKeys.breadcrumbs] = {9876},
         },
-        [9739] = {
+        [9739] = { -- The Sporelings' Plight
             [questKeys.requiredMinRep] = {},
             [questKeys.requiredMaxRep] = {},
+            [questKeys.nextQuestInChain] = 9742,
         },
         [9740] = {
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Destroy all 4 Sunhawk Portal Controller"), 0, {{"object", 184850}}}},
         },
-        [9743] = {
+        [9743] = { -- Natural Enemies
             [questKeys.requiredMinRep] = {},
             [questKeys.requiredMaxRep] = {},
+            [questKeys.nextQuestInChain] = 9744,
         },
         [9752] = {
             [questKeys.triggerEnd] = {"Escort Kayra Longmane to safety", {[zoneIDs.ZANGARMARSH]={{79.76,71.09}}}},
@@ -2910,8 +2925,12 @@ function QuestieTBCQuestFixes:Load()
         [9805] = {
             [questKeys.objectives] = {{{18110,nil,Questie.ICON_TYPE_EVENT},{18142,nil,Questie.ICON_TYPE_EVENT},{18143,nil,Questie.ICON_TYPE_EVENT},{18144,nil,Questie.ICON_TYPE_EVENT}}},
         },
-        [9808] = {
+        [9806] = { -- Fertile Spores
+            [questKeys.nextQuestInChain] = 9807,
+        },
+        [9808] = { -- Glowcap Mushrooms
             [questKeys.requiredMinRep] = {970,0},
+            [questKeys.nextQuestInChain] = 9809,
         },
         [9816] = {
             [questKeys.objectives] = {nil,{{182164,nil,Questie.ICON_TYPE_EVENT}}},
@@ -2958,7 +2977,7 @@ function QuestieTBCQuestFixes:Load()
         [9844] = {
             [questKeys.zoneOrSort] = zoneIDs.KARAZHAN,
         },
-        [9847] = {
+        [9847] = { -- A Spirit Ally?
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Plant the Feralfen Totem on the ground"), 0, {{"object", 182176}}}},
         },
         [9849] = {
@@ -3151,6 +3170,9 @@ function QuestieTBCQuestFixes:Load()
         [9973] = {
             [questKeys.nextQuestInChain] = 9977,
         },
+        [9978] = { -- By Any Means Necessary
+            [questKeys.nextQuestInChain] = 9979,
+        },
         [9982] = { -- He Called Himself Altruis...
             [questKeys.requiredMinRep] = {978,0},
             [questKeys.nextQuestInChain] = 9991,
@@ -3166,8 +3188,9 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.triggerEnd] = {"Forge Camps Surveyed", {[zoneIDs.NAGRAND]={{27.22,43.05}}}},
             [questKeys.preQuestSingle] = {},
         },
-        [10000] = {
+        [10000] = { -- An Unwelcome Presence
             [questKeys.requiredLevel] = 62,
+            [questKeys.nextQuestInChain] = 10003,
         },
         [10004] = {
             [questKeys.objectives] = {{{18584}}},
@@ -3217,11 +3240,11 @@ function QuestieTBCQuestFixes:Load()
         [10039] = {
             [questKeys.requiredLevel] = 62,
         },
-        [10040] = {
+        [10040] = { -- Who Are They?
             [questKeys.objectives] = {{{18716,nil,Questie.ICON_TYPE_TALK},{18717,nil,Questie.ICON_TYPE_TALK},{18719,nil,Questie.ICON_TYPE_TALK}}},
-            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_TALK, l10n("Get a disguise"), 0, {{"monster", 18714}}}},
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_TALK, l10n("Get a disguise"), 0, {{"monster", 18715}}}},
         },
-        [10041] = {
+        [10041] = { -- Who Are They?
             [questKeys.objectives] = {{{18716,nil,Questie.ICON_TYPE_TALK},{18717,nil,Questie.ICON_TYPE_TALK},{18719,nil,Questie.ICON_TYPE_TALK}}},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_TALK, l10n("Get a disguise"), 0, {{"monster", 18714}}}},
         },
@@ -3313,8 +3336,11 @@ function QuestieTBCQuestFixes:Load()
         [10079] = { -- When This Mine's a-Rockin'
             [questKeys.preQuestSingle] = {10143,10483},
         },
-        [10085] = {
+        [10085] = { -- A Visit With The Ancestors
             [questKeys.objectives] = {{{18840,nil,Questie.ICON_TYPE_EVENT},{18841,nil,Questie.ICON_TYPE_EVENT},{18842,nil,Questie.ICON_TYPE_EVENT},{18843,nil,Questie.ICON_TYPE_EVENT}}},
+        },
+        [10087] = { -- Burn It Up... For the Horde!
+            [questKeys.objectives] = {{{18849,nil,Questie.ICON_TYPE_EVENT},{19008,nil,Questie.ICON_TYPE_EVENT}}},
         },
         [10091] = { -- The Soul Devices
             [questKeys.preQuestSingle] = {10178},
@@ -3395,8 +3421,9 @@ function QuestieTBCQuestFixes:Load()
         [10160] = { -- Know your Enemy
             [questKeys.breadcrumbForQuestId] = 10482,
         },
-        [10162] = {
+        [10162] = { -- Mission: The Abyssal Shelf
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_TALK, l10n("Speak with Wing Commander Brack"), 0, {{"monster", 19401}}}},
+            [questKeys.nextQuestInChain] = 10347,
         },
         [10163] = { -- Mission: The Abyssal Shelf
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_TALK, l10n("Speak with Gryphoneer Windbellow"), 0, {{"monster", 20235}}}},
@@ -3495,8 +3522,9 @@ function QuestieTBCQuestFixes:Load()
         [10241] = { -- Distraction at Manaforge B'naar
             [questKeys.breadcrumbs] = {11038},
         },
-        [10242] = {
+        [10242] = { -- Spinebreaker Post
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_TALK, l10n("Take a ride to Spinebreaker Post"), 0, {{"monster", 19401}}}},
+            [questKeys.nextQuestInChain] = 10538,
         },
         [10243] = {
             [questKeys.preQuestSingle] = {10241},
@@ -3514,7 +3542,6 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.nextQuestInChain] = 10164,
         },
         [10255] = {
-            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Use the Cenarion Antidote on a Hulking Helboar"), 0, {{"monster", 16880}}}},
             [questKeys.objectives] = {{{16880,nil,Questie.ICON_TYPE_INTERACT}}},
         },
         [10256] = {
@@ -3577,10 +3604,10 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.breadcrumbs] = {10289},
             [questKeys.nextQuestInChain] = 0,
         },
-        [10296] = {
+        [10296] = { -- The Black Morass
             [questKeys.startedBy] = {{20130}},
         },
-        [10297] = {
+        [10297] = { -- The Opening of the Dark Portal
             [questKeys.objectives] = {{{15608,nil,Questie.ICON_TYPE_EVENT}}},
         },
         [10299] = {
@@ -3670,6 +3697,9 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.breadcrumbForQuestId] = 10163,
             [questKeys.nextQuestInChain] = 10163,
         },
+        [10349] = { -- The Earthbinder
+            [questKeys.nextQuestInChain] = 10351,
+        },
         [10350] = { -- Behomat
             [questKeys.preQuestSingle] = {1639,1678,1683,9582},
         },
@@ -3741,8 +3771,11 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.startedBy] = {{16576,19273}},
             [questKeys.preQuestSingle] = {10129},
         },
-        [10389] = {
+        [10389] = { -- The Agony and the Darkness
             [questKeys.preQuestSingle] = {10392},
+        },
+        [10392] = { -- Doorway to the Abyss
+            [questKeys.nextQuestInChain] = 10136,
         },
         [10403] = { -- Naladu
             [questKeys.startedBy] = {{20677,20678,20679}},
@@ -3834,6 +3867,9 @@ function QuestieTBCQuestFixes:Load()
         [10447] = { -- The Final Code
             [questKeys.objectives] = {nil,{{184725,nil,Questie.ICON_TYPE_EVENT}}},
             [questKeys.nextQuestInChain] = 10006,
+        },
+        [10449] = { -- Apothecary Zelana
+            [questKeys.nextQuestInChain] = 10242,
         },
         [10451] = {
             [questKeys.triggerEnd] = {"Earthmender Wilda Escorted to Safety", {[zoneIDs.SHADOWMOON_VALLEY]={{53.14,25.17}}}},
@@ -4373,6 +4409,9 @@ function QuestieTBCQuestFixes:Load()
         [10755] = {
             [questKeys.startedBy] = {{22037}},
         },
+        [10758] = { -- Hotter than Hell
+            [questKeys.objectives] = {nil,nil,{{31252,nil,Questie.ICON_TYPE_INTERACT}}},
+        },
         [10764] = { -- Hotter than Hell
             [questKeys.objectives] = {nil,nil,{{31252,nil,Questie.ICON_TYPE_INTERACT}}},
         },
@@ -4400,10 +4439,10 @@ function QuestieTBCQuestFixes:Load()
         [10791] = {
             [questKeys.objectives] = {{{18384,nil,Questie.ICON_TYPE_INTERACT}}},
         },
-        [10792] = {
+        [10792] = { -- Zeth'Gor Must Burn!
             [questKeys.requiredSourceItems] = {31347,31346},
             [questKeys.objectives] = {{{20813,nil, Questie.ICON_TYPE_EVENT},{20815,nil, Questie.ICON_TYPE_EVENT},{20816,nil, Questie.ICON_TYPE_EVENT},{20814,nil, Questie.ICON_TYPE_EVENT}}},
-            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Light the torches"), 0, {{"object", 185144}}}},
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Light the torches"), 0, {{"object", 185144}}}},
         },
         [10793] = {
             [questKeys.startedBy] = {nil,nil,{31345}},
@@ -4435,6 +4474,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [10808] = {
             [questKeys.objectives] = {{{22137,nil,Questie.ICON_TYPE_EVENT}}},
+        },
+        [10809] = { -- Wanted: Worg Master Kruush
+            [questKeys.nextQuestInChain] = 10792,
         },
         [10813] = {
             [questKeys.objectives] = {nil,nil,nil,nil,{{{19440,22177},22177,nil,Questie.ICON_TYPE_INTERACT}}},
@@ -5306,6 +5348,7 @@ function QuestieTBCQuestFixes:Load()
         },
         [11136] = { -- A Disturbing Development
             [questKeys.breadcrumbForQuestId] = 11137,
+            [questKeys.preQuestSingle] = {11134,11198}, -- double check 11198
         },
         [11137] = { -- Defias in Dustwallow?
             [questKeys.breadcrumbs] = {11136},
@@ -5370,6 +5413,7 @@ function QuestieTBCQuestFixes:Load()
         [11177] = { -- The Hermit of Swamplight Manor
             [questKeys.nextQuestInChain] = 1218,
             [questKeys.breadcrumbForQuestId] = 1218,
+            [questKeys.preQuestSingle] = {11134,11198}, -- double check 11198
         },
         [11180] = {
             [questKeys.objectives] = {nil,nil,nil,nil,{{{23554,23555,23861},23861}}},
@@ -5520,7 +5564,6 @@ function QuestieTBCQuestFixes:Load()
         },
         [11383] = { -- Wanted: Rift Lords
             [questKeys.objectives] = {nil,nil,nil,nil,{{{17839,21140},17839}}},
-            [questKeys.preQuestSingle] = {10296},
         },
         [11392] = { -- Call the Headless Horseman
             [questKeys.startedBy] = {nil,{186267}}, -- alliance/horde? what about 11404/11405, probably phase specific?
@@ -8197,128 +8240,6 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },]]
     }
-end
-
-function _QuestieTBCQuestFixes:InsertMissingQuestIds()
-    QuestieDB.questData[12192] = {} -- This One Time, When I Was Drunk... (Horde)
-    QuestieDB.questData[12420] = {} -- Brew of the Month Club (Alliance)
-    QuestieDB.questData[12421] = {} -- Brew of the Month Club (Horde)
-    QuestieDB.questData[63866] = {} -- Claiming the Light
-    QuestieDB.questData[64139] = {} -- A Summons from Lady Liadrin
-    QuestieDB.questData[64140] = {} -- The Master's Path
-    QuestieDB.questData[64141] = {} -- A Gesture of Commitment
-    QuestieDB.questData[64142] = {} -- A Demonstration of Loyalty
-    QuestieDB.questData[64143] = {} -- True Masters of the Light
-    QuestieDB.questData[64144] = {} -- True Masters of the Light
-    QuestieDB.questData[64145] = {} -- True Masters of the Light
-    QuestieDB.questData[64319] = {} -- A Study in Power
-    QuestieDB.questData[64845] = {} -- Alliance War Effort
-
-    -- Alliance boosted quests
-    QuestieDB.questData[64028] = {} -- A New Beginning
-    QuestieDB.questData[64031] = {} -- Tools for Survival
-    QuestieDB.questData[64034] = {} -- Combat Training
-    QuestieDB.questData[64035] = {} -- Talented
-    QuestieDB.questData[64037] = {} -- Eastern Plaguelands
-    QuestieDB.questData[64038] = {} -- The Dark Portal
-    -- Horde boosted quests
-    QuestieDB.questData[64046] = {} -- A New Beginning
-    QuestieDB.questData[64047] = {} -- A New Beginning
-    QuestieDB.questData[64048] = {} -- Tools for Survival
-    QuestieDB.questData[64049] = {} -- Tools for Survival
-    QuestieDB.questData[64050] = {} -- Combat Training
-    QuestieDB.questData[64051] = {} -- Combat Training
-    QuestieDB.questData[64052] = {} -- Talented
-    QuestieDB.questData[64053] = {} -- Talented
-    QuestieDB.questData[64063] = {} -- The Dark Portal
-    QuestieDB.questData[64064] = {} -- Eastern Plaguelands
-    QuestieDB.questData[64128] = {} -- Eastern Plaguelands
-    QuestieDB.questData[64217] = {} -- The Dark Portal
-
-    -- Halloween Candy quests
-    QuestieDB.questData[12133] = {} -- Smash the Pumpkin
-    QuestieDB.questData[12135] = {} -- Let the Fires Come!
-    QuestieDB.questData[12139] = {} -- Let the Fires Come!
-    QuestieDB.questData[12155] = {} -- Smash the Pumpkin
-
-    QuestieDB.questData[12286] = {} -- Candy Bucket
-    QuestieDB.questData[12331] = {} -- Candy Bucket
-    QuestieDB.questData[12332] = {} -- Candy Bucket
-    QuestieDB.questData[12333] = {} -- Candy Bucket
-    QuestieDB.questData[12334] = {} -- Candy Bucket
-    QuestieDB.questData[12335] = {} -- Candy Bucket
-    QuestieDB.questData[12336] = {} -- Candy Bucket
-    QuestieDB.questData[12337] = {} -- Candy Bucket
-    QuestieDB.questData[12338] = {} -- Candy Bucket
-    QuestieDB.questData[12339] = {} -- Candy Bucket
-    QuestieDB.questData[12340] = {} -- Candy Bucket
-    QuestieDB.questData[12341] = {} -- Candy Bucket
-    QuestieDB.questData[12342] = {} -- Candy Bucket
-    QuestieDB.questData[12343] = {} -- Candy Bucket
-    QuestieDB.questData[12344] = {} -- Candy Bucket
-    QuestieDB.questData[12345] = {} -- Candy Bucket
-    QuestieDB.questData[12346] = {} -- Candy Bucket
-    QuestieDB.questData[12347] = {} -- Candy Bucket
-    QuestieDB.questData[12348] = {} -- Candy Bucket
-    QuestieDB.questData[12349] = {} -- Candy Bucket
-    QuestieDB.questData[12350] = {} -- Candy Bucket
-    QuestieDB.questData[12351] = {} -- Candy Bucket
-    QuestieDB.questData[12352] = {} -- Candy Bucket
-    QuestieDB.questData[12353] = {} -- Candy Bucket
-    QuestieDB.questData[12354] = {} -- Candy Bucket
-    QuestieDB.questData[12355] = {} -- Candy Bucket
-    QuestieDB.questData[12356] = {} -- Candy Bucket
-    QuestieDB.questData[12357] = {} -- Candy Bucket
-    QuestieDB.questData[12358] = {} -- Candy Bucket
-    QuestieDB.questData[12359] = {} -- Candy Bucket
-    QuestieDB.questData[12360] = {} -- Candy Bucket
-    QuestieDB.questData[12361] = {} -- Candy Bucket
-    QuestieDB.questData[12362] = {} -- Candy Bucket
-    QuestieDB.questData[12363] = {} -- Candy Bucket
-    QuestieDB.questData[12364] = {} -- Candy Bucket
-    QuestieDB.questData[12365] = {} -- Candy Bucket
-    QuestieDB.questData[12366] = {} -- Candy Bucket
-    QuestieDB.questData[12367] = {} -- Candy Bucket
-    QuestieDB.questData[12368] = {} -- Candy Bucket
-    QuestieDB.questData[12369] = {} -- Candy Bucket
-    QuestieDB.questData[12370] = {} -- Candy Bucket
-    QuestieDB.questData[12371] = {} -- Candy Bucket
-    QuestieDB.questData[12373] = {} -- Candy Bucket
-    QuestieDB.questData[12374] = {} -- Candy Bucket
-    QuestieDB.questData[12375] = {} -- Candy Bucket
-    QuestieDB.questData[12376] = {} -- Candy Bucket
-    QuestieDB.questData[12377] = {} -- Candy Bucket
-    QuestieDB.questData[12378] = {} -- Candy Bucket
-    QuestieDB.questData[12379] = {} -- Candy Bucket
-    QuestieDB.questData[12380] = {} -- Candy Bucket
-    QuestieDB.questData[12381] = {} -- Candy Bucket
-    QuestieDB.questData[12382] = {} -- Candy Bucket
-    QuestieDB.questData[12383] = {} -- Candy Bucket
-    QuestieDB.questData[12384] = {} -- Candy Bucket
-    QuestieDB.questData[12385] = {} -- Candy Bucket
-    QuestieDB.questData[12386] = {} -- Candy Bucket
-    QuestieDB.questData[12387] = {} -- Candy Bucket
-    QuestieDB.questData[12388] = {} -- Candy Bucket
-    QuestieDB.questData[12389] = {} -- Candy Bucket
-    QuestieDB.questData[12390] = {} -- Candy Bucket
-    QuestieDB.questData[12391] = {} -- Candy Bucket
-    QuestieDB.questData[12392] = {} -- Candy Bucket
-    QuestieDB.questData[12393] = {} -- Candy Bucket
-    QuestieDB.questData[12394] = {} -- Candy Bucket
-    QuestieDB.questData[12395] = {} -- Candy Bucket
-    QuestieDB.questData[12396] = {} -- Candy Bucket
-    QuestieDB.questData[12397] = {} -- Candy Bucket
-    QuestieDB.questData[12398] = {} -- Candy Bucket
-    QuestieDB.questData[12399] = {} -- Candy Bucket
-    QuestieDB.questData[12400] = {} -- Candy Bucket
-    QuestieDB.questData[12401] = {} -- Candy Bucket
-    QuestieDB.questData[12402] = {} -- Candy Bucket
-    QuestieDB.questData[12403] = {} -- Candy Bucket
-    QuestieDB.questData[12404] = {} -- Candy Bucket
-    QuestieDB.questData[12406] = {} -- Candy Bucket
-    QuestieDB.questData[12407] = {} -- Candy Bucket
-    QuestieDB.questData[12408] = {} -- Candy Bucket
-    QuestieDB.questData[12409] = {} -- Candy Bucket
 end
 
 function QuestieTBCQuestFixes:LoadFactionFixes()

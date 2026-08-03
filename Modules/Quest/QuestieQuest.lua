@@ -48,11 +48,14 @@ local QuestFinisher = QuestieLoader:ImportModule("QuestFinisher")
 local DistanceUtils = QuestieLoader:ImportModule("DistanceUtils")
 ---@type Expansions
 local Expansions = QuestieLoader:ImportModule("Expansions")
+---@type ThreadLib
+local ThreadLib = QuestieLoader:ImportModule("ThreadLib")
 
 --We should really try and squeeze out all the performance we can, especially in this.
 local tostring = tostring;
 local tinsert = table.insert;
 local pairs = pairs;
+local coYield = coroutine.yield;
 
 local NOP_FUNCTION = function()
 end
@@ -67,6 +70,18 @@ local _RegisterObjectiveTooltips, _DetermineIconsToDraw, _GetIconsSortedByDistan
 local _DrawObjectiveIcons, _DrawObjectiveWaypoints
 
 local HBD = LibStub("HereBeDragonsQuestie-2.0")
+
+-- this variable defines how many operations to run (batched at a time) before yielding for a frame.
+-- 1 would mean yielding every operation (so lower = slower but less lag)
+-- this variable is not a hard limit when invoked, but rather a guideline;
+-- each code block may put a modifier on it, for instance 10x  if the loop is lightweight
+local TICKS_PER_YIELD = 60
+
+if Questie.IsHardcore then
+    -- The addon timing restrictions from the Blizzard watchdog are much higher for HC servers.
+    -- Therefore we need a quite low tick rate to make sure we don't get bitten on less performant machines.
+    TICKS_PER_YIELD = 30
+end
 
 function QuestieQuest:Initialize()
     Questie:Debug(Questie.DEBUG_INFO, "[QuestieQuest]: Getting all completed quests")
@@ -88,72 +103,86 @@ end
 
 function QuestieQuest.ToggleAvailableQuests(showIcons)
     Questie:Debug(Questie.DEBUG_DEVELOP, "[QuestieQuest:ToggleAvailableQuests] showIcons:", showIcons)
-    QuestieQuest:GetAllQuestIds() -- add notes that weren't added from previous hidden state
 
-    AvailableQuests.CalculateAndDrawAll()
-
-    if showIcons then
-        QuestieQuest:ShowQuestIcons()
-    else
-        QuestieQuest:HideQuestIcons()
-    end
+    ThreadLib.ThreadCallbackInstant(
+        function()
+            QuestieQuest:GetAllQuestIds() -- add notes that weren't added from previous hidden state
+        end,
+        function()
+            AvailableQuests.CalculateAndDrawAll(function()
+                ThreadLib.ThreadInstant(function()
+                    if showIcons then
+                        QuestieQuest:ShowQuestIcons()
+                    else
+                        QuestieQuest:HideQuestIcons()
+                    end
+                end)
+            end)
+        end
+    )
 end
 
 function QuestieQuest:ToggleNotes(showIcons)
     Questie:Debug(Questie.DEBUG_DEVELOP, "[QuestieQuest:ToggleNotes] showIcons:", showIcons)
-    QuestieQuest:GetAllQuestIds() -- add notes that weren't added from previous hidden state
 
-    if showIcons then
-        QuestieQuest:ShowQuestIcons()
-        _QuestieQuest:ShowManualIcons()
-    else
-        QuestieQuest:HideQuestIcons()
-        _QuestieQuest:HideManualIcons()
-    end
+    ThreadLib.ThreadInstant(function()
+        QuestieQuest:GetAllQuestIds() -- add notes that weren't added from previous hidden state
+
+        if showIcons then
+            QuestieQuest:ShowQuestIcons()
+            _QuestieQuest:ShowManualIcons()
+        else
+            QuestieQuest:HideQuestIcons()
+            _QuestieQuest:HideManualIcons()
+        end
+    end)
 end
 
 ---Updates all quest icons to ensure they are correctly shown/hidden
 ---@param showIcons boolean @ Whether to show or hide the icons
 function QuestieQuest.ToggleQuestNotes(showIcons)
     Questie:Debug(Questie.DEBUG_DEVELOP, "[QuestieQuest.ToggleQuestNotes] showIcons:", showIcons)
-    QuestieQuest:GetAllQuestIds() -- add notes that weren't added from previous hidden state
 
-    if showIcons then
-        QuestieQuest:ShowQuestIcons()
-    else
-        QuestieQuest:HideQuestIcons()
-    end
+    ThreadLib.ThreadInstant(function()
+        QuestieQuest:GetAllQuestIds() -- add notes that weren't added from previous hidden state
+
+        if showIcons then
+            QuestieQuest:ShowQuestIcons()
+        else
+            QuestieQuest:HideQuestIcons()
+        end
+    end)
 end
 
+--- Shows all quest icons. Needs to be called from a coroutine.
 function QuestieQuest:ShowQuestIcons()
+    assert(coroutine.running(), "ShowQuestIcons must be called from a coroutine")
+
     local trackerHiddenQuests = Questie.db.char.TrackerHiddenQuests
+    local questCount = 0
     for questId, frameList in pairs(QuestieMap.questIdFrames) do
         if (not trackerHiddenQuests) or (not trackerHiddenQuests[questId]) then -- Skip quests which are completely hidden from the Tracker menu
             for _, frameName in pairs(frameList) do -- this may seem a bit expensive, but its actually really fast due to the order things are checked
                 ---@type IconFrame
                 local icon = _G[frameName];
-                if not icon.data then
-                    error("Desync! Icon has not been removed correctly, but has already been reset. Skipping frame \"" .. frameName .. "\" for quest " .. questId)
-                else
-                    local objectiveString = tostring(questId) .. " " .. tostring(icon.data.ObjectiveIndex)
-                    if (not Questie.db.char.TrackerHiddenObjectives) or (not Questie.db.char.TrackerHiddenObjectives[objectiveString]) then
-                        if icon ~= nil and icon.hidden and (not icon:ShouldBeHidden()) then
-                            icon:FakeShow()
-
-                            if icon.data.lineFrames then
-                                for _, lineIcon in pairs(icon.data.lineFrames) do
-                                    lineIcon:FakeShow()
-                                end
-                            end
-                        end
-                        if (icon.data.QuestData.FadeIcons or (icon.data.ObjectiveData and icon.data.ObjectiveData.FadeIcons)) and icon.data.Type ~= "complete" then
-                            icon:FadeOut()
-                        else
-                            icon:FadeIn()
-                        end
+                local objectiveString = tostring(questId) .. " " .. tostring(icon.data.ObjectiveIndex)
+                if (not Questie.db.char.TrackerHiddenObjectives) or (not Questie.db.char.TrackerHiddenObjectives[objectiveString]) then
+                    if icon ~= nil and icon.hidden and (not icon:ShouldBeHidden()) then
+                        icon:FakeShow()
+                    end
+                    if (icon.data.QuestData.FadeIcons or (icon.data.ObjectiveData and icon.data.ObjectiveData.FadeIcons)) and icon.data.Type ~= "complete" then
+                        icon:FadeOut()
+                    else
+                        icon:FadeIn()
                     end
                 end
             end
+        end
+
+        questCount = questCount + 1
+        if questCount >= TICKS_PER_YIELD then
+            questCount = 0
+            coYield()
         end
     end
 end
@@ -171,25 +200,29 @@ function _QuestieQuest:ShowManualIcons()
     end
 end
 
+--- Hides all quest icons. Needs to be called from a coroutine
 function QuestieQuest:HideQuestIcons()
+    assert(coroutine.running(), "HideQuestIcons must be called from a coroutine")
+
+    local questCount = 0
     for _, frameList in pairs(QuestieMap.questIdFrames) do
         for _, frameName in pairs(frameList) do -- this may seem a bit expensive, but its actually really fast due to the order things are checked
             local icon = _G[frameName];
             if icon ~= nil and (not icon.hidden) and icon:ShouldBeHidden() then -- check for function to make sure its a frame
                 -- Hides Objective Icons
                 icon:FakeHide()
-
-                if icon.data.lineFrames then
-                    for _, lineIcon in pairs(icon.data.lineFrames) do
-                        lineIcon:FakeHide()
-                    end
-                end
             end
             if (icon.data.QuestData.FadeIcons or (icon.data.ObjectiveData and icon.data.ObjectiveData.FadeIcons)) and icon.data.Type ~= "complete" then
                 icon:FadeOut()
             else
                 icon:FadeIn()
             end
+        end
+
+        questCount = questCount + 1
+        if questCount >= TICKS_PER_YIELD then
+            questCount = 0
+            coYield()
         end
     end
 end
@@ -226,11 +259,17 @@ function QuestieQuest:ClearAllNotes()
         end
     end
 
+    local yieldCount = 0
     for _, frameList in pairs(QuestieMap.questIdFrames) do
         for _, frameName in pairs(frameList) do
             local icon = _G[frameName]
             if icon and icon.Unload then
                 QuestieFramePool:UnloadFrame(icon)
+                yieldCount = yieldCount + 1
+                if yieldCount >= (TICKS_PER_YIELD / 6) then
+                    yieldCount = 0
+                    coYield()
+                end
             end
         end
     end
@@ -293,13 +332,9 @@ local function _UpdateSpecials(questId)
     local quest = QuestieDB.GetQuest(questId)
     if quest and next(quest.SpecialObjectives) then
         for _, objective in pairs(quest.SpecialObjectives) do
-            local result, err = xpcall(QuestieQuest.PopulateObjective, ERR_FUNCTION, QuestieQuest, quest, 0, objective, true)
-            if not result then
-                Questie:Error("[QuestieQuest]: [SpecialObjectives] " ..
-                    l10n("There was an error populating objectives for %s %s %s %s", quest.name or "No quest name", quest.Id or "No quest id",
-                        0 or "No objective",
-                        err or "No error"));
-            end
+            ThreadLib.ThreadInstant(function()
+                QuestieQuest:PopulateObjective(quest, 0, objective, true)
+            end)
         end
     end
 end
@@ -324,9 +359,17 @@ function QuestieQuest:SmoothReset()
             return #QuestieMap._mapDrawQueue == 0 and #QuestieMap._minimapDrawQueue == 0 -- wait until draw queue is finished
         end,
         function()
-            QuestieQuest:ClearAllNotes()
+            QuestieQuest._clearAllNotesDone = false
+            ThreadLib.ThreadCallbackInstant(function()
+                QuestieQuest:ClearAllNotes()
+            end, function()
+                QuestieQuest._clearAllNotesDone = true
+            end)
             QuestieQuest:ClearAllToolTips()
             return true
+        end,
+        function()
+            return QuestieQuest._clearAllNotesDone == true
         end,
         function()
             QuestieMenu:OnLogin(true) -- remove icons
@@ -651,13 +694,15 @@ function QuestieQuest:UpdateQuest(questId)
     if quest and (not Questie.db.char.complete[questId]) then
         QuestieQuest:PopulateQuestLogInfo(quest)
 
-        if QuestieQuest:ShouldShowQuestNotes(questId) then
-            QuestieQuest:UpdateObjectiveNotes(quest)
-        else
-            QuestieTooltips:RemoveQuest(questId)
-        end
-
         local isComplete = quest:IsComplete()
+
+        if isComplete ~= 1 then
+            if QuestieQuest:ShouldShowQuestNotes(questId) then
+                QuestieQuest:UpdateObjectiveNotes(quest)
+            else
+                QuestieTooltips:RemoveQuest(questId)
+            end
+        end
 
         Questie:Debug(Questie.DEBUG_DEVELOP, "[QuestieQuest:UpdateQuest] QuestDB:IsComplete() flag is: " .. isComplete)
 
@@ -666,15 +711,18 @@ function QuestieQuest:UpdateQuest(questId)
             Questie:Debug(Questie.DEBUG_DEVELOP, "[QuestieQuest:UpdateQuest] Quest is: Complete!")
 
             -- Only remove the map icons, but keep the tooltips
-            QuestieMap:UnloadQuestFrames(questId)
-            QuestFinisher.AddFinisher(quest)
+            ThreadLib.ThreadCallbackInstant(function()
+                QuestieMap:UnloadQuestFrames(questId)
+            end, function()
+                QuestFinisher.AddFinisher(quest)
+            end)
+
             quest.WasComplete = true
         elseif isComplete == -1 then
             -- Failed quests should be shown as available again
             Questie:Debug(Questie.DEBUG_DEVELOP, "[QuestieQuest:UpdateQuest] Quest has: Failed!")
 
-            AvailableQuests.RemoveQuest(questId)
-            AvailableQuests.DrawAvailableQuest(quest)
+            AvailableQuests.RecreateFailedQuest(quest)
 
             -- Reset any collapsed quest flags
             if Questie.db.char.collapsedQuests then
@@ -724,8 +772,11 @@ function QuestieQuest:UpdateQuest(questId)
                             "[QuestieQuest:UpdateQuest] All Quest Objective(s) are Complete! Manually setting quest to Complete!")
 
                         -- Only remove the map icons, but keep the tooltips
-                        QuestieMap:UnloadQuestFrames(questId)
-                        QuestFinisher.AddFinisher(quest)
+                        ThreadLib.ThreadCallbackInstant(function()
+                            QuestieMap:UnloadQuestFrames(questId)
+                        end, function()
+                            QuestFinisher.AddFinisher(quest)
+                        end)
                         quest.WasComplete = true
                         quest.isComplete = true
                     else
@@ -752,13 +803,24 @@ function QuestieQuest:SetObjectivesDirty(questId)
     end
 end
 
---Run this if you want to update the entire table
+-- Run this if you want to re-create QuestiePlayer.currentQuestlog.
+-- This function needs to be called from within a coroutine.
 function QuestieQuest:GetAllQuestIds()
     Questie:Debug(Questie.DEBUG_DEVELOP, "[QuestieQuest] Getting all quests")
 
+    assert(coroutine.running(), "GetAllQuestIds must be called from a coroutine")
+
     QuestiePlayer.currentQuestlog = {}
 
-    for questId, data in pairs(QuestLogCache.questLog_DO_NOT_MODIFY) do -- DO NOT MODIFY THE RETURNED TABLE
+    -- We store a snapshot to be save against unexpected changes to QuestLogCache.questLog_DO_NOT_MODIFY
+    -- which can cause problems because we are yielding
+    local questTitles = {}
+    for questId, data in pairs(QuestLogCache.questLog_DO_NOT_MODIFY) do
+        questTitles[questId] = data.title
+    end
+
+    local yieldCounter = 0
+    for questId, title in pairs(questTitles) do
         if (not QuestieDB.QuestPointers[questId]) then
             if not Questie._sessionWarnings[questId] then
                 if not Questie.IsSoD then
@@ -775,7 +837,7 @@ function QuestieQuest:GetAllQuestIds()
                 local complete = quest:IsComplete()
 
                 QuestiePlayer.currentQuestlog[questId] = quest
-                quest.LocalizedName = data.title
+                quest.LocalizedName = title
 
                 if complete == -1 then
                     QuestieQuest:UpdateQuest(questId)
@@ -788,13 +850,15 @@ function QuestieQuest:GetAllQuestIds()
                     if Questie.db.char.TrackerHiddenQuests[questId] then
                         quest.HideIcons = true
                     end
+
+                    local questIdStr = tostring(questId)
                     for _, objective in pairs(quest.Objectives) do
-                        if Questie.db.char.TrackerHiddenObjectives[tostring(questId) .. " " .. tostring(objective.Index)] then
+                        if Questie.db.char.TrackerHiddenObjectives[questIdStr .. " " .. tostring(objective.Index)] then
                             objective.HideIcons = true
                         end
                     end
                     for _, objective in pairs(quest.SpecialObjectives) do
-                        if Questie.db.char.TrackerHiddenObjectives[tostring(questId) .. " " .. tostring(objective.Index)] then
+                        if Questie.db.char.TrackerHiddenObjectives[questIdStr .. " " .. tostring(objective.Index)] then
                             objective.HideIcons = true
                         end
                     end
@@ -810,6 +874,12 @@ function QuestieQuest:GetAllQuestIds()
             end
 
             Questie:Debug(Questie.DEBUG_INFO, "[QuestieQuest] Adding the quest", questId, QuestiePlayer.currentQuestlog[questId])
+        end
+
+        yieldCounter = yieldCounter + 1
+        if yieldCounter >= (TICKS_PER_YIELD / 6) then -- 5 quests processed per frame in hardcore, 10 otherwise
+            yieldCounter = 0
+            coYield()
         end
     end
 
@@ -962,21 +1032,16 @@ end
 function QuestieQuest:UpdateObjectiveNotes(quest)
     Questie:Debug(Questie.DEBUG_INFO, "[QuestieQuest] UpdateObjectiveNotes:", quest.Id)
     for objectiveIndex, objective in pairs(quest.Objectives) do
-        local result, err = xpcall(QuestieQuest.PopulateObjective, ERR_FUNCTION, QuestieQuest, quest, objectiveIndex, objective, false)
-        if (not result) then
-            Questie:Debug(Questie.DEBUG_ELEVATED, "[QuestieQuest] There was an error populating objectives for", quest.name, quest.Id, objectiveIndex, err)
-        end
+        ThreadLib.ThreadInstant(function()
+            QuestieQuest:PopulateObjective(quest, objectiveIndex, objective, false)
+        end)
     end
 
     if next(quest.SpecialObjectives) then
         for _, objective in pairs(quest.SpecialObjectives) do
-            local result, err = xpcall(QuestieQuest.PopulateObjective, ERR_FUNCTION, QuestieQuest, quest, 0, objective, true)
-            if not result then
-                Questie:Error("[QuestieQuest]: [SpecialObjectives] " ..
-                    l10n("There was an error populating objectives for %s %s %s %s", quest.name or "No quest name", quest.Id or "No quest id",
-                        0 or "No objective",
-                        err or "No error"));
-            end
+            ThreadLib.ThreadInstant(function()
+                QuestieQuest:PopulateObjective(quest, 0, objective, true)
+            end)
         end
     end
 end
@@ -1031,8 +1096,10 @@ end
 ---@param objectiveIndex ObjectiveIndex
 ---@param objective QuestObjective
 ---@param blockItemTooltips any
-function QuestieQuest:PopulateObjective(quest, objectiveIndex, objective, blockItemTooltips) -- must be p-called
+function QuestieQuest:PopulateObjective(quest, objectiveIndex, objective, blockItemTooltips)
     Questie:Debug(Questie.DEBUG_INFO, "[QuestieQuest:PopulateObjective]", objective.Description)
+
+    assert(coroutine.running(), "PopulateObjective must be called from a coroutine")
 
     if (not objective.Update) then
         Questie:Debug(Questie.DEBUG_INFO, "[QuestieQuest:PopulateObjective] - Quest is already updated. --> Exiting!")
@@ -1159,6 +1226,7 @@ _DetermineIconsToDraw = function(quest, objective, objectiveIndex, objectiveCent
     local iconsToDraw = {}
     local spawnItemId
 
+    local yieldCount = 0
     for id, spawnData in pairs(objective.spawnList) do
         if spawnData.ItemId then
             spawnItemId = spawnData.ItemId
@@ -1224,6 +1292,12 @@ _DetermineIconsToDraw = function(quest, objective, objectiveIndex, objectiveCent
                         else
                             iconsToDraw[distance] = {drawIcon}
                         end
+
+                        yieldCount = yieldCount + 1
+                        if yieldCount >= TICKS_PER_YIELD then
+                            yieldCount = 0
+                            coYield()
+                        end
                     end
                 end
             end
@@ -1272,6 +1346,7 @@ _DrawObjectiveIcons = function(questId, iconsToDraw, objective, maxPerType)
         tinsert(alreadyPlacedByZone[zoneKey], coords)
     end
 
+    local yieldCount = 0
     for i = 1, iconCount do
         icon = orderedList[i]
         if spawnedIconCount > maxPerType then
@@ -1330,6 +1405,11 @@ _DrawObjectiveIcons = function(questId, iconsToDraw, objective, maxPerType)
             _MarkCoordsAsAlready(zoneKey, coords)
             spawnedIconCount = spawnedIconCount + 1
         end
+        yieldCount = yieldCount + 1
+        if yieldCount >= (TICKS_PER_YIELD * 2) then
+            yieldCount = 0
+            coYield()
+        end
     end
 
     return icon, iconPerZone
@@ -1365,6 +1445,8 @@ _GetIconsSortedByDistance = function(icons)
 end
 
 _DrawObjectiveWaypoints = function(objective, icon, iconPerZone)
+
+    local yieldCount = 0
     for _, spawnData in pairs(objective.spawnList) do -- spawnData.Name, spawnData.Spawns
         if spawnData.Waypoints then
             for zone, waypoints in pairs(spawnData.Waypoints) do
@@ -1385,6 +1467,11 @@ _DrawObjectiveWaypoints = function(objective, icon, iconPerZone)
 
                 if ipz then
                     QuestieMap:DrawWaypoints(ipz[1], waypoints, zone, spawnData.Hostile and {1, 0.2, 0, 0.7} or nil)
+                end
+                yieldCount = yieldCount + 1
+                if yieldCount >= TICKS_PER_YIELD then
+                    yieldCount = 0
+                    coYield() -- We declare the yieldCount at the top level, but increment it every time we try to draw a point, because otherwise we could draw 29x 29-point paths and never call a coYield when TICKS_PER_YIELD is 30.
                 end
             end
 

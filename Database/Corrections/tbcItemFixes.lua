@@ -66,8 +66,10 @@ function QuestieTBCItemFixes:Load()
         [23217] = {
             [itemKeys.npcDrops] = {16933},
         },
-        [23339] = {
+        [23339] = { -- Arelion's Journal
             [itemKeys.npcDrops] = {},
+            [itemKeys.objectDrops] = {},
+            [itemKeys.itemDrops] = {31955},
         },
         [23361] = {
             [itemKeys.class] = itemClasses.QUEST,
@@ -125,6 +127,9 @@ function QuestieTBCItemFixes:Load()
         },
         [23894] = {
             [itemKeys.npcDrops] = {17370,17371,17377,17381,17395,17397,17398,17414,17429,17491,17624,17626,},
+        },
+        [23901] = { -- Nazan's Head
+            [itemKeys.npcDrops] = {17307},
         },
         [23984] = {
             [itemKeys.npcDrops] = {17324,17327,17339,17342,17343,17344,17346,17347,17348,17350,17352,17353,17522,17523,17527,17588,17589,17661,17683,17322,17323,17325,17326,17328,17329,17330,17334,17336,17337,17338,17340,17341,17358,17494,17550,17604,17606,17607,17608,17609,17610,17713,17714,17715},
@@ -412,6 +417,9 @@ function QuestieTBCItemFixes:Load()
         },
         [31951] = {
             [itemKeys.vendors] = {21643},
+        },
+        [31955] = { -- Arelion's Knapsack
+            [itemKeys.objectDrops] = {184115},
         },
         [31957] = {
             [itemKeys.npcDrops] = {20520},

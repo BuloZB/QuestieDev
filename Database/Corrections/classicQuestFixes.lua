@@ -20,23 +20,6 @@ QuestieCorrections.itemObjectiveFirst[5088] = true
 -- Further information on how to use this can be found at the wiki
 -- https://github.com/Questie/Questie/wiki/Corrections
 
-function QuestieQuestFixes:LoadMissingQuests()
-    QuestieDB.questData[5640] = {} -- Desperate Prayer
-    QuestieDB.questData[5678] = {} -- Arcane Feedback
-
-    QuestieDB.questData[7668] = {} -- Add missing quest index
-    QuestieDB.questData[7669] = {} -- Add missing quest index
-    QuestieDB.questData[7670] = {} -- Add missing quest index #1432
-
-    QuestieDB.questData[65593] = {} -- Hearts of the Lovers
-    QuestieDB.questData[65597] = {} -- The Binding
-    QuestieDB.questData[65601] = {} -- Love Hurts
-    QuestieDB.questData[65602] = {} -- What Is Love?
-    QuestieDB.questData[65603] = {} -- The Binding
-    QuestieDB.questData[65604] = {} -- The Binding
-    QuestieDB.questData[65610] = {} -- Wish You Were Here
-end
-
 function QuestieQuestFixes:Load()
     local questKeys = QuestieDB.questKeys
     local zoneIDs = ZoneDB.zoneIDs
@@ -125,7 +108,8 @@ function QuestieQuestFixes:Load()
         [112] = {
             [questKeys.nextQuestInChain] = 114,
         },
-        [117] = {
+        [117] = { -- Thunderbrew
+            [questKeys.requiredLevel] = 10,
             [questKeys.name] = "Thunderbrew",
         },
         [121] = { -- Messenger to Stormwind
@@ -161,9 +145,6 @@ function QuestieQuestFixes:Load()
         [165] = {
             [questKeys.breadcrumbForQuestId] = 148, -- #1173
             [questKeys.nextQuestInChain] = 148,
-        },
-        [179] = { -- Dwarven Outfitters
-            [questKeys.nextQuestInChain] = 233,
         },
         [189] = { -- Bloodscalp Ears
             [questKeys.nextQuestInChain] = 209,

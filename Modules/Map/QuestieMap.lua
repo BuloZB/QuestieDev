@@ -58,6 +58,15 @@ local pairs = pairs;
 local ipairs = ipairs;
 local tremove = table.remove;
 local tunpack = unpack;
+local coYield = coroutine.yield
+
+-- How many frames to unload per coroutine tick.
+local TICKS_PER_YIELD = 30
+if Questie.IsHardcore then
+    -- The addon timing restrictions from the Blizzard watchdog are much higher for HC servers.
+    -- Therefore we need a quite low tick rate to make sure we don't get bitten on less performant machines.
+    TICKS_PER_YIELD = 1
+end
 
 
 local drawTimer
@@ -83,7 +92,10 @@ function QuestieMap:GetFramesForQuest(questId)
 end
 
 function QuestieMap:UnloadQuestFrames(questId, iconType)
+    assert(coroutine.running(), "UnloadQuestFrames must be called from a coroutine")
+
     if QuestieMap.questIdFrames[questId] then
+        local yieldCount = 0
         if not iconType then
             for _, frame in pairs(QuestieMap:GetFramesForQuest(questId)) do
                 -- Capture this before Unload() because it clears frame.data.
@@ -94,6 +106,12 @@ function QuestieMap:UnloadQuestFrames(questId, iconType)
                 if objective then
                     objective.AlreadySpawned = {}
                 end
+
+                yieldCount = yieldCount + 1
+                if yieldCount >= TICKS_PER_YIELD then
+                    yieldCount = 0
+                    coYield()
+                end
             end
 
             QuestieMap.questIdFrames[questId] = nil;
@@ -103,6 +121,12 @@ function QuestieMap:UnloadQuestFrames(questId, iconType)
                     QuestieFramePool:UnloadFrame(frame)
                     QuestieMap.questIdFrames[questId][name] = nil
                     _G[name] = nil
+
+                    yieldCount = yieldCount + 1
+                    if yieldCount >= TICKS_PER_YIELD then
+                        yieldCount = 0
+                        coYield()
+                    end
                 end
             end
         end
@@ -416,7 +440,7 @@ function QuestieMap:ShowNPC(npcID, icon, scale, title, body, disableShiftToRemov
         for zone, waypoints in pairs(npc.waypoints) do
             if waypoints[1] and waypoints[1][1] and waypoints[1][1][1] then
                 if not manualIcons[zone] then
-                    manualIcons[zone] = QuestieMap:DrawManualIcon(data, zone, waypoints[1][1][1], waypoints[1][1][2])
+                    manualIcons[zone] = QuestieMap:DrawManualIcon(data, zone, waypoints[1][1][1], waypoints[1][1][2], typ)
                 end
                 QuestieMap:DrawWaypoints(manualIcons[zone], waypoints, zone)
             end
@@ -428,6 +452,7 @@ end
 -- This function does the same for manualFrames as similar functions in
 -- QuestieQuest do for questIdFrames
 ---@param objectID number
+---@param typ string? @The type of manual icon (e.g. "Repair" or "Trade Goods" for townsfolk icons
 function QuestieMap:ShowObject(objectID, icon, scale, title, body, disableShiftToRemove, typ)
     if type(objectID) ~= "number" then return end
     -- get the gameobject data
@@ -481,7 +506,7 @@ function QuestieMap:ShowObject(objectID, icon, scale, title, body, disableShiftT
         for zone, waypoints in pairs(object.waypoints) do
             if not ZoneDB:GetDungeonLocation(zone) and waypoints[1] and waypoints[1][1] and waypoints[1][1][1] then
                 if not manualIcons[zone] then
-                    manualIcons[zone] = QuestieMap:DrawManualIcon(data, zone, waypoints[1][1][1], waypoints[1][1][2])
+                    manualIcons[zone] = QuestieMap:DrawManualIcon(data, zone, waypoints[1][1][1], waypoints[1][1][2], typ)
                 end
                 QuestieMap:DrawWaypoints(manualIcons[zone], waypoints, zone)
             end
@@ -506,10 +531,11 @@ end
 
 -- Draw manually added NPC/object notes
 -- TODO: item and custom notes
---@param data table<...> @A table created by the calling function, must contain `id`, `Name`, `GetIconScale()`, and `Type`
---@param AreaID number @The zone ID from the raw data
---@param x float @The X coordinate in 0-100 format
---@param y float @The Y coordinate in 0-100 format
+---@param data table<...> @A table created by the calling function, must contain `id`, `Name`, `GetIconScale()`, and `Type`
+---@param areaID number @The zone ID from the raw data
+---@param x number @The X coordinate in 0-100 format
+---@param y number @The Y coordinate in 0-100 format
+---@param typ? string @The type of manual icon (e.g. "Repair" or "Trade Goods" for townsfolk icons
 function QuestieMap:DrawManualIcon(data, areaID, x, y, typ)
     if type(data) ~= "table" then
         error("Questie" .. ": AddWorldMapIconMap: must have some data")

@@ -47,6 +47,8 @@ local QuestLogCache = QuestieLoader:ImportModule("QuestLogCache")
 local QuestieDebugOffer = QuestieLoader:ImportModule("QuestieDebugOffer")
 ---@type Expansions
 local Expansions = QuestieLoader:ImportModule("Expansions")
+---@type ThreadLib
+local ThreadLib = QuestieLoader:ImportModule("ThreadLib")
 
 local GetItemInfo = C_Item.GetItemInfo or GetItemInfo
 
@@ -102,7 +104,7 @@ function QuestieTracker.Initialize()
     trackerHeaderFrame = TrackerHeaderFrame.Initialize(trackerBaseFrame, QuestieTracker.Update)
     trackerQuestFrame = TrackerQuestFrame.Initialize(trackerBaseFrame, trackerHeaderFrame)
 
-    if Expansions.Current >= Expansions.Cata then
+    if Expansions.Current >= Expansions.Cata or Questie.IsTitanReforged then
         AutoCompleteFrame.Initialize(trackerBaseFrame)
     end
 
@@ -868,7 +870,7 @@ function QuestieTracker:Update()
                             local timeRemainingString, timeRemaining = TrackerQuestTimers:GetRemainingTimeByQuestId(quest.Id)
                             if timeRemaining then
                                 if timeRemaining <= 1 then
-                                    timerText = Questie:Colorize(l10n("Time's up"), "lightBlue")
+                                    timerText = Questie:Colorize(l10n("Time's up!"), "lightBlue")
                                 else
                                     timerText = Questie:Colorize(timeRemainingString, "lightBlue")
                                     activeTimer = true
@@ -1924,11 +1926,13 @@ function QuestieTracker:UntrackQuestId(questId)
     end
 
     if Questie.db.profile.hideUntrackedQuestsMapIcons then
-        -- Hides objective icons for untracked quests. We don't want to hide townsfolk icons.
-        QuestieQuest:HideQuestIcons()
+        ThreadLib.ThreadInstant(function()
+            -- Hides objective icons for untracked quests. We don't want to hide townsfolk icons.
+            QuestieQuest:HideQuestIcons()
 
-        -- Removes objective tooltips for untracked quests.
-        QuestieTooltips:RemoveQuest(questId)
+            -- Removes objective tooltips for untracked quests.
+            QuestieTooltips:RemoveQuest(questId)
+        end)
     end
 
     QuestieCombatQueue:Queue(function()
@@ -2003,11 +2007,13 @@ function QuestieTracker:AQW_Insert(index, expire)
 
             -- Unhide quest icons when retracking quests.
             if Questie.db.profile.hideUntrackedQuestsMapIcons then
-                -- Shows objective icons for tracked quests.
-                QuestieQuest:ShowQuestIcons()
+                ThreadLib.ThreadInstant(function()
+                    -- Shows objective icons for tracked quests.
+                    QuestieQuest:ShowQuestIcons()
 
-                -- Read objective tooltips for tracked quests.
-                QuestieQuest:PopulateObjectiveNotes(quest)
+                    -- Read objective tooltips for tracked quests.
+                    QuestieQuest:PopulateObjectiveNotes(quest)
+                end)
             end
         else
             if Questie.IsSoD or Questie.db.profile.enableBugHintsForAllFlavors then

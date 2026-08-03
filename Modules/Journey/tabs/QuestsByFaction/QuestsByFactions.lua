@@ -49,7 +49,6 @@ for _, expansion in ipairs(expansionDefinitions) do
     expansionOrderByKey[expansion.key] = expansion.order
 end
 
-local expansionFactionCandidates = QuestieJourneyFactions.expansionFactionCandidates
 local factionIntroductionOrder = QuestieJourneyFactions.BuildFactionIntroductionOrder(expansionOrderByKey)
 
 QuestieJourney.availableFactionExpansions = QuestieJourney.availableFactionExpansions or {}
@@ -117,8 +116,14 @@ local function _CollectReferencedFactionIds()
     end
 
     local refs = {}
+    local yieldCounter = 0
 
     for questId in pairs(QuestieDB.QuestPointers) do
+        yieldCounter = yieldCounter + 1
+        if yieldCounter >= 1000 then
+            yieldCounter = 0
+            coroutine.yield()
+        end
         local result = QuestieDB.QueryQuest(questId, referencedFactionFields)
         if result then
             local requiredMinRep = result[1]
@@ -247,7 +252,13 @@ function _EnsureFactionQuestData()
         "requiredClasses",
     }
 
+    local yieldCounter = 0
     for questId in pairs(QuestieDB.QuestPointers) do
+        yieldCounter = yieldCounter + 1
+        if yieldCounter >= 1000 then
+            yieldCounter = 0
+            coroutine.yield()
+        end
         local queryResult = QuestieDB.QueryQuest(questId, queryFields) or {}
         local requiredMinRep = queryResult[1]
         local requiredMaxRep = queryResult[2]
@@ -406,7 +417,6 @@ function _QuestieJourney.questsByFaction:CollectFactionQuests(factionId)
 
     local temp = {}
 
-    local playerlevel = UnitLevel("player")
     local hiddenQuests = QuestieCorrections.hiddenQuests
     local DoableStates = QuestieDB.DoableStates
 
@@ -414,23 +424,6 @@ function _QuestieJourney.questsByFaction:CollectFactionQuests(factionId)
         local questId = levelAndQuest[2]
         if QuestieDB.QuestPointers[questId] then
             temp.value = questId
-            local queryResult = QuestieDB.QueryQuest(
-                questId,
-                {
-                    "exclusiveTo",
-                    "nextQuestInChain",
-                    "parentQuest",
-                    "preQuestSingle",
-                    "preQuestGroup",
-                    "requiredMinRep",
-                    "requiredMaxRep",
-                    "requiredSpell",
-                    "requiredSpecialization",
-                    "requiredMaxLevel",
-                    "requiredSkill",
-                    "requiredLevel",
-                }
-            ) or {}
 
             temp.iconSize = 14
             temp.useIconGutter = true
@@ -457,7 +450,7 @@ function _QuestieJourney.questsByFaction:CollectFactionQuests(factionId)
             temp.text = questName
 
             local breadcrumbForQuestId = QuestieDB.QueryQuest(questId,{"breadcrumbForQuestId"})[1] or {}
-            local eligibilityText, _, returnReason = QuestieDB.IsDoableVerbose(questId, false, true, true)
+            local _, _, returnReason = QuestieDB.IsDoableVerbose(questId, false, true, false)
 
             -- Breadcrumb quests
             if breadcrumbForQuestId and breadcrumbForQuestId ~= 0 then
