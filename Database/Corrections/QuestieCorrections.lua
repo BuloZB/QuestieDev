@@ -23,6 +23,14 @@ local HardcoreBlacklist = QuestieLoader:ImportModule("HardcoreBlacklist")
 local SeasonOfDiscovery = QuestieLoader:ImportModule("SeasonOfDiscovery")
 ---@type BlacklistFilter
 local BlacklistFilter = QuestieLoader:ImportModule("BlacklistFilter")
+---@type TitanReforgedQuestFixes
+local TitanReforgedQuestFixes = QuestieLoader:ImportModule("TitanReforgedQuestFixes")
+---@type TitanReforgedNpcFixes
+local TitanReforgedNpcFixes = QuestieLoader:ImportModule("TitanReforgedNpcFixes")
+---@type TitanReforgedItemFixes
+local TitanReforgedItemFixes = QuestieLoader:ImportModule("TitanReforgedItemFixes")
+---@type TitanReforgedObjectFixes
+local TitanReforgedObjectFixes = QuestieLoader:ImportModule("TitanReforgedObjectFixes")
 
 ---@type QuestieQuestFixes
 local QuestieQuestFixes = QuestieLoader:ImportModule("QuestieQuestFixes")
@@ -135,6 +143,8 @@ do
             addOverride(QuestieDB.npcDataOverrides, QuestieTBCNpcFixes:LoadFactionFixes())
             addOverride(QuestieDB.objectDataOverrides, QuestieTBCObjectFixes:LoadFactionFixes())
             addOverride(QuestieDB.questDataOverrides, QuestieTBCQuestFixes:LoadFactionFixes())
+
+            addOverride(QuestieDB.questDataOverrides, QuestieTBCQuestFixes:LoadContentPhaseFixes())
         end
 
         -- WOTLK Corrections
@@ -143,11 +153,12 @@ do
             addOverride(QuestieDB.itemDataOverrides, QuestieWotlkItemFixes:LoadFactionFixes())
             addOverride(QuestieDB.objectDataOverrides, QuestieWotlkObjectFixes:LoadFactionFixes())
             addOverride(QuestieDB.questDataOverrides, QuestieWotlkQuestFixes:LoadFactionFixes())
-            -- TitanReforged Corrections
+            -- Runtime overlays modify inherited WotLK records without changing which records belong in the compiled Titan storage.
             if Questie.IsTitanReforged then
-                addOverride(QuestieDB.npcDataOverrides, QuestieWotlkNpcFixes:LoadTitanReforgedFixes())
-                addOverride(QuestieDB.questDataOverrides, QuestieWotlkQuestFixes:LoadTitanReforgedFixes())
-                addOverride(QuestieDB.itemDataOverrides, QuestieWotlkItemFixes:LoadTitanReforgedFixes())
+                addOverride(QuestieDB.npcDataOverrides, TitanReforgedNpcFixes.LoadNPCOverrides())
+                addOverride(QuestieDB.npcDataOverrides, TitanReforgedNpcFixes.LoadFactionNPCOverrides())
+                addOverride(QuestieDB.questDataOverrides, TitanReforgedQuestFixes.LoadQuestOverrides())
+                addOverride(QuestieDB.itemDataOverrides, TitanReforgedItemFixes.LoadItemOverrides())
                 -- TO DO: improve this
                 -- this must be behind locale check to prevent empty table return error
                 if GetLocale() == "zhCN" then
@@ -240,8 +251,8 @@ local _LoadCorrections = function(databaseTableName, corrections, reversedKeys, 
             if validationTables and QuestieDB[databaseTableName][id] then
                 if value and QuestieLib.equals(QuestieDB[databaseTableName][id][key], value) and validationTables[databaseTableName][id] and
                     QuestieLib.equals(validationTables[databaseTableName][id][key], value) then
-                    Questie:Warning("Correction of " ..
-                                    databaseTableName .. " " .. tostring(id) .. "." .. reversedKeys[key] .. " matches base DB! Value:" .. tostring(value))
+                    Questie.Warning("Correction of " ..
+                        databaseTableName .. " " .. tostring(id) .. "." .. reversedKeys[key] .. " matches base DB! Value:" .. tostring(value))
                 end
             end
             if QuestieDB[databaseTableName][id] then
@@ -284,6 +295,14 @@ function QuestieCorrections:Initialize(validationTables)
         _LoadCorrections("npcData", QuestieWotlkNpcFixes:Load(), QuestieDB.npcKeysReversed, validationTables, nil, wotlkNoNewEntries)
         _LoadCorrections("itemData", QuestieWotlkItemFixes:Load(), QuestieDB.itemKeysReversed, validationTables, nil, wotlkNoNewEntries)
         _LoadCorrections("objectData", QuestieWotlkObjectFixes:Load(), QuestieDB.objectKeysReversed, validationTables, nil, wotlkNoNewEntries)
+
+        -- Titan-only records and relationship fields belong in compiled flavor data so standard WotLK never gains them.
+        if Questie.IsTitanReforged then
+            _LoadCorrections("questData", TitanReforgedQuestFixes.LoadQuests(), QuestieDB.questKeysReversed, validationTables)
+            _LoadCorrections("npcData", TitanReforgedNpcFixes.LoadNPCs(), QuestieDB.npcKeysReversed, validationTables)
+            _LoadCorrections("itemData", TitanReforgedItemFixes.LoadItems(), QuestieDB.itemKeysReversed, validationTables)
+            _LoadCorrections("objectData", TitanReforgedObjectFixes.LoadObjects(), QuestieDB.objectKeysReversed, validationTables)
+        end
     end
 
     if Expansions.Current >= Expansions.Cata then

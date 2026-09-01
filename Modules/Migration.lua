@@ -202,6 +202,26 @@ local migrationFunctions = {
             Questie.db.profile.trackerFontOutline = ""
         end
     end,
+    [34] = function()
+        Questie.db.profile.enableTooltipsBreadcrumbQuests = false
+    end,
+    [35] = function()
+        Questie.db.global.lastDailyRequestDate = nil
+        Questie.db.global.lastDailyRequestResetTime = nil
+    end,
+    [36] = function()
+        Questie.db.global.unavailableDailyQuestsByNpc = {}
+    end,
+    [37] = function()
+        if Expansions.Current >= Expansions.Wotlk then
+            Questie.db.global.titanReforged = Questie.db.global.titanReforged or {}
+
+            -- Existing SavedVariables may hold Titan-compiled bins in the standard WotLK namespace.
+            -- Invalidate both namespaces so each flavor recompiles the next time it is active.
+            Questie.db.global.dbIsCompiled = false
+            Questie.db.global.titanReforged.dbIsCompiled = false
+        end
+    end,
 }
 
 function Migration:Migrate()
@@ -213,11 +233,11 @@ function Migration:Migrate()
     local targetVersion = table.getn(migrationFunctions)
 
     if currentVersion == targetVersion then
-        Questie:Debug(Questie.DEBUG_DEVELOP, "[Migration] Nothing to migrate. Already on latest version:", targetVersion)
+        Questie.Debug(Questie.DEBUG_DEVELOP, "[Migration] Nothing to migrate. Already on latest version:", targetVersion)
         return
     end
 
-    Questie:Debug(Questie.DEBUG_DEVELOP, "[Migration] Starting Questie migration for targetVersion", targetVersion)
+    Questie.Debug(Questie.DEBUG_DEVELOP, "[Migration] Starting Questie migration for targetVersion", targetVersion)
 
     while currentVersion < targetVersion do
         currentVersion = currentVersion + 1

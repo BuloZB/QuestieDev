@@ -19,6 +19,7 @@ describe("QuestieDB", function()
 
     before_each(function()
         Questie.db.char.complete = {}
+        Questie.IsTitanReforged = false
         QuestiePlayer = QuestieLoader:ImportModule("QuestiePlayer")
         QuestieLib = QuestieLoader:ImportModule("QuestieLib")
         QuestieCorrections = QuestieLoader:ImportModule("QuestieCorrections")
@@ -36,6 +37,7 @@ describe("QuestieDB", function()
         QuestieDB.private.questCache = {}
         QuestieDB.private.itemCache = {}
         dofile("Localization/l10n.lua")
+        dofile("Database/Corrections/titanReforgedQuestTags.lua")
         dofile("Database/Corrections/questTagInfoCorrections.lua")
         QuestieDB.private.InitializeQuestTagInfoCorrections()
 
@@ -56,7 +58,7 @@ describe("QuestieDB", function()
     describe("GetQuest", function()
         it("should return a quest", function()
             QuestieDB.QueryQuest = spy.new(function() return testQuest end)
-            QuestieLib.GetTbcLevel = function() return 60, 60 end
+            QuestieLib.GetEffectiveQuestLevel = function() return 60, 60 end
 
             local quest = QuestieDB.GetQuest(123)
 
@@ -87,7 +89,7 @@ describe("QuestieDB", function()
                 [6] = {{12345, "Cast the spell", 67890}}
             }
             QuestieDB.QueryQuest = spy.new(function() return testQuest end)
-            QuestieLib.GetTbcLevel = function() return 60, 60 end
+            QuestieLib.GetEffectiveQuestLevel = function() return 60, 60 end
 
             local quest = QuestieDB.GetQuest(123)
 
@@ -107,7 +109,7 @@ describe("QuestieDB", function()
             }
             QuestieCorrections.spellObjectiveFirst[123] = true
             QuestieDB.QueryQuest = spy.new(function() return testQuest end)
-            QuestieLib.GetTbcLevel = function() return 60, 60 end
+            QuestieLib.GetEffectiveQuestLevel = function() return 60, 60 end
 
             local quest = QuestieDB.GetQuest(123)
 
@@ -132,7 +134,7 @@ describe("QuestieDB", function()
             testQuest[questKeys.requiredSourceItems] = {67890}
             QuestieDB.QueryQuest = spy.new(function() return testQuest end)
             QuestieDB.QueryItemSingle = spy.new(function() return "Required Item" end)
-            QuestieLib.GetTbcLevel = function() return 60, 60 end
+            QuestieLib.GetEffectiveQuestLevel = function() return 60, 60 end
 
             local quest = QuestieDB.GetQuest(123)
 
@@ -196,6 +198,28 @@ describe("QuestieDB", function()
 
             assert.are_same(41, questTagId)
             assert.are_same("PvP", questTagName)
+            assert.spy(_G.GetQuestTagInfo).was.not_called()
+        end)
+
+        it("uses the API for Titan quest IDs outside Titan Reforged", function()
+            _G.GetQuestTagInfo = spy.new(function() return 41, "PvP" end)
+
+            local questTagId, questTagName = QuestieDB.GetQuestTagInfo(93975)
+
+            assert.are_same(41, questTagId)
+            assert.are_same("PvP", questTagName)
+            assert.spy(_G.GetQuestTagInfo).was.called_with(93975)
+        end)
+
+        it("uses Titan quest tag corrections on Titan Reforged", function()
+            Questie.IsTitanReforged = true
+            QuestieDB.private.InitializeQuestTagInfoCorrections()
+            _G.GetQuestTagInfo = spy.new(function() return 41, "PvP" end)
+
+            local questTagId, questTagName = QuestieDB.GetQuestTagInfo(93975)
+
+            assert.are_same(62, questTagId)
+            assert.are_same("Raid", questTagName)
             assert.spy(_G.GetQuestTagInfo).was.not_called()
         end)
 
